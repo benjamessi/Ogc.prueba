@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Juegue en el Olivos | Olivos Golf Club</title>
+    <meta
+      name="description"
+      content="Información para visitantes del Olivos Golf Club: horarios, green fees, requisitos, vestuarios y contacto para reservar."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,750&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Principal">
+        <a class="brand" href="#" aria-label="Olivos Golf Club inicio">
+          <span class="brand-mark">OGC</span>
+          <span>
+            <strong>Olivos Golf Club</strong>
+            <small>Buenos Aires, Argentina</small>
+          </span>
+        </a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu">
+          Menú
+        </button>
+        <ul class="menu" id="menu">
+          <li><a href="#visitantes">Visitantes</a></li>
+          <li><a href="#tarifas">Tarifas</a></li>
+          <li><a href="#condiciones">Condiciones</a></li>
+          <li><a href="#contacto">Reservar</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="contenido">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-media" role="img" aria-label="Vista de la cancha del Olivos Golf Club"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">Golf para visitantes</p>
+          <h1 id="hero-title">Juegue una vuelta en una cancha histórica.</h1>
+          <p class="lead">
+            Consulte disponibilidad, requisitos de handicap y condiciones para jugar en el Olivos Golf Club.
+            Esta versión prioriza lo que una persona necesita resolver rápido: cuándo puede jugar, cuánto cuesta
+            y cómo reservar.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#contacto">Consultar horarios</a>
+            <a class="button secondary" href="#tarifas">Ver tarifas</a>
+          </div>
+        </div>
+        <aside class="booking-card" aria-label="Datos rápidos para reservas">
+          <span class="status-pill">Secretaría</span>
+          <h2>Reservas y disponibilidad</h2>
+          <p id="booking-phone"></p>
+          <p id="booking-hours"></p>
+          <p class="note" id="booking-note"></p>
+        </aside>
+      </section>
+
+      <section class="section compact" id="visitantes" aria-labelledby="visitantes-title">
+        <div class="section-kicker">Antes de venir</div>
+        <div class="section-heading">
+          <h2 id="visitantes-title">Información clara para visitantes</h2>
+          <p>
+            La página original mezcla contacto, galería, tarifas antiguas y widgets laterales. Acá lo ordenamos en
+            decisiones simples y bloques escaneables.
+          </p>
+        </div>
+        <div class="info-grid" id="visitor-cards"></div>
+      </section>
+
+      <section class="section split" id="tarifas" aria-labelledby="tarifas-title">
+        <div>
+          <div class="section-kicker">Valores</div>
+          <h2 id="tarifas-title">Tarifas editables</h2>
+          <p>
+            Los importes de la página pública parecen históricos. Por eso esta maqueta los deja en un módulo de datos
+            fácil de actualizar y marca explícitamente que deben validarse antes de publicar.
+          </p>
+          <a class="text-link" href="#editar">Cómo editar estos valores</a>
+        </div>
+        <div class="rate-board" id="rate-board" aria-label="Tarifas"></div>
+      </section>
+
+      <section class="section" id="condiciones" aria-labelledby="condiciones-title">
+        <div class="section-heading centered">
+          <div class="section-kicker">Condiciones</div>
+          <h2 id="condiciones-title">Reglas importantes sin letra chica escondida</h2>
+          <p>
+            Las políticas operativas conviene mostrarlas cerca de la reserva, no enterradas al final de una página larga.
+          </p>
+        </div>
+        <div class="policy-grid" id="policy-grid"></div>
+      </section>
+
+      <section class="gallery-strip" aria-label="Galería del club">
+        <div class="gallery-copy">
+          <p class="eyebrow">La cancha</p>
+          <h2>Una experiencia visual más editorial, liviana y adaptable.</h2>
+        </div>
+        <div class="gallery" id="gallery"></div>
+      </section>
+
+      <section class="section contact" id="contacto" aria-labelledby="contacto-title">
+        <div>
+          <div class="section-kicker">Contacto</div>
+          <h2 id="contacto-title">Consultar disponibilidad</h2>
+          <p>
+            Reemplace este bloque por un formulario, WhatsApp, integración con turnos o datos actualizados de secretaría.
+          </p>
+        </div>
+        <div class="contact-card">
+          <p class="contact-label">Teléfono</p>
+          <a id="contact-phone" href="#"></a>
+          <p class="contact-label">Atención</p>
+          <p id="contact-hours"></p>
+          <a class="button primary full" id="contact-cta" href="#">Llamar a secretaría</a>
+        </div>
+      </section>
+
+      <section class="edit-note" id="editar" aria-labelledby="editar-title">
+        <h2 id="editar-title">Editable sin tocar la estructura</h2>
+        <p>
+          Los textos, tarifas, políticas e imágenes se cargan desde <code>app.js</code>. El diseño vive en
+          <code>styles.css</code>. Así se puede convertir luego a WordPress, Webflow, Astro, Next.js o Gutenberg sin
+          perder la dirección visual.
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Olivos Golf Club</p>
+      <p>Propuesta recreada desde análisis externo de la página pública.</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
