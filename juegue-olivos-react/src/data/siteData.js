@@ -15,18 +15,18 @@ export const siteData = {
   ],
   clubInfo: [
     {
-      title: "Cancha histórica",
-      body: "Un recorrido clásico del golf argentino, pensado para visitantes que quieren entender rápido cómo jugar en el club.",
+      title: "27 hoyos",
+      body: "La cancha cuenta con 27 hoyos distribuidos en tres recorridos.",
       metric: "27 hoyos"
     },
     {
-      title: "Tres recorridos",
-      body: "Azul, Roja y Blanca permiten ordenar disponibilidad, mantenimiento y preferencia de juego desde la reserva.",
+      title: "Azul, Roja y Blanca",
+      body: "Tres recorridos con características propias para distintas experiencias de juego.",
       metric: "Azul · Roja · Blanca"
     },
     {
-      title: "Atención centralizada",
-      body: "Secretaría valida disponibilidad, condiciones de acceso, reciprocidad y requisitos antes de confirmar el turno.",
+      title: "Atención",
+      body: "La secretaría informa disponibilidad, horarios y condiciones para jugar.",
       metric: "8:00 a 16:30"
     }
   ],

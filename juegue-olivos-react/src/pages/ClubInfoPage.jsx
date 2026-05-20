@@ -35,7 +35,7 @@ export function ClubInfoPage({ siteData }) {
           </div>
         </div>
       </section>
-      <InfoCards clubInfo={siteData.clubInfo} visitorInfo={siteData.visitors} />
+      <InfoCards clubInfo={siteData.clubInfo} />
       <GalleryStrip images={siteData.gallery} />
     </>
   );
