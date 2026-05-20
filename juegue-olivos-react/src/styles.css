@@ -1193,6 +1193,32 @@ h3 {
   border-color: var(--moss);
 }
 
+.reservation-form input[readonly],
+.reservation-form select:disabled {
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.reservation-rule {
+  margin-top: 0.5rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.reservation-rule.is-valid {
+  color: var(--moss-dark);
+  background: rgba(215, 223, 207, 0.76);
+}
+
+.reservation-rule.is-blocked {
+  color: var(--danger);
+  background: rgba(159, 52, 47, 0.08);
+  border-color: rgba(159, 52, 47, 0.24);
+}
+
 .reservation-form fieldset {
   min-width: 0;
   margin: 0;

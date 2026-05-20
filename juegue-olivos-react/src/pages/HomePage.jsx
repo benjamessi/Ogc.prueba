@@ -8,7 +8,7 @@ const homeCards = [
   },
   {
     title: "Reservar horario",
-    body: "Elegí día, hora y cancha.",
+    body: "Elegí día y hora.",
     href: "/reservaciones"
   },
   {

@@ -128,27 +128,7 @@ export const siteData = {
   ],
   reservation: {
     intro:
-      "Elegí una cancha y dejá preparada la consulta. En producción este módulo se conecta al sistema de turnos o a secretaría.",
-    courses: [
-      {
-        id: "azul",
-        name: "Cancha Azul",
-        tone: "Clásica y competitiva",
-        description: "Ideal para una vuelta desafiante, con prioridad para jugadores que buscan ritmo de campeonato."
-      },
-      {
-        id: "roja",
-        name: "Cancha Roja",
-        tone: "Técnica y estratégica",
-        description: "Pensada para quienes prefieren precisión, buena lectura de fairways y un juego más táctico."
-      },
-      {
-        id: "blanca",
-        name: "Cancha Blanca",
-        tone: "Ágil y social",
-        description: "Una opción más liviana para combinar disponibilidad, práctica y encuentros entre socios o invitados."
-      }
-    ],
+      "Elegí día y horario. El sistema valida automáticamente si la reserva está permitida según la condición del jugador.",
     times: ["08:00", "09:30", "11:00", "13:30", "15:00"]
   },
   gallery: [

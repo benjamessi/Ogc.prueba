@@ -93,7 +93,7 @@ export default function App() {
           <Route path="/historia-club" element={<ClubInfoPage />} />
           <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
           <Route path="/cancha" element={<CoursePage course={siteData.course} policies={siteData.policies} />} />
-          <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} />} />
+          <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} member={member} />} />
           <Route path="/tarifas" element={<RatesPage rates={siteData.rates} />} />
           <Route path="/socios" element={<MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
           <Route path="/contacto" element={<ContactPage booking={siteData.booking} />} />
