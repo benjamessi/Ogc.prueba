@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import reservationBackground from "../assets/reservation-bg.jpg";
 
 function getTomorrowDate() {
   const date = new Date();
@@ -15,7 +16,7 @@ export function Reservation({ reservation }) {
 
   return (
     <section className="section reservation-section" id="reservar" aria-labelledby="reservar-title">
-      <div className="reservation-shell">
+      <div className="reservation-shell" style={{ "--reservation-image": `url(${reservationBackground})` }}>
         <div className="reservation-copy">
           <div className="section-kicker">Reservar horario</div>
           <h2 id="reservar-title">Elegí día, hora y cancha.</h2>
