@@ -443,42 +443,27 @@ h3 {
 
 .home-screen {
   position: relative;
-  max-width: 1180px;
-  min-height: calc(100vh - 8rem);
-  margin: clamp(1rem, 4vw, 3rem) auto clamp(2.5rem, 7vw, 6rem);
-  border-radius: 44px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  background: var(--moss-dark);
-}
-
-.home-screen-media {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(100deg, rgba(16, 30, 21, 0.94) 0%, rgba(16, 30, 21, 0.64) 43%, rgba(16, 30, 21, 0.16) 100%),
-    var(--home-image) center / cover;
-  transform: scale(1.02);
-}
-
-.home-screen-content {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(280px, 0.28fr);
-  grid-template-rows: auto 1fr;
-  min-height: calc(100vh - 8rem);
-  padding: clamp(1rem, 4vw, 3rem);
-  gap: 1rem;
-  color: white;
+  grid-template-columns: minmax(0, 0.86fr) minmax(360px, 0.72fr);
+  gap: clamp(1rem, 4vw, 3rem);
+  align-items: stretch;
+  max-width: 1180px;
+  margin: clamp(1rem, 4vw, 3rem) auto clamp(2.5rem, 7vw, 6rem);
+  padding: clamp(1rem, 3vw, 2rem);
+  border-radius: 44px;
+  overflow: visible;
+  box-shadow: var(--shadow);
+  background:
+    radial-gradient(circle at 12% 10%, rgba(199, 157, 79, 0.2), transparent 22rem),
+    linear-gradient(135deg, rgba(255, 250, 240, 0.94), rgba(215, 223, 207, 0.84));
 }
 
 .home-logo-card,
 .home-availability {
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(23, 37, 28, 0.12);
   border-radius: 28px;
-  background: rgba(255, 250, 240, 0.12);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 250, 240, 0.78);
+  box-shadow: 0 20px 50px rgba(20, 34, 24, 0.1);
   backdrop-filter: blur(18px);
 }
 
@@ -487,6 +472,8 @@ h3 {
   align-items: center;
   gap: 0.85rem;
   justify-self: start;
+  width: fit-content;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
   padding: 0.65rem 1rem 0.65rem 0.65rem;
 }
 
@@ -495,56 +482,92 @@ h3 {
   height: 4rem;
   object-fit: contain;
   border-radius: 50%;
-  background: rgba(255, 250, 240, 0.9);
+  background: rgba(255, 250, 240, 0.95);
   padding: 0.35rem;
 }
 
 .home-logo-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.86);
+  color: var(--moss-dark);
   font-weight: 900;
 }
 
 .home-main-copy {
-  align-self: end;
   max-width: 720px;
-  padding-bottom: clamp(4rem, 8vw, 7rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
 }
 
 .home-main-copy h1 {
   max-width: 10ch;
-  color: white;
-  font-size: clamp(4.4rem, 12vw, 9.5rem);
+  color: var(--ink);
+  font-size: clamp(4rem, 9vw, 7.6rem);
 }
 
 .home-main-copy p:not(.eyebrow) {
   max-width: 36rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--muted);
   font-size: clamp(1.05rem, 2vw, 1.24rem);
   line-height: 1.65;
 }
 
+.button.secondary.light {
+  color: var(--moss-dark);
+  border-color: rgba(49, 83, 60, 0.22);
+  background: rgba(255, 250, 240, 0.64);
+}
+
+.home-photo-panel {
+  position: relative;
+  min-height: 610px;
+  border-radius: 34px;
+  overflow: hidden;
+  background: var(--moss-dark);
+}
+
+.home-photo-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.home-photo-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 48%, rgba(16, 30, 21, 0.78));
+}
+
 .home-availability {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1;
   align-self: end;
   padding: 1.25rem;
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 250, 240, 0.9);
 }
 
 .home-availability h2 {
-  color: white;
+  color: var(--ink);
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
 .home-availability p {
-  color: rgba(255, 255, 255, 0.76);
+  color: var(--muted);
   line-height: 1.6;
 }
 
+.home-access-section {
+  margin-top: 0;
+}
+
 .home-card-strip {
-  position: absolute;
-  left: clamp(1rem, 4vw, 3rem);
-  right: clamp(1rem, 4vw, 3rem);
-  bottom: clamp(1rem, 3vw, 2rem);
-  z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
@@ -555,12 +578,12 @@ h3 {
   gap: 0.4rem;
   min-height: 8rem;
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  border: 1px solid var(--line);
   border-radius: 22px;
-  color: white;
-  background: rgba(255, 250, 240, 0.14);
+  color: var(--ink);
+  background: rgba(255, 250, 240, 0.78);
+  box-shadow: 0 16px 40px rgba(20, 34, 24, 0.08);
   text-decoration: none;
-  backdrop-filter: blur(16px);
   transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
 }
 
@@ -568,7 +591,7 @@ h3 {
 .home-action-card:focus-visible {
   transform: translateY(-4px);
   border-color: rgba(199, 157, 79, 0.7);
-  background: rgba(255, 250, 240, 0.22);
+  background: rgba(255, 250, 240, 0.94);
 }
 
 .home-action-card span {
@@ -579,7 +602,7 @@ h3 {
 
 .home-action-card p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--muted);
   line-height: 1.5;
 }
 
@@ -1253,7 +1276,7 @@ h3 {
   }
 
   .hero,
-  .home-screen-content,
+  .home-screen,
   .home-card-strip,
   .page-hero,
   .section-heading,
@@ -1277,34 +1300,26 @@ h3 {
 
   .home-screen {
     width: calc(100% - 1.5rem);
-    min-height: auto;
     margin: 0.75rem auto 2.25rem;
+    padding: 0.85rem;
     border-radius: 30px;
   }
 
-  .home-screen-content {
-    min-height: 720px;
+  .home-main-copy {
     padding: 1rem;
   }
 
-  .home-main-copy {
-    padding-bottom: 1rem;
-  }
-
   .home-main-copy h1 {
-    font-size: clamp(3.4rem, 16vw, 5.8rem);
+    font-size: clamp(3.3rem, 15vw, 5.5rem);
   }
 
-  .home-availability {
-    align-self: stretch;
+  .home-photo-panel {
+    min-height: 440px;
+    border-radius: 26px;
   }
 
-  .home-card-strip {
-    position: relative;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    padding: 0 1rem 1rem;
+  .home-access-section {
+    margin-top: 0;
   }
 
   .hero-copy {
@@ -1510,14 +1525,9 @@ h3 {
     border-radius: 24px;
   }
 
-  .home-screen-media {
-    background:
-      linear-gradient(180deg, rgba(16, 30, 21, 0.9) 0%, rgba(16, 30, 21, 0.64) 55%, rgba(16, 30, 21, 0.3) 100%),
-      var(--home-image) center / cover;
-  }
-
   .home-logo-card {
     width: 100%;
+    margin-bottom: 1.5rem;
   }
 
   .home-logo-card img {
@@ -1527,6 +1537,16 @@ h3 {
 
   .home-action-card {
     min-height: auto;
+  }
+
+  .home-photo-panel {
+    min-height: 340px;
+  }
+
+  .home-availability {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
   }
 
   .hero-media {

@@ -22,20 +22,13 @@ export function HomePage({ siteData }) {
   const { club, booking } = siteData;
 
   return (
-    <section className="home-screen" aria-labelledby="home-title">
-      <div
-        className="home-screen-media"
-        role="img"
-        aria-label="Cancha del Olivos Golf Club"
-        style={{ "--home-image": `url(${club.heroImage})` }}
-      />
-      <div className="home-screen-content">
-        <div className="home-logo-card">
-          <img src={club.logo} alt="" />
-          <p>Olivos Golf Club</p>
-        </div>
-
+    <>
+      <section className="home-screen" aria-labelledby="home-title">
         <div className="home-main-copy">
+          <div className="home-logo-card">
+            <img src={club.logo} alt="" />
+            <p>Olivos Golf Club</p>
+          </div>
           <p className="eyebrow">Golf en Buenos Aires</p>
           <h1 id="home-title">Juegue en el Olivos</h1>
           <p>
@@ -45,28 +38,37 @@ export function HomePage({ siteData }) {
             <Link className="button primary" to="/reservaciones">
               Reservar horario
             </Link>
-            <Link className="button secondary" to="/info-club">
+            <Link className="button secondary light" to="/info-club">
               Información del club
             </Link>
           </div>
         </div>
 
-        <aside className="home-availability" aria-label="Información de secretaría">
-          <span className="status-pill">Secretaría</span>
-          <h2>Atención</h2>
-          <p>{booking.hours}</p>
-          <p>{booking.phoneDisplay}</p>
-        </aside>
-      </div>
+        <div className="home-photo-panel">
+          <img src={club.heroImage} alt="Cancha del Olivos Golf Club" />
+          <aside className="home-availability" aria-label="Información de secretaría">
+            <span className="status-pill">Secretaría</span>
+            <h2>Atención</h2>
+            <p>{booking.hours}</p>
+            <p>{booking.phoneDisplay}</p>
+          </aside>
+        </div>
+      </section>
 
-      <div className="home-card-strip" aria-label="Accesos principales">
-        {homeCards.map((card) => (
-          <Link className="home-action-card" to={card.href} key={card.title}>
-            <span>{card.title}</span>
-            <p>{card.body}</p>
-          </Link>
-        ))}
-      </div>
-    </section>
+      <section className="section home-access-section" aria-labelledby="home-access-title">
+        <div className="section-heading">
+          <h2 id="home-access-title">Accesos principales</h2>
+          <p>Ingresá a la información del club, reservas o área de socios.</p>
+        </div>
+        <div className="home-card-strip" aria-label="Accesos principales">
+          {homeCards.map((card) => (
+            <Link className="home-action-card" to={card.href} key={card.title}>
+              <span>{card.title}</span>
+              <p>{card.body}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
