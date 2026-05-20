@@ -1,3 +1,4 @@
+import { InfoCards } from "../components/InfoCards.jsx";
 import { Policies } from "../components/Policies.jsx";
 
 export function CoursePage({ course, policies }) {
@@ -31,11 +32,18 @@ export function CoursePage({ course, policies }) {
 
       <section className="section course-feature" aria-labelledby="feature-title">
         <article className="course-feature-card">
-          <div className="section-kicker">Hoyo destacado</div>
-          <h2 id="feature-title">Hoyo 15</h2>
-          <p>{course.feature}</p>
+          <div className="course-feature-copy">
+            <div className="section-kicker">Hoyo destacado</div>
+            <h2 id="feature-title">Hoyo 15</h2>
+            <p>{course.feature}</p>
+          </div>
+          <figure className="course-feature-photo">
+            <img src={course.holeFifteenImage} alt="Hoyo 15 del Olivos Golf Club" />
+          </figure>
         </article>
       </section>
+
+      <InfoCards clubInfo={course.highlights} id="cancha-info" title="Información de la cancha" />
 
       <Policies items={policies} />
     </>

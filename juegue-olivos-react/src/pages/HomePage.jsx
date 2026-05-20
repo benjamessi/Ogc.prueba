@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 const homeCards = [
   {
-    title: "Información del club",
-    body: "Historia, recorridos y ubicación.",
-    href: "/info-club"
+    title: "Historia del club",
+    body: "Información institucional y tradición.",
+    href: "/historia-club"
   },
   {
     title: "Reservar horario",
@@ -38,8 +38,8 @@ export function HomePage({ siteData }) {
             <Link className="button primary" to="/reservaciones">
               Reservar horario
             </Link>
-            <Link className="button secondary light" to="/info-club">
-              Información del club
+            <Link className="button secondary light" to="/historia-club">
+              Historia del club
             </Link>
           </div>
         </div>

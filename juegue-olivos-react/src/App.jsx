@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { Header } from "./components/Header.jsx";
+import { ClubhousePage } from "./pages/ClubhousePage.jsx";
 import { ClubInfoPage } from "./pages/ClubInfoPage.jsx";
 import { ContactPage } from "./pages/ContactPage.jsx";
 import { CoursePage } from "./pages/CoursePage.jsx";
@@ -15,7 +16,7 @@ const STORAGE_KEY = "ogc-member-session";
 const quickActions = [
   { label: "Inicio", path: "/" },
   { label: "Reservar", path: "/reservaciones" },
-  { label: "Club", path: "/info-club" },
+  { label: "Club", path: "/clubhouse" },
   { label: "Socios", path: "/socios" }
 ];
 
@@ -88,7 +89,9 @@ export default function App() {
       <main id="contenido" className="page-shell">
         <Routes>
           <Route path="/" element={<HomePage siteData={siteData} />} />
-          <Route path="/info-club" element={<ClubInfoPage siteData={siteData} />} />
+          <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
+          <Route path="/historia-club" element={<ClubInfoPage />} />
+          <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
           <Route path="/cancha" element={<CoursePage course={siteData.course} policies={siteData.policies} />} />
           <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} />} />
           <Route path="/tarifas" element={<RatesPage rates={siteData.rates} />} />

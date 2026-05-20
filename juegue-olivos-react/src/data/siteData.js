@@ -1,11 +1,14 @@
 import homeHeroImage from "../assets/olivos-home.jpg";
 import clubLogo from "../assets/logo-ogc.png";
 import courseMapImage from "../assets/cancha-plano.jpg";
+import holeFifteenImage from "../assets/hoyo-15.jpeg";
+import clubhouseImage from "../assets/clubhouse.jpg";
 
 export const siteData = {
   club: {
     name: "Olivos Golf Club",
     location: "Buenos Aires, Argentina",
+    address: "Ruta Panamericana Km 32, Acceso Norte Ramal Pilar, B1613, Provincia de Buenos Aires",
     logo: clubLogo,
     heroImage: homeHeroImage
   },
@@ -14,8 +17,8 @@ export const siteData = {
     {
       label: "Club",
       children: [
-        { label: "Clubhouse", href: "/info-club#clubhouse" },
-        { label: "Historia del club", href: "/info-club#historia" }
+        { label: "Clubhouse", href: "/clubhouse" },
+        { label: "Historia del club", href: "/historia-club" }
       ]
     },
     {
@@ -30,28 +33,28 @@ export const siteData = {
     { label: "Socios", href: "/socios" },
     { label: "Contacto", href: "/contacto" }
   ],
-  clubInfo: [
-    {
-      title: "27 hoyos",
-      body: "La cancha cuenta con 27 hoyos distribuidos en tres recorridos.",
-      metric: "27 hoyos"
-    },
-    {
-      title: "Azul, Roja y Blanca",
-      body: "Tres recorridos con características propias para distintas experiencias de juego.",
-      metric: "Azul · Roja · Blanca"
-    },
-    {
-      title: "Atención",
-      body: "La secretaría informa disponibilidad, horarios y condiciones para jugar.",
-      metric: "8:00 a 16:30"
-    }
-  ],
+  clubhouse: {
+    image: clubhouseImage,
+    hours: "Abierto de martes a domingos de 8 AM a 12 AM."
+  },
   course: {
     map: courseMapImage,
+    holeFifteenImage,
     routes: ["Roja", "Azul", "Blanca"],
     feature:
-      "El hoyo 15, un par 5 de 470 yardas, se encuentra entre los 500 mejores hoyos de golf en el mundo, según la revista Golf Digest. Este dogleg a la derecha es par 5 para los aficionados, y juega como par 4 en los torneos de profesionales. Requiere de un drive de al menos 260 yardas para tener una oportunidad de tirarse al green en 2 tiros. Este segundo tiro es de alrededor de unas 200 yardas sobre el agua, para caer en un pequeño y rápido green, protegido por bunkers. Un masterpiece del riesgo/ recompensa."
+      "El hoyo 15, un par 5 de 470 yardas, se encuentra entre los 500 mejores hoyos de golf en el mundo, según la revista Golf Digest. Este dogleg a la derecha es par 5 para los aficionados, y juega como par 4 en los torneos de profesionales. Requiere de un drive de al menos 260 yardas para tener una oportunidad de tirarse al green en 2 tiros. Este segundo tiro es de alrededor de unas 200 yardas sobre el agua, para caer en un pequeño y rápido green, protegido por bunkers. Un masterpiece del riesgo/ recompensa.",
+    highlights: [
+      {
+        title: "27 hoyos",
+        body: "La cancha cuenta con 27 hoyos distribuidos en tres recorridos.",
+        metric: "27 hoyos"
+      },
+      {
+        title: "Atención",
+        body: "La secretaría informa disponibilidad, horarios y condiciones para jugar.",
+        metric: "8:00 a 16:30"
+      }
+    ]
   },
   booking: {
     phoneDisplay: "(5411) 4587-1076 int. 112 / 101 / 102",
