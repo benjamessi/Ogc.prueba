@@ -1,18 +1,16 @@
-import { Policies } from "../components/Policies.jsx";
 import { Rates } from "../components/Rates.jsx";
 
-export function RatesPage({ rates, policies }) {
+export function RatesPage({ rates }) {
   return (
     <>
       <section className="page-hero">
         <div>
-          <p className="eyebrow">Tarifas y condiciones</p>
-          <h1>Tarifas y condiciones</h1>
+          <p className="eyebrow">Green fees</p>
+          <h1>Green fees</h1>
         </div>
-        <p>Valores, condiciones de juego y reglas importantes para visitantes.</p>
+        <p>Valores de referencia para visitantes.</p>
       </section>
       <Rates rates={rates} />
-      <Policies items={policies} />
     </>
   );
 }

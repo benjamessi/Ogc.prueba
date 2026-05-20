@@ -3,6 +3,7 @@ import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { Header } from "./components/Header.jsx";
 import { ClubInfoPage } from "./pages/ClubInfoPage.jsx";
 import { ContactPage } from "./pages/ContactPage.jsx";
+import { CoursePage } from "./pages/CoursePage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { MembersPage } from "./pages/MembersPage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
@@ -88,8 +89,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage siteData={siteData} />} />
           <Route path="/info-club" element={<ClubInfoPage siteData={siteData} />} />
+          <Route path="/cancha" element={<CoursePage course={siteData.course} policies={siteData.policies} />} />
           <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} />} />
-          <Route path="/tarifas" element={<RatesPage rates={siteData.rates} policies={siteData.policies} />} />
+          <Route path="/tarifas" element={<RatesPage rates={siteData.rates} />} />
           <Route path="/socios" element={<MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
           <Route path="/contacto" element={<ContactPage booking={siteData.booking} />} />
           <Route path="*" element={<NotFoundPage />} />

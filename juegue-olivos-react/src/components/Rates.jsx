@@ -3,7 +3,7 @@ export function Rates({ rates }) {
     <section className="section split" id="tarifas" aria-labelledby="tarifas-title">
       <div>
         <div className="section-kicker">Valores</div>
-        <h2 id="tarifas-title">Tarifas</h2>
+        <h2 id="tarifas-title">Green fees</h2>
         <p>Valores de referencia para visitantes. Confirmar importes vigentes antes de publicar.</p>
         <a className="text-link" href="#editar">
           Editar valores

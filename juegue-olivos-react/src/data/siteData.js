@@ -1,5 +1,6 @@
 import homeHeroImage from "../assets/olivos-home.jpg";
 import clubLogo from "../assets/logo-ogc.png";
+import courseMapImage from "../assets/cancha-plano.jpg";
 
 export const siteData = {
   club: {
@@ -21,6 +22,7 @@ export const siteData = {
       label: "Golf",
       featured: true,
       children: [
+        { label: "Cancha", href: "/cancha" },
         { label: "Reservar horario", href: "/reservaciones" },
         { label: "Green fees", href: "/tarifas" }
       ]
@@ -45,6 +47,12 @@ export const siteData = {
       metric: "8:00 a 16:30"
     }
   ],
+  course: {
+    map: courseMapImage,
+    routes: ["Roja", "Azul", "Blanca"],
+    feature:
+      "El hoyo 15, un par 5 de 470 yardas, se encuentra entre los 500 mejores hoyos de golf en el mundo, según la revista Golf Digest. Este dogleg a la derecha es par 5 para los aficionados, y juega como par 4 en los torneos de profesionales. Requiere de un drive de al menos 260 yardas para tener una oportunidad de tirarse al green en 2 tiros. Este segundo tiro es de alrededor de unas 200 yardas sobre el agua, para caer en un pequeño y rápido green, protegido por bunkers. Un masterpiece del riesgo/ recompensa."
+  },
   booking: {
     phoneDisplay: "(5411) 4587-1076 int. 112 / 101 / 102",
     phoneHref: "tel:+541145871076",
