@@ -29,6 +29,19 @@ El contenido principal está en `src/data/siteData.js`:
 - Imágenes: `gallery`
 - Demo de socios: `memberArea`
 
+## Pantallas
+
+La app usa rutas por hash para que funcione bien en hosting estático:
+
+- `#/`: Home
+- `#/info-club`: información del club
+- `#/reservaciones`: reserva por día, horario y cancha
+- `#/tarifas`: tarifas y condiciones
+- `#/socios`: login y área privada
+- `#/contacto`: datos de secretaría
+
+Las páginas viven en `src/pages`. `App.jsx` decide qué pantalla renderizar según la ruta actual.
+
 ## Próximo paso recomendado
 
 Conectar `MemberAccess` a un backend real:

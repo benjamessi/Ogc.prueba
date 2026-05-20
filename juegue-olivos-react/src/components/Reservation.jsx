@@ -65,7 +65,7 @@ export function Reservation({ reservation }) {
             </div>
           </fieldset>
 
-          <a className="button primary full" href="#contacto">
+          <a className="button primary full" href="#/contacto">
             Consultar disponibilidad
           </a>
         </form>

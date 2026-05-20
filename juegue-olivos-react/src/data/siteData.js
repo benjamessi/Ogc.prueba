@@ -6,11 +6,12 @@ export const siteData = {
       "https://olivosgolf.cc/wp/wp-content/uploads/2010/06/encabezado-cartel-OGC-2.jpg"
   },
   navigation: [
-    { label: "Info del club", href: "#club-info" },
-    { label: "Reservar horario", href: "#reservar", featured: true },
-    { label: "Tarifas", href: "#tarifas" },
-    { label: "Socios", href: "#socios" },
-    { label: "Contacto", href: "#contacto" }
+    { label: "Home", href: "#/" },
+    { label: "Info del club", href: "#/info-club" },
+    { label: "Reservar horario", href: "#/reservaciones", featured: true },
+    { label: "Tarifas", href: "#/tarifas" },
+    { label: "Socios", href: "#/socios" },
+    { label: "Contacto", href: "#/contacto" }
   ],
   clubInfo: [
     {

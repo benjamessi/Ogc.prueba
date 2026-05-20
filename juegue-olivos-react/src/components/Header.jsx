@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Header({ club, navigation, member, onLogout }) {
+export function Header({ club, navigation, member, onLogout, currentPath }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeMenu() {
@@ -10,7 +10,7 @@ export function Header({ club, navigation, member, onLogout }) {
   return (
     <header className="site-header">
       <nav className="nav" aria-label="Principal">
-        <a className="brand" href="#" aria-label={`${club.name} inicio`}>
+        <a className="brand" href="#/" aria-label={`${club.name} inicio`}>
           <span className="brand-mark">OGC</span>
           <span>
             <strong>{club.name}</strong>
@@ -29,7 +29,12 @@ export function Header({ club, navigation, member, onLogout }) {
         <ul className={`menu ${isOpen ? "is-open" : ""}`} id="menu">
           {navigation.map((item) => (
             <li key={item.href}>
-              <a className={item.featured ? "nav-cta" : undefined} href={item.href} onClick={closeMenu}>
+              <a
+                className={`${item.featured ? "nav-cta" : ""} ${item.href === `#${currentPath}` ? "is-active" : ""}`}
+                href={item.href}
+                aria-current={item.href === `#${currentPath}` ? "page" : undefined}
+                onClick={closeMenu}
+              >
                 {item.label}
               </a>
             </li>

@@ -15,10 +15,10 @@ export function Hero({ club, booking }) {
           experiencia pública queda clara; el área de socios suma inicio de sesión y contenido exclusivo.
         </p>
         <div className="hero-actions">
-          <a className="button primary" href="#club-info">
+          <a className="button primary" href="#/info-club">
             Información del club
           </a>
-          <a className="button secondary" href="#reservar">
+          <a className="button secondary" href="#/reservaciones">
             Reservar horario
           </a>
         </div>
