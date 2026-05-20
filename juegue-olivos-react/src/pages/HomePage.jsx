@@ -1,44 +1,72 @@
 import { Link } from "react-router-dom";
-import { Hero } from "../components/Hero.jsx";
 
 const homeCards = [
   {
     title: "Información del club",
-    body: "Historia, recorridos, requisitos y datos útiles antes de jugar.",
+    body: "Historia, recorridos y ubicación.",
     href: "/info-club"
   },
   {
     title: "Reservar horario",
-    body: "Elegí día, hora y cancha Azul, Roja o Blanca para preparar la consulta.",
+    body: "Elegí día, hora y cancha.",
     href: "/reservaciones"
   },
   {
     title: "Acceso socios",
-    body: "Ingreso privado para reservas internas, torneos y beneficios.",
+    body: "Ingreso privado para socios.",
     href: "/socios"
   }
 ];
 
 export function HomePage({ siteData }) {
+  const { club, booking } = siteData;
+
   return (
-    <>
-      <Hero club={siteData.club} booking={siteData.booking} />
-      <section className="section home-router" aria-labelledby="home-router-title">
-        <div className="section-heading centered">
-          <div className="section-kicker">Secciones</div>
-          <h2 id="home-router-title">Accesos principales</h2>
-          <p>Ingresá a la información del club, reservas o área de socios.</p>
+    <section className="home-screen" aria-labelledby="home-title">
+      <div
+        className="home-screen-media"
+        role="img"
+        aria-label="Cancha del Olivos Golf Club"
+        style={{ "--home-image": `url(${club.heroImage})` }}
+      />
+      <div className="home-screen-content">
+        <div className="home-logo-card">
+          <img src={club.logo} alt="" />
+          <p>Olivos Golf Club</p>
         </div>
-        <div className="category-grid">
-          {homeCards.map((card) => (
-            <Link className="category-card" to={card.href} key={card.title}>
-              <span>{card.title}</span>
-              <p>{card.body}</p>
-              <strong>Ver más</strong>
+
+        <div className="home-main-copy">
+          <p className="eyebrow">Golf en Buenos Aires</p>
+          <h1 id="home-title">Juegue en el Olivos</h1>
+          <p>
+            Una cancha histórica, tres recorridos y una experiencia de golf reconocida en la Argentina.
+          </p>
+          <div className="hero-actions">
+            <Link className="button primary" to="/reservaciones">
+              Reservar horario
             </Link>
-          ))}
+            <Link className="button secondary" to="/info-club">
+              Información del club
+            </Link>
+          </div>
         </div>
-      </section>
-    </>
+
+        <aside className="home-availability" aria-label="Información de secretaría">
+          <span className="status-pill">Secretaría</span>
+          <h2>Atención</h2>
+          <p>{booking.hours}</p>
+          <p>{booking.phoneDisplay}</p>
+        </aside>
+      </div>
+
+      <div className="home-card-strip" aria-label="Accesos principales">
+        {homeCards.map((card) => (
+          <Link className="home-action-card" to={card.href} key={card.title}>
+            <span>{card.title}</span>
+            <p>{card.body}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }

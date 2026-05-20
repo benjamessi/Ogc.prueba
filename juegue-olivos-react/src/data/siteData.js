@@ -1,9 +1,11 @@
 import homeHeroImage from "../assets/olivos-home.jpg";
+import clubLogo from "../assets/logo-ogc.png";
 
 export const siteData = {
   club: {
     name: "Olivos Golf Club",
     location: "Buenos Aires, Argentina",
+    logo: clubLogo,
     heroImage: homeHeroImage
   },
   navigation: [

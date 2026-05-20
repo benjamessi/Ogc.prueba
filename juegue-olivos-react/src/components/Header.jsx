@@ -12,7 +12,9 @@ export function Header({ club, navigation, member, onLogout }) {
     <header className="site-header">
       <nav className="nav" aria-label="Principal">
         <Link className="brand" to="/" aria-label={`${club.name} inicio`}>
-          <span className="brand-mark">OGC</span>
+          <span className="brand-mark">
+            <img src={club.logo} alt="" />
+          </span>
           <span>
             <strong>{club.name}</strong>
             <small>{club.location}</small>

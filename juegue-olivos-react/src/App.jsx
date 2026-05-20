@@ -106,7 +106,10 @@ export default function App() {
         ))}
       </nav>
       <footer className="footer">
-        <p>{siteData.club.name}</p>
+        <div className="footer-brand">
+          <img src={siteData.club.logo} alt="" />
+          <span>{siteData.club.name}</span>
+        </div>
         <p>React editable con páginas separadas y acceso de socios preparado.</p>
       </footer>
     </>
