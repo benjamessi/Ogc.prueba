@@ -10,9 +10,9 @@
   --clay: #9b5f3f;
   --danger: #9f342f;
   --line: rgba(23, 37, 28, 0.14);
-  --shadow: 0 24px 70px rgba(20, 34, 24, 0.16);
-  --radius-lg: 32px;
-  --radius-md: 22px;
+  --shadow: 0 18px 42px rgba(20, 34, 24, 0.12);
+  --radius-lg: 24px;
+  --radius-md: 18px;
   font-family: "Manrope", sans-serif;
 }
 
@@ -217,7 +217,7 @@ a {
   min-height: 700px;
   margin: clamp(1rem, 4vw, 3rem) auto;
   padding: clamp(1rem, 2vw, 1.6rem);
-  border-radius: 42px;
+  border-radius: 30px;
   overflow: hidden;
   box-shadow: var(--shadow);
   background: var(--moss-dark);
@@ -258,25 +258,25 @@ a {
 h1,
 h2,
 h3 {
-  font-family: "Fraunces", serif;
-  line-height: 0.95;
+  font-family: "Libre Baskerville", Georgia, serif;
+  line-height: 1.08;
   margin: 0;
 }
 
 h1 {
   max-width: 11ch;
-  font-size: clamp(4rem, 10vw, 8.3rem);
-  letter-spacing: -0.07em;
-}
-
-h2 {
-  font-size: clamp(2.35rem, 5vw, 4.8rem);
+  font-size: clamp(3.2rem, 8vw, 6.7rem);
   letter-spacing: -0.045em;
 }
 
+h2 {
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  letter-spacing: -0.025em;
+}
+
 h3 {
-  font-size: clamp(1.45rem, 2vw, 2rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+  letter-spacing: -0.015em;
 }
 
 .lead,
@@ -344,7 +344,6 @@ h3 {
   color: var(--ink);
   background: var(--gold);
   box-shadow: 0 16px 30px rgba(199, 157, 79, 0.22);
-  animation: button-breathe 4s ease-in-out infinite;
 }
 
 .button.secondary {
@@ -370,7 +369,7 @@ h3 {
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-lg);
   background: rgba(255, 250, 240, 0.88);
-  box-shadow: 0 20px 60px rgba(18, 31, 22, 0.14);
+  box-shadow: 0 16px 38px rgba(18, 31, 22, 0.1);
   backdrop-filter: blur(20px);
 }
 
@@ -414,7 +413,7 @@ h3 {
   margin: clamp(1rem, 4vw, 3rem) auto clamp(2.5rem, 6vw, 4.5rem);
   padding: clamp(1.5rem, 4vw, 3rem);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 38px;
+  border-radius: 28px;
   background:
     linear-gradient(135deg, rgba(255, 250, 240, 0.9), rgba(215, 223, 207, 0.78)),
     radial-gradient(circle at 100% 0%, rgba(199, 157, 79, 0.22), transparent 24rem);
@@ -424,7 +423,7 @@ h3 {
 .page-hero h1 {
   max-width: 12ch;
   color: var(--ink);
-  font-size: clamp(3.4rem, 8vw, 6.8rem);
+  font-size: clamp(3rem, 6.8vw, 5.6rem);
 }
 
 .page-hero p:not(.eyebrow) {
@@ -450,7 +449,7 @@ h3 {
   max-width: 1180px;
   margin: clamp(1rem, 4vw, 3rem) auto clamp(2.5rem, 7vw, 6rem);
   padding: clamp(1rem, 3vw, 2rem);
-  border-radius: 44px;
+  border-radius: 28px;
   overflow: visible;
   box-shadow: var(--shadow);
   background:
@@ -461,9 +460,9 @@ h3 {
 .home-logo-card,
 .home-availability {
   border: 1px solid rgba(23, 37, 28, 0.12);
-  border-radius: 28px;
+  border-radius: 18px;
   background: rgba(255, 250, 240, 0.78);
-  box-shadow: 0 20px 50px rgba(20, 34, 24, 0.1);
+  box-shadow: 0 14px 32px rgba(20, 34, 24, 0.08);
   backdrop-filter: blur(18px);
 }
 
@@ -503,7 +502,7 @@ h3 {
 .home-main-copy h1 {
   max-width: 10ch;
   color: var(--ink);
-  font-size: clamp(4rem, 9vw, 7.6rem);
+  font-size: clamp(3.4rem, 7vw, 6.2rem);
 }
 
 .home-main-copy p:not(.eyebrow) {
@@ -522,7 +521,7 @@ h3 {
 .home-photo-panel {
   position: relative;
   min-height: 610px;
-  border-radius: 34px;
+  border-radius: 22px;
   overflow: hidden;
   background: var(--moss-dark);
 }
@@ -579,10 +578,10 @@ h3 {
   min-height: 8rem;
   padding: 1rem;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 16px;
   color: var(--ink);
   background: rgba(255, 250, 240, 0.78);
-  box-shadow: 0 16px 40px rgba(20, 34, 24, 0.08);
+  box-shadow: 0 12px 28px rgba(20, 34, 24, 0.07);
   text-decoration: none;
   transition: transform 220ms ease, background 220ms ease, border-color 220ms ease;
 }
@@ -595,9 +594,9 @@ h3 {
 }
 
 .home-action-card span {
-  font-family: "Fraunces", serif;
-  font-size: clamp(1.35rem, 2vw, 1.8rem);
-  line-height: 1;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  line-height: 1.15;
 }
 
 .home-action-card p {
@@ -656,11 +655,11 @@ h3 {
 .category-card span {
   display: block;
   max-width: 10ch;
-  font-family: "Fraunces", serif;
-  font-size: clamp(1.9rem, 3vw, 2.7rem);
-  font-weight: 750;
-  line-height: 0.96;
-  letter-spacing: -0.04em;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(1.6rem, 2.4vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .category-card p {
@@ -684,7 +683,7 @@ h3 {
   gap: clamp(1.5rem, 5vw, 4rem);
   padding: clamp(1.35rem, 4vw, 3rem);
   border: 1px solid rgba(255, 255, 255, 0.56);
-  border-radius: 34px;
+  border-radius: 24px;
   background:
     linear-gradient(135deg, rgba(255, 250, 240, 0.92), rgba(247, 241, 228, 0.84)),
     radial-gradient(circle at 0% 100%, rgba(49, 83, 60, 0.12), transparent 24rem);
@@ -719,7 +718,7 @@ h3 {
   gap: clamp(1rem, 4vw, 2rem);
   padding: clamp(1rem, 3vw, 1.5rem);
   border: 1px solid rgba(255, 255, 255, 0.56);
-  border-radius: 34px;
+  border-radius: 24px;
   background: rgba(255, 250, 240, 0.88);
   box-shadow: var(--shadow);
 }
@@ -886,7 +885,7 @@ h3 {
   gap: clamp(1.2rem, 4vw, 3rem);
   padding: clamp(1.25rem, 4vw, 2.5rem);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 38px;
+  border-radius: 26px;
   background:
     linear-gradient(135deg, rgba(255, 250, 240, 0.92), rgba(215, 223, 207, 0.78)),
     radial-gradient(circle at 85% 10%, rgba(199, 157, 79, 0.22), transparent 26rem);
@@ -1036,7 +1035,7 @@ h3 {
   gap: 1rem;
   align-items: stretch;
   padding: clamp(1rem, 4vw, 3rem);
-  border-radius: 38px;
+  border-radius: 26px;
   background: var(--moss-dark);
   color: white;
   box-shadow: var(--shadow);
