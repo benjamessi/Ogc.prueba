@@ -110,7 +110,7 @@ export default function App() {
           <img src={siteData.club.logo} alt="" />
           <span>{siteData.club.name}</span>
         </div>
-        <p>React editable con páginas separadas y acceso de socios preparado.</p>
+        <p>"La Augusta de Argentina"</p>
       </footer>
     </>
   );
