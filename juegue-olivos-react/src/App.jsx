@@ -33,8 +33,15 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (location.hash) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      return;
+    }
+
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   function handleLogin(credentials) {
     const emailMatches = credentials.email.trim().toLowerCase() === siteData.memberArea.demoEmail;

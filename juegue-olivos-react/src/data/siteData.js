@@ -10,9 +10,21 @@ export const siteData = {
   },
   navigation: [
     { label: "Inicio", href: "/" },
-    { label: "Club", href: "/info-club" },
-    { label: "Reservar horario", href: "/reservaciones", featured: true },
-    { label: "Green fees", href: "/tarifas" },
+    {
+      label: "Club",
+      children: [
+        { label: "Clubhouse", href: "/info-club#clubhouse" },
+        { label: "Historia del club", href: "/info-club#historia" }
+      ]
+    },
+    {
+      label: "Golf",
+      featured: true,
+      children: [
+        { label: "Reservar horario", href: "/reservaciones" },
+        { label: "Green fees", href: "/tarifas" }
+      ]
+    },
     { label: "Socios", href: "/socios" },
     { label: "Contacto", href: "/contacto" }
   ],

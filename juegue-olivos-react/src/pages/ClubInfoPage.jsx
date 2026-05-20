@@ -22,7 +22,7 @@ export function ClubInfoPage({ siteData }) {
           recorridos y su exigencia deportiva.
         </p>
       </section>
-      <section className="section history-section" aria-labelledby="history-title">
+      <section className="section history-section" id="historia" aria-labelledby="history-title">
         <div className="history-card">
           <div className="history-intro">
             <p className="section-kicker">Desde 1926</p>

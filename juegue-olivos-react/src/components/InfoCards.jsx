@@ -1,8 +1,8 @@
 export function InfoCards({ clubInfo }) {
   return (
-    <section className="section compact" id="club-info" aria-labelledby="club-info-title">
+    <section className="section compact" id="clubhouse" aria-labelledby="club-info-title">
       <h2 className="visually-hidden" id="club-info-title">
-        Información del club
+        Clubhouse
       </h2>
       <div className="info-grid">
         {clubInfo.map((item) => (
