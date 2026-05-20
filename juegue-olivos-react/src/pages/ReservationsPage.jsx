@@ -6,12 +6,9 @@ export function ReservationsPage({ reservation }) {
       <section className="page-hero">
         <div>
           <p className="eyebrow">Reservaciones</p>
-          <h1>Reservá por cancha, día y horario.</h1>
+          <h1>Reservar horario</h1>
         </div>
-        <p>
-          La reserva vive en su propia pantalla para que el usuario no tenga que bajar por toda la home. Próximo paso:
-          conectar este formulario a disponibilidad real.
-        </p>
+        <p>Elegí día, horario y cancha para consultar disponibilidad.</p>
       </section>
       <Reservation reservation={reservation} />
     </>

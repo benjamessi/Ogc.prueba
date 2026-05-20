@@ -7,12 +7,9 @@ export function RatesPage({ rates, policies }) {
       <section className="page-hero">
         <div>
           <p className="eyebrow">Tarifas y condiciones</p>
-          <h1>Valores claros, políticas cerca.</h1>
+          <h1>Tarifas y condiciones</h1>
         </div>
-        <p>
-          Los valores quedan separados de la reserva para poder actualizar precios, condiciones y reglas sin tocar otras
-          pantallas.
-        </p>
+        <p>Valores, condiciones de juego y reglas importantes para visitantes.</p>
       </section>
       <Rates rates={rates} />
       <Policies items={policies} />

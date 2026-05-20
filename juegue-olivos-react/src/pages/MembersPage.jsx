@@ -6,12 +6,9 @@ export function MembersPage({ member, memberArea, onLogin }) {
       <section className="page-hero">
         <div>
           <p className="eyebrow">Socios</p>
-          <h1>Acceso privado del club.</h1>
+          <h1>Acceso socios</h1>
         </div>
-        <p>
-          Esta pantalla queda lista para evolucionar a login real, perfiles, reservas internas, torneos y comunicaciones
-          exclusivas.
-        </p>
+        <p>Ingreso al área privada para socios del club.</p>
       </section>
       <MemberAccess member={member} memberArea={memberArea} onLogin={onLogin} />
     </>

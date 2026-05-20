@@ -30,10 +30,9 @@ export function MemberAccess({ member, memberArea, onLogin }) {
       <div className="member-panel">
         <div>
           <div className="section-kicker">Exclusivo socios</div>
-          <h2 id="socios-title">Inicio de sesión preparado para crecer.</h2>
+          <h2 id="socios-title">Inicio de sesión</h2>
           <p>
-            Esta demo guarda la sesión en el navegador para probar el flujo. Para producción habría que conectarlo con
-            autenticación real, roles y endpoints protegidos.
+            Esta demo permite probar el acceso de socios. Para producción debe conectarse con autenticación real.
           </p>
           <div className="demo-credentials" id="editar">
             <strong>Demo</strong>

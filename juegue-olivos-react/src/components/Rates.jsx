@@ -3,13 +3,10 @@ export function Rates({ rates }) {
     <section className="section split" id="tarifas" aria-labelledby="tarifas-title">
       <div>
         <div className="section-kicker">Valores</div>
-        <h2 id="tarifas-title">Tarifas editables</h2>
-        <p>
-          Los importes de la página pública parecen históricos. Por eso esta maqueta los deja en un módulo de datos
-          fácil de actualizar y marca explícitamente que deben validarse antes de publicar.
-        </p>
+        <h2 id="tarifas-title">Tarifas</h2>
+        <p>Valores de referencia para visitantes. Confirmar importes vigentes antes de publicar.</p>
         <a className="text-link" href="#editar">
-          Cómo editar estos valores
+          Editar valores
         </a>
       </div>
       <div className="rate-board" aria-label="Tarifas">
