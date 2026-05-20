@@ -10,6 +10,12 @@ import { ReservationsPage } from "./pages/ReservationsPage.jsx";
 import { siteData } from "./data/siteData.js";
 
 const STORAGE_KEY = "ogc-member-session";
+const quickActions = [
+  { label: "Inicio", path: "/", href: "#/" },
+  { label: "Reservar", path: "/reservaciones", href: "#/reservaciones" },
+  { label: "Club", path: "/info-club", href: "#/info-club" },
+  { label: "Socios", path: "/socios", href: "#/socios" }
+];
 
 function getCurrentPath() {
   const hashPath = window.location.hash.replace(/^#/, "");
@@ -19,6 +25,10 @@ function getCurrentPath() {
 export default function App() {
   const [member, setMember] = useState(null);
   const [currentPath, setCurrentPath] = useState(getCurrentPath);
+  const quickActionIndex = Math.max(
+    0,
+    quickActions.findIndex((action) => action.path === currentPath)
+  );
 
   useEffect(() => {
     const storedSession = window.localStorage.getItem(STORAGE_KEY);
@@ -96,19 +106,17 @@ export default function App() {
       <main id="contenido" className="page-shell">
         {renderPage()}
       </main>
-      <nav className="mobile-quick-actions" aria-label="Acciones rápidas para celular">
-        <a className={currentPath === "/" ? "is-active" : ""} href="#/">
-          Inicio
-        </a>
-        <a className={currentPath === "/reservaciones" ? "is-active" : ""} href="#/reservaciones">
-          Reservar
-        </a>
-        <a className={currentPath === "/info-club" ? "is-active" : ""} href="#/info-club">
-          Club
-        </a>
-        <a className={currentPath === "/socios" ? "is-active" : ""} href="#/socios">
-          Socios
-        </a>
+      <nav
+        className="mobile-quick-actions"
+        aria-label="Acciones rápidas para celular"
+        style={{ "--active-index": quickActionIndex }}
+      >
+        <span className="liquid-indicator" aria-hidden="true" />
+        {quickActions.map((action) => (
+          <a className={currentPath === action.path ? "is-active" : ""} href={action.href} key={action.path}>
+            {action.label}
+          </a>
+        ))}
       </nav>
       <footer className="footer">
         <p>{siteData.club.name}</p>
