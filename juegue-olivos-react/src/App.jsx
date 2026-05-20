@@ -96,6 +96,20 @@ export default function App() {
       <main id="contenido" className="page-shell">
         {renderPage()}
       </main>
+      <nav className="mobile-quick-actions" aria-label="Acciones rápidas para celular">
+        <a className={currentPath === "/" ? "is-active" : ""} href="#/">
+          Inicio
+        </a>
+        <a className={currentPath === "/reservaciones" ? "is-active" : ""} href="#/reservaciones">
+          Reservar
+        </a>
+        <a className={currentPath === "/info-club" ? "is-active" : ""} href="#/info-club">
+          Club
+        </a>
+        <a className={currentPath === "/socios" ? "is-active" : ""} href="#/socios">
+          Socios
+        </a>
+      </nav>
       <footer className="footer">
         <p>{siteData.club.name}</p>
         <p>React editable con páginas separadas y acceso de socios preparado.</p>

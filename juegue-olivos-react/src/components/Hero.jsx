@@ -25,7 +25,7 @@ export function Hero({ club, booking }) {
       </div>
       <aside className="booking-card" aria-label="Datos rápidos para reservas">
         <span className="status-pill">Secretaría</span>
-        <h2>Reservas y disponibilidad</h2>
+        <h3>Disponibilidad</h3>
         <p>{booking.phoneDisplay}</p>
         <p>{booking.hours}</p>
         <p className="note">{booking.note}</p>

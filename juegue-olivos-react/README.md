@@ -42,6 +42,15 @@ La app usa rutas por hash para que funcione bien en hosting estático:
 
 Las páginas viven en `src/pages`. `App.jsx` decide qué pantalla renderizar según la ruta actual.
 
+## Mobile
+
+La interfaz tiene estilos responsive para celular:
+
+- Menú superior táctil.
+- Barra inferior con accesos rápidos a Inicio, Reservar, Club y Socios.
+- Formularios, tarjetas y botones con tamaños cómodos para touch.
+- Layouts de una columna en pantallas chicas.
+
 ## Próximo paso recomendado
 
 Conectar `MemberAccess` a un backend real:
