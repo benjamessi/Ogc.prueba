@@ -1,14 +1,9 @@
 export function InfoCards({ clubInfo, visitorInfo }) {
   return (
     <section className="section compact" id="club-info" aria-labelledby="club-info-title">
-      <div className="section-kicker">Información del club</div>
-      <div className="section-heading">
-        <h2 id="club-info-title">Todo lo importante, directo a la categoría correcta</h2>
-        <p>
-          La navegación ahora baja directo a cada bloque: club, reserva, tarifas, socios y contacto. Menos búsqueda,
-          más decisión.
-        </p>
-      </div>
+      <h2 className="visually-hidden" id="club-info-title">
+        Información del club
+      </h2>
       <div className="info-grid">
         {clubInfo.map((item) => (
           <article className="info-card highlight" key={item.title}>

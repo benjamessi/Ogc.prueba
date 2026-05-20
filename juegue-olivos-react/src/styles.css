@@ -73,6 +73,18 @@ a {
   top: 1rem;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -494,7 +506,42 @@ h3 {
 }
 
 .section.compact {
-  padding-top: 2rem;
+  padding-top: 0;
+}
+
+.history-card {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.42fr) minmax(0, 0.58fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  padding: clamp(1.35rem, 4vw, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: 34px;
+  background:
+    linear-gradient(135deg, rgba(255, 250, 240, 0.92), rgba(247, 241, 228, 0.84)),
+    radial-gradient(circle at 0% 100%, rgba(49, 83, 60, 0.12), transparent 24rem);
+  box-shadow: var(--shadow);
+}
+
+.history-intro {
+  position: sticky;
+  top: 6.5rem;
+  align-self: start;
+}
+
+.history-intro h2 {
+  font-size: clamp(2.2rem, 4vw, 4rem);
+}
+
+.history-copy {
+  display: grid;
+  gap: 1rem;
+}
+
+.history-copy p {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  line-height: 1.82;
 }
 
 .section-heading {
@@ -1007,6 +1054,7 @@ h3 {
   .page-hero,
   .section-heading,
   .section-subheading,
+  .history-card,
   .split,
   .gallery-strip,
   .reservation-shell,
@@ -1064,6 +1112,10 @@ h3 {
   .gallery-strip {
     margin-bottom: 3rem;
     padding-inline: 0.75rem;
+  }
+
+  .history-intro {
+    position: static;
   }
 
   .section-heading {
