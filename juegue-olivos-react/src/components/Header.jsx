@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
-export function Header({ club, navigation, member, onLogout, currentPath }) {
+export function Header({ club, navigation, member, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
 
   function closeMenu() {
@@ -10,13 +11,13 @@ export function Header({ club, navigation, member, onLogout, currentPath }) {
   return (
     <header className="site-header">
       <nav className="nav" aria-label="Principal">
-        <a className="brand" href="#/" aria-label={`${club.name} inicio`}>
+        <Link className="brand" to="/" aria-label={`${club.name} inicio`}>
           <span className="brand-mark">OGC</span>
           <span>
             <strong>{club.name}</strong>
             <small>{club.location}</small>
           </span>
-        </a>
+        </Link>
         <button
           className="menu-button"
           type="button"
@@ -29,14 +30,14 @@ export function Header({ club, navigation, member, onLogout, currentPath }) {
         <ul className={`menu ${isOpen ? "is-open" : ""}`} id="menu">
           {navigation.map((item) => (
             <li key={item.href}>
-              <a
-                className={`${item.featured ? "nav-cta" : ""} ${item.href === `#${currentPath}` ? "is-active" : ""}`}
-                href={item.href}
-                aria-current={item.href === `#${currentPath}` ? "page" : undefined}
+              <NavLink
+                className={({ isActive }) => `${item.featured ? "nav-cta" : ""} ${isActive ? "is-active" : ""}`}
+                end={item.href === "/"}
+                to={item.href}
                 onClick={closeMenu}
               >
                 {item.label}
-              </a>
+              </NavLink>
             </li>
           ))}
           {member ? (

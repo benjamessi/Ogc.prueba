@@ -7,12 +7,12 @@ export const siteData = {
     heroImage: homeHeroImage
   },
   navigation: [
-    { label: "Inicio", href: "#/" },
-    { label: "Info del club", href: "#/info-club" },
-    { label: "Reservar horario", href: "#/reservaciones", featured: true },
-    { label: "Tarifas", href: "#/tarifas" },
-    { label: "Socios", href: "#/socios" },
-    { label: "Contacto", href: "#/contacto" }
+    { label: "Inicio", href: "/" },
+    { label: "Info del club", href: "/info-club" },
+    { label: "Reservar horario", href: "/reservaciones", featured: true },
+    { label: "Tarifas", href: "/tarifas" },
+    { label: "Socios", href: "/socios" },
+    { label: "Contacto", href: "/contacto" }
   ],
   clubInfo: [
     {

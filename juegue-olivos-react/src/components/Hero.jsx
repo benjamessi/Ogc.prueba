@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Hero({ club, booking }) {
   return (
     <section className="hero" aria-labelledby="hero-title">
@@ -15,12 +17,12 @@ export function Hero({ club, booking }) {
           experiencia pública queda clara; el área de socios suma inicio de sesión y contenido exclusivo.
         </p>
         <div className="hero-actions">
-          <a className="button primary" href="#/info-club">
+          <Link className="button primary" to="/info-club">
             Información del club
-          </a>
-          <a className="button secondary" href="#/reservaciones">
+          </Link>
+          <Link className="button secondary" to="/reservaciones">
             Reservar horario
-          </a>
+          </Link>
         </div>
       </div>
       <aside className="booking-card" aria-label="Datos rápidos para reservas">

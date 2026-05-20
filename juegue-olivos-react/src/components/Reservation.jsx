@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function getTomorrowDate() {
   const date = new Date();
@@ -65,9 +66,9 @@ export function Reservation({ reservation }) {
             </div>
           </fieldset>
 
-          <a className="button primary full" href="#/contacto">
+          <Link className="button primary full" to="/contacto">
             Consultar disponibilidad
-          </a>
+          </Link>
         </form>
       </div>
     </section>

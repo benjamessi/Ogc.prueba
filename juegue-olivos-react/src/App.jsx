@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { Header } from "./components/Header.jsx";
 import { ClubInfoPage } from "./pages/ClubInfoPage.jsx";
 import { ContactPage } from "./pages/ContactPage.jsx";
@@ -11,24 +12,18 @@ import { siteData } from "./data/siteData.js";
 
 const STORAGE_KEY = "ogc-member-session";
 const quickActions = [
-  { label: "Inicio", path: "/", href: "#/" },
-  { label: "Reservar", path: "/reservaciones", href: "#/reservaciones" },
-  { label: "Club", path: "/info-club", href: "#/info-club" },
-  { label: "Socios", path: "/socios", href: "#/socios" }
+  { label: "Inicio", path: "/" },
+  { label: "Reservar", path: "/reservaciones" },
+  { label: "Club", path: "/info-club" },
+  { label: "Socios", path: "/socios" }
 ];
-
-function getCurrentPath() {
-  const hashPath = window.location.hash.replace(/^#/, "");
-  return hashPath || "/";
-}
 
 export default function App() {
   const [member, setMember] = useState(null);
-  const [currentPath, setCurrentPath] = useState(getCurrentPath);
-  const quickActionIndex = Math.max(
-    0,
-    quickActions.findIndex((action) => action.path === currentPath)
-  );
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const quickActionIndex = quickActions.findIndex((action) => action.path === currentPath);
+  const hasQuickAction = quickActionIndex >= 0;
 
   useEffect(() => {
     const storedSession = window.localStorage.getItem(STORAGE_KEY);
@@ -38,14 +33,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    function syncRoute() {
-      setCurrentPath(getCurrentPath());
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    window.addEventListener("hashchange", syncRoute);
-    return () => window.removeEventListener("hashchange", syncRoute);
-  }, []);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [location.pathname]);
 
   function handleLogin(credentials) {
     const emailMatches = credentials.email.trim().toLowerCase() === siteData.memberArea.demoEmail;
@@ -72,28 +61,14 @@ export default function App() {
     setMember(null);
   }
 
-  function renderPage() {
-    switch (currentPath) {
-      case "/":
-        return <HomePage siteData={siteData} />;
-      case "/info-club":
-        return <ClubInfoPage siteData={siteData} />;
-      case "/reservaciones":
-        return <ReservationsPage reservation={siteData.reservation} />;
-      case "/tarifas":
-        return <RatesPage rates={siteData.rates} policies={siteData.policies} />;
-      case "/socios":
-        return <MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />;
-      case "/contacto":
-        return <ContactPage booking={siteData.booking} />;
-      default:
-        return <NotFoundPage />;
-    }
+  function handleSkipLink(event) {
+    event.preventDefault();
+    document.getElementById("contenido")?.scrollIntoView();
   }
 
   return (
     <>
-      <a className="skip-link" href="#contenido">
+      <a className="skip-link" href="#contenido" onClick={handleSkipLink}>
         Saltar al contenido
       </a>
       <Header
@@ -101,21 +76,33 @@ export default function App() {
         navigation={siteData.navigation}
         member={member}
         onLogout={handleLogout}
-        currentPath={currentPath}
       />
       <main id="contenido" className="page-shell">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<HomePage siteData={siteData} />} />
+          <Route path="/info-club" element={<ClubInfoPage siteData={siteData} />} />
+          <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} />} />
+          <Route path="/tarifas" element={<RatesPage rates={siteData.rates} policies={siteData.policies} />} />
+          <Route path="/socios" element={<MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
+          <Route path="/contacto" element={<ContactPage booking={siteData.booking} />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
       </main>
       <nav
-        className="mobile-quick-actions"
+        className={`mobile-quick-actions ${hasQuickAction ? "" : "is-idle"}`}
         aria-label="Acciones rápidas para celular"
-        style={{ "--active-index": quickActionIndex }}
+        style={{ "--active-index": Math.max(quickActionIndex, 0) }}
       >
         <span className="liquid-indicator" aria-hidden="true" />
         {quickActions.map((action) => (
-          <a className={currentPath === action.path ? "is-active" : ""} href={action.href} key={action.path}>
+          <NavLink
+            className={({ isActive }) => (isActive ? "is-active" : undefined)}
+            end={action.path === "/"}
+            to={action.path}
+            key={action.path}
+          >
             {action.label}
-          </a>
+          </NavLink>
         ))}
       </nav>
       <footer className="footer">

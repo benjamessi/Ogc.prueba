@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function NotFoundPage() {
   return (
     <section className="page-hero not-found">
@@ -6,9 +8,9 @@ export function NotFoundPage() {
         <h1>Página no encontrada</h1>
       </div>
       <p>Volvé al inicio o elegí una sección del menú principal.</p>
-      <a className="button primary" href="#/">
+      <Link className="button primary" to="/">
         Volver al inicio
-      </a>
+      </Link>
     </section>
   );
 }
