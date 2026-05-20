@@ -21,6 +21,9 @@ Este login es solo una simulación frontend con `localStorage`. Sirve para valid
 El contenido principal está en `src/data/siteData.js`:
 
 - Teléfono y horarios: `booking`
+- Navegación superior: `navigation`
+- Información institucional: `clubInfo`
+- Reserva de horario y canchas: `reservation`
 - Tarifas: `rates.rows`
 - Condiciones: `policies`
 - Imágenes: `gallery`

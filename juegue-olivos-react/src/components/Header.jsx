@@ -1,7 +1,11 @@
 import { useState } from "react";
 
-export function Header({ club, member, onLogout }) {
+export function Header({ club, navigation, member, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  function closeMenu() {
+    setIsOpen(false);
+  }
 
   return (
     <header className="site-header">
@@ -23,18 +27,13 @@ export function Header({ club, member, onLogout }) {
           Menú
         </button>
         <ul className={`menu ${isOpen ? "is-open" : ""}`} id="menu">
-          <li>
-            <a href="#visitantes">Visitantes</a>
-          </li>
-          <li>
-            <a href="#tarifas">Tarifas</a>
-          </li>
-          <li>
-            <a href="#socios">Socios</a>
-          </li>
-          <li>
-            <a href="#contacto">Reservar</a>
-          </li>
+          {navigation.map((item) => (
+            <li key={item.href}>
+              <a className={item.featured ? "nav-cta" : undefined} href={item.href} onClick={closeMenu}>
+                {item.label}
+              </a>
+            </li>
+          ))}
           {member ? (
             <li>
               <button className="link-button" type="button" onClick={onLogout}>

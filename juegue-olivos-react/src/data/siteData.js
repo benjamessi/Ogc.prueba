@@ -5,6 +5,30 @@ export const siteData = {
     heroImage:
       "https://olivosgolf.cc/wp/wp-content/uploads/2010/06/encabezado-cartel-OGC-2.jpg"
   },
+  navigation: [
+    { label: "Info del club", href: "#club-info" },
+    { label: "Reservar horario", href: "#reservar", featured: true },
+    { label: "Tarifas", href: "#tarifas" },
+    { label: "Socios", href: "#socios" },
+    { label: "Contacto", href: "#contacto" }
+  ],
+  clubInfo: [
+    {
+      title: "Cancha histórica",
+      body: "Un recorrido clásico del golf argentino, pensado para visitantes que quieren entender rápido cómo jugar en el club.",
+      metric: "27 hoyos"
+    },
+    {
+      title: "Tres recorridos",
+      body: "Azul, Roja y Blanca permiten ordenar disponibilidad, mantenimiento y preferencia de juego desde la reserva.",
+      metric: "Azul · Roja · Blanca"
+    },
+    {
+      title: "Atención centralizada",
+      body: "Secretaría valida disponibilidad, condiciones de acceso, reciprocidad y requisitos antes de confirmar el turno.",
+      metric: "8:00 a 16:30"
+    }
+  ],
   booking: {
     phoneDisplay: "(5411) 4587-1076 int. 112 / 101 / 102",
     phoneHref: "tel:+541145871076",
@@ -75,6 +99,31 @@ export const siteData = {
       icon: "C"
     }
   ],
+  reservation: {
+    intro:
+      "Elegí una cancha y dejá preparada la consulta. En producción este módulo se conecta al sistema de turnos o a secretaría.",
+    courses: [
+      {
+        id: "azul",
+        name: "Cancha Azul",
+        tone: "Clásica y competitiva",
+        description: "Ideal para una vuelta desafiante, con prioridad para jugadores que buscan ritmo de campeonato."
+      },
+      {
+        id: "roja",
+        name: "Cancha Roja",
+        tone: "Técnica y estratégica",
+        description: "Pensada para quienes prefieren precisión, buena lectura de fairways y un juego más táctico."
+      },
+      {
+        id: "blanca",
+        name: "Cancha Blanca",
+        tone: "Ágil y social",
+        description: "Una opción más liviana para combinar disponibilidad, práctica y encuentros entre socios o invitados."
+      }
+    ],
+    times: ["08:00", "09:30", "11:00", "13:30", "15:00"]
+  },
   gallery: [
     {
       src: "https://olivosgolf.cc/wp/wp-content/gallery/welcome/thumbs/thumbs_hoyo-1-salida.jpg",

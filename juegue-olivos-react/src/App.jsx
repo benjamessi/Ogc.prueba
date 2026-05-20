@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero.jsx";
 import { InfoCards } from "./components/InfoCards.jsx";
 import { Rates } from "./components/Rates.jsx";
 import { Policies } from "./components/Policies.jsx";
+import { Reservation } from "./components/Reservation.jsx";
 import { GalleryStrip } from "./components/GalleryStrip.jsx";
 import { Contact } from "./components/Contact.jsx";
 import { MemberAccess } from "./components/MemberAccess.jsx";
@@ -51,10 +52,11 @@ export default function App() {
       <a className="skip-link" href="#contenido">
         Saltar al contenido
       </a>
-      <Header club={siteData.club} member={member} onLogout={handleLogout} />
+      <Header club={siteData.club} navigation={siteData.navigation} member={member} onLogout={handleLogout} />
       <main id="contenido">
         <Hero club={siteData.club} booking={siteData.booking} />
-        <InfoCards items={siteData.visitors} />
+        <InfoCards clubInfo={siteData.clubInfo} visitorInfo={siteData.visitors} />
+        <Reservation reservation={siteData.reservation} />
         <Rates rates={siteData.rates} />
         <Policies items={siteData.policies} />
         <GalleryStrip images={siteData.gallery} />
