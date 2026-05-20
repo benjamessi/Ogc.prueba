@@ -1,6 +1,6 @@
-import { GalleryStrip } from "../components/GalleryStrip.jsx";
 import { InfoCards } from "../components/InfoCards.jsx";
 
+const clubAddress = "Ruta Panamericana Km 32, Acceso Norte Ramal Pilar, B1613, Provincia de Buenos Aires";
 const historyParagraphs = [
   "La historia del Olivos Golf Club comenzó en 1926, cuando un grupo de treinta golfistas, convencidos del futuro del golf en la Argentina, decidió fundar un club que estuviera a la altura de las grandes tradiciones del deporte. Aquella iniciativa marcó el nacimiento de una de las instituciones más emblemáticas del golf argentino.",
   "En sus primeros años, el club funcionó en Olivos, en la zona de las calles Marcelino Ugarte y España. Allí desarrolló una cancha de 18 hoyos de estilo británico y se consolidó rápidamente como uno de los referentes del país. Sin embargo, el crecimiento urbano llevó a que en 1950 el club se trasladara a su actual ubicación en Ingeniero Pablo Nogués, en lo que fue considerado una verdadera “segunda fundación”.",
@@ -36,7 +36,30 @@ export function ClubInfoPage({ siteData }) {
         </div>
       </section>
       <InfoCards clubInfo={siteData.clubInfo} />
-      <GalleryStrip images={siteData.gallery} />
+      <section className="section location-section" aria-labelledby="location-title">
+        <div className="location-card">
+          <div className="location-copy">
+            <p className="section-kicker">Ubicación</p>
+            <h2 id="location-title">Cómo llegar</h2>
+            <p>{clubAddress}</p>
+            <a
+              className="button primary"
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clubAddress)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Abrir en Google Maps
+            </a>
+          </div>
+          <iframe
+            className="map-frame"
+            title="Mapa de ubicación de Olivos Golf Club"
+            src={`https://www.google.com/maps?q=${encodeURIComponent(clubAddress)}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </section>
     </>
   );
 }

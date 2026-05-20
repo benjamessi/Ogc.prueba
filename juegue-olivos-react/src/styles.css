@@ -544,6 +544,44 @@ h3 {
   line-height: 1.82;
 }
 
+.location-card {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 0.58fr);
+  gap: clamp(1rem, 4vw, 2rem);
+  padding: clamp(1rem, 3vw, 1.5rem);
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  border-radius: 34px;
+  background: rgba(255, 250, 240, 0.88);
+  box-shadow: var(--shadow);
+}
+
+.location-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.location-copy p:not(.section-kicker) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.location-copy .button {
+  align-self: flex-start;
+}
+
+.map-frame {
+  width: 100%;
+  min-height: 390px;
+  border: 0;
+  border-radius: 26px;
+  background: var(--sage);
+}
+
 .section-heading {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
@@ -1055,6 +1093,7 @@ h3 {
   .section-heading,
   .section-subheading,
   .history-card,
+  .location-card,
   .split,
   .gallery-strip,
   .reservation-shell,
@@ -1116,6 +1155,10 @@ h3 {
 
   .history-intro {
     position: static;
+  }
+
+  .map-frame {
+    min-height: 320px;
   }
 
   .section-heading {
@@ -1278,8 +1321,18 @@ h3 {
   .page-hero,
   .reservation-shell,
   .member-panel,
-  .gallery-strip {
+  .gallery-strip,
+  .location-card {
     padding: 1rem;
+  }
+
+  .location-copy .button {
+    align-self: stretch;
+  }
+
+  .map-frame {
+    min-height: 280px;
+    border-radius: 20px;
   }
 
   .category-card {
