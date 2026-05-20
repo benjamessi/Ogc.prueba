@@ -1,12 +1,13 @@
+import homeHeroImage from "../assets/olivos-home.jpg";
+
 export const siteData = {
   club: {
     name: "Olivos Golf Club",
     location: "Buenos Aires, Argentina",
-    heroImage:
-      "https://olivosgolf.cc/wp/wp-content/uploads/2010/06/encabezado-cartel-OGC-2.jpg"
+    heroImage: homeHeroImage
   },
   navigation: [
-    { label: "Home", href: "#/" },
+    { label: "Inicio", href: "#/" },
     { label: "Info del club", href: "#/info-club" },
     { label: "Reservar horario", href: "#/reservaciones", featured: true },
     { label: "Tarifas", href: "#/tarifas" },
