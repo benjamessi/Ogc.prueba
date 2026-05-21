@@ -1,6 +1,6 @@
 import { Rates } from "../components/Rates.jsx";
 
-export function RatesPage({ rates }) {
+export function RatesPage({ rates, booking }) {
   return (
     <>
       <section className="page-hero">
@@ -10,7 +10,7 @@ export function RatesPage({ rates }) {
         </div>
         <p>Valores de referencia para visitantes.</p>
       </section>
-      <Rates rates={rates} />
+      <Rates rates={rates} booking={booking} />
     </>
   );
 }

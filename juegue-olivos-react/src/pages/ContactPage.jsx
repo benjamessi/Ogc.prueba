@@ -1,16 +1,16 @@
 import { Contact } from "../components/Contact.jsx";
 
-export function ContactPage({ booking }) {
+export function ContactPage({ booking, club }) {
   return (
     <>
       <section className="page-hero">
         <div>
           <p className="eyebrow">Contacto</p>
-          <h1>Hablá con secretaría.</h1>
+          <h1>Hablá con Secretaría.</h1>
         </div>
-        <p>Teléfono, horarios de atención y futuros canales como WhatsApp o formulario pueden vivir acá.</p>
+        <p>Consultá horarios, disponibilidad de juego, green fees, eventos y servicios del club.</p>
       </section>
-      <Contact booking={booking} />
+      <Contact booking={booking} club={club} />
     </>
   );
 }

@@ -31,14 +31,7 @@ export function MemberAccess({ member, memberArea, onLogin }) {
         <div>
           <div className="section-kicker">Exclusivo socios</div>
           <h2 id="socios-title">Inicio de sesión</h2>
-          <p>
-            Esta demo permite probar el acceso de socios. Para producción debe conectarse con autenticación real.
-          </p>
-          <div className="demo-credentials" id="editar">
-            <strong>Demo</strong>
-            <span>{memberArea.demoEmail}</span>
-            <span>Clave: {memberArea.demoPassword}</span>
-          </div>
+          <p>Accedé con tus credenciales para consultar información y beneficios exclusivos del club.</p>
         </div>
 
         {member ? (
@@ -63,7 +56,7 @@ export function MemberAccess({ member, memberArea, onLogin }) {
                 autoComplete="email"
                 value={credentials.email}
                 onChange={updateField}
-                placeholder="socio@olivos.test"
+                placeholder="tuemail@ejemplo.com"
                 required
               />
             </label>
@@ -75,7 +68,6 @@ export function MemberAccess({ member, memberArea, onLogin }) {
                 autoComplete="current-password"
                 value={credentials.password}
                 onChange={updateField}
-                placeholder="olivos"
                 required
               />
             </label>
@@ -83,6 +75,10 @@ export function MemberAccess({ member, memberArea, onLogin }) {
             <button className="button primary full" type="submit">
               Iniciar sesión
             </button>
+            <div className="login-links">
+              <a href="#recuperar">Olvidé mi contraseña</a>
+              <a href="#contacto">Contactar Secretaría</a>
+            </div>
           </form>
         )}
       </div>

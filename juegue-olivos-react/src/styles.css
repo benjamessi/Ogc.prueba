@@ -1316,9 +1316,15 @@ h3 {
   margin-bottom: clamp(2rem, 5vw, 4rem);
 }
 
+.clubhouse-section {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
 .course-map-card,
 .course-feature-card,
-.clubhouse-card {
+.clubhouse-card,
+.clubhouse-service-card {
   border: 0;
   border-top: 1px solid rgba(49, 83, 60, 0.14);
   border-radius: 0;
@@ -1335,7 +1341,8 @@ h3 {
 }
 
 .course-map-copy,
-.clubhouse-copy {
+.clubhouse-copy,
+.clubhouse-service-card {
   display: grid;
   gap: 1rem;
   padding: clamp(0.5rem, 2vw, 1.5rem);
@@ -1343,7 +1350,8 @@ h3 {
 
 .course-map-copy p,
 .course-feature-card p,
-.clubhouse-copy p {
+.clubhouse-copy p,
+.clubhouse-service-card p {
   margin: 0;
   color: var(--muted);
   font-size: clamp(1rem, 1.4vw, 1.08rem);
@@ -1425,19 +1433,28 @@ h3 {
   line-height: 1.65;
 }
 
-.route-toggle {
+.button.route-toggle {
   min-width: 9.5rem;
+  min-height: 3.15rem;
   justify-content: center;
+  font-weight: 600;
   color: var(--moss-dark);
-  border: 1px solid rgba(49, 83, 60, 0.22);
-  background: rgba(215, 223, 207, 0.72);
-  box-shadow: 0 4px 12px rgba(33, 58, 42, 0.08);
+  border: 1px solid rgba(33, 58, 42, 0.52);
+  background: rgba(255, 250, 240, 0.82);
+  box-shadow: none;
 }
 
-.route-toggle:hover,
-.route-toggle:focus-visible,
+.button.route-toggle:hover,
+.button.route-toggle:focus-visible {
+  color: var(--moss-dark);
+  border-color: var(--moss-dark);
+  background: rgba(215, 223, 207, 0.84);
+  box-shadow: 0 4px 12px rgba(33, 58, 42, 0.12);
+}
+
 .course-route-card.is-open .route-toggle {
   color: white;
+  border-color: var(--moss);
   background: var(--moss);
 }
 
@@ -1530,6 +1547,24 @@ h3 {
   background: var(--sage);
 }
 
+.clubhouse-photo {
+  aspect-ratio: 16 / 9;
+  min-height: auto;
+}
+
+.clubhouse-photo img {
+  object-position: center;
+}
+
+.clubhouse-service-card {
+  max-width: 720px;
+  padding-top: clamp(1rem, 3vw, 1.5rem);
+}
+
+.clubhouse-service-card h2 {
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
+}
+
 .clubhouse-card {
   display: grid;
   grid-template-columns: minmax(0, 0.62fr) minmax(260px, 0.38fr);
@@ -1538,33 +1573,76 @@ h3 {
   padding-top: clamp(1rem, 3vw, 1.5rem);
 }
 
-.rate-board {
-  overflow: hidden;
+.rates-section {
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
 }
 
-.rate-alert {
-  padding: 1rem 1.25rem;
-  color: var(--moss-dark);
-  background: rgba(215, 223, 207, 0.9);
-  font-weight: 900;
+.rate-board {
+  display: grid;
+  border-top: 1px solid rgba(49, 83, 60, 0.18);
 }
 
 .rate-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(130px, 0.5fr);
-  gap: 1rem;
-  padding: 1.15rem 1.25rem;
-  border-top: 1px solid var(--line);
+  grid-template-columns: minmax(170px, 1.1fr) minmax(160px, 0.9fr) minmax(110px, 0.5fr) minmax(190px, 1fr);
+  gap: clamp(0.8rem, 2vw, 1.3rem);
+  align-items: start;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid rgba(49, 83, 60, 0.14);
+}
+
+.rate-row-head {
+  padding: 0.75rem 0;
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rate-row div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.rate-row div > span {
+  display: none;
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .rate-row strong {
+  color: var(--moss-dark);
   font-size: 1.05rem;
 }
 
+.rate-row p {
+  margin: 0;
+}
+
 .rate-row b {
-  justify-self: end;
   color: var(--moss-dark);
-  font-size: 1.2rem;
+  font-size: 1.08rem;
+}
+
+.rates-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(49, 83, 60, 0.14);
+}
+
+.rates-cta p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
 }
 
 .reservation-shell {
@@ -1832,25 +1910,13 @@ h3 {
   backdrop-filter: none;
 }
 
-.demo-credentials {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.4rem;
-}
-
-.demo-credentials strong,
-.demo-credentials span {
-  padding: 0.55rem 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.44);
-  font-size: 0.9rem;
-}
-
 .login-card,
 .member-dashboard {
-  padding: 1.3rem;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border: 1px solid rgba(49, 83, 60, 0.14);
+  border-radius: 5px;
+  background: rgba(255, 250, 240, 0.74);
+  box-shadow: 0 12px 28px rgba(18, 31, 22, 0.06);
 }
 
 .login-card label {
@@ -1882,6 +1948,30 @@ h3 {
   font-weight: 900;
 }
 
+.login-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.1rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(49, 83, 60, 0.12);
+}
+
+.login-links a {
+  color: var(--moss-dark);
+  font-size: 0.92rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.login-links a:hover,
+.login-links a:focus-visible {
+  color: var(--moss);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
 .welcome {
   margin-top: 0;
   color: var(--moss-dark);
@@ -1906,35 +1996,126 @@ h3 {
 
 .contact {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-  gap: 2rem;
-  align-items: center;
+  grid-template-columns: minmax(260px, 0.45fr) minmax(0, 0.55fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
   padding-top: clamp(1rem, 3vw, 1.5rem);
   border-top: 1px solid rgba(49, 83, 60, 0.14);
 }
 
-.contact-card {
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
+.contact-info {
+  display: grid;
+  gap: 1rem;
 }
 
-.contact-card a:not(.button) {
-  display: inline-flex;
-  margin-bottom: 1.25rem;
+.contact-list {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+
+.contact-list div {
+  display: grid;
+  gap: 0.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(49, 83, 60, 0.12);
+}
+
+.contact-list dt {
+  color: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-list dd {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.contact-list a {
   color: var(--moss-dark);
-  font-size: 1.7rem;
   font-weight: 900;
   text-decoration: none;
+}
+
+.contact-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-card {
+  display: grid;
+  gap: 0.8rem;
+  padding: clamp(1.1rem, 3vw, 1.6rem);
+  border: 1px solid rgba(49, 83, 60, 0.14);
+  border-radius: 5px;
+  background: rgba(255, 250, 240, 0.72);
+  box-shadow: 0 12px 28px rgba(18, 31, 22, 0.06);
+}
+
+.contact-card h3 {
+  margin: 0;
+  color: var(--moss-dark);
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
+}
+
+.contact-card p:not(.contact-label) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.contact-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.contact-actions .button {
+  min-height: 3.15rem;
+  width: 100%;
+  font-weight: 600;
+}
+
+.contact-actions .button.primary:hover,
+.contact-actions .button.primary:focus-visible {
+  background: var(--moss-dark);
+  box-shadow: 0 4px 12px rgba(33, 58, 42, 0.16);
+}
+
+.button.contact-button {
+  color: var(--moss-dark);
+  border: 1px solid rgba(33, 58, 42, 0.52);
+  background: rgba(255, 250, 240, 0.72);
+}
+
+.button.contact-button:hover,
+.button.contact-button:focus-visible {
+  color: var(--moss-dark);
+  border-color: var(--moss-dark);
+  background: rgba(215, 223, 207, 0.78);
+}
+
+.button.contact-button:active {
+  background: rgba(215, 223, 207, 0.92);
+}
+
+.contact-map-button {
+  grid-column: 1 / -1;
 }
 
 .contact-label {
   margin-top: 0;
   margin-bottom: 0.4rem;
   color: var(--clay);
+}
+
+.contact-map {
+  min-height: 340px;
 }
 
 .footer {
@@ -2363,9 +2544,13 @@ h3 {
     padding-block: 1.05rem;
   }
 
-  .contact-card a:not(.button) {
-    font-size: clamp(1.2rem, 6vw, 1.7rem);
-    overflow-wrap: anywhere;
+  .contact-actions {
+    display: grid;
+  }
+
+  .contact-actions .button {
+    width: 100%;
+    justify-content: center;
   }
 
   .mobile-quick-actions {
@@ -2541,11 +2726,21 @@ h3 {
 
   .rate-row {
     grid-template-columns: 1fr;
-    gap: 0.25rem;
+    gap: 0.85rem;
+    padding: 1rem 0;
   }
 
-  .rate-row b {
-    justify-self: start;
+  .rate-row-head {
+    display: none;
+  }
+
+  .rate-row div > span {
+    display: block;
+  }
+
+  .rates-cta {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .form-row {

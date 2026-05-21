@@ -8,7 +8,10 @@ export function ClubhousePage({ club, clubhouse }) {
           <p className="eyebrow">Club</p>
           <h1>Clubhouse</h1>
         </div>
-        <p>{clubhouse.hours}</p>
+        <p>
+          Un espacio de encuentro para socios, visitantes e invitados, con salones, gastronomía y vistas al entorno del
+          club.
+        </p>
       </section>
 
       <section className="section clubhouse-section" aria-labelledby="clubhouse-title">
@@ -19,8 +22,17 @@ export function ClubhousePage({ club, clubhouse }) {
           <div className="clubhouse-copy">
             <div className="section-kicker">Clubhouse</div>
             <h2 id="clubhouse-title">Salones</h2>
-            <p>3 elegantes salones diseñados para la realización de fiestas, con una capacidad máxima de hasta 500 personas, incluido un salon exclusivamente para socios.</p>
+            <p>{clubhouse.hours}</p>
+            <p>
+              El club cuenta con tres salones para eventos sociales y corporativos, con capacidad máxima de hasta 500
+              personas y estacionamiento para invitados.
+            </p>
           </div>
+        </div>
+        <div className="clubhouse-service-card">
+          <p className="section-kicker">Gastronomía</p>
+          <h2>Gastronomía</h2>
+          <p>Servicio gastronómico para socios, eventos, reuniones y torneos.</p>
         </div>
       </section>
 

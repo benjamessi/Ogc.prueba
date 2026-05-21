@@ -53,7 +53,7 @@ export default function App() {
     if (!emailMatches || !passwordMatches) {
       return {
         ok: false,
-        message: "Usá socio@olivos.test y clave olivos para probar la demo."
+        message: "Los datos ingresados no son correctos. Verificá tu email y contraseña."
       };
     }
 
@@ -96,9 +96,9 @@ export default function App() {
           <Route path="/reciprocidad" element={<ReciprocityPage policies={siteData.policies} />} />
           <Route path="/cancha" element={<CoursePage course={siteData.course} />} />
           <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} member={member} />} />
-          <Route path="/tarifas" element={<RatesPage rates={siteData.rates} />} />
+          <Route path="/tarifas" element={<RatesPage rates={siteData.rates} booking={siteData.booking} />} />
           <Route path="/socios" element={<MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
-          <Route path="/contacto" element={<ContactPage booking={siteData.booking} />} />
+          <Route path="/contacto" element={<ContactPage booking={siteData.booking} club={siteData.club} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

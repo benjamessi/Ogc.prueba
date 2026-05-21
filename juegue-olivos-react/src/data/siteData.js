@@ -8,7 +8,7 @@ export const siteData = {
   club: {
     name: "Olivos Golf Club",
     location: "Buenos Aires, Argentina",
-    address: "Ruta Panamericana Km 32, Acceso Norte Ramal Pilar, B1613, Provincia de Buenos Aires",
+    address: "Ruta Panamericana Km 32, acceso Norte Ramal Pilar, Ingeniero Pablo Nogués, Provincia de Buenos Aires.",
     shortAddress: "Ruta Panamericana Km 32, Ramal Pilar",
     email: "secretaria@olivosgolf.com.ar",
     logo: clubLogo,
@@ -38,7 +38,7 @@ export const siteData = {
   ],
   clubhouse: {
     image: clubhouseImage,
-    hours: "Abierto de martes a domingos de 8 AM a 12 AM."
+    hours: "Abierto de martes a domingo, de 8:00 a 24:00."
   },
   course: {
     map: courseMapImage,
@@ -97,32 +97,37 @@ export const siteData = {
     }
   ],
   rates: {
-    alert: "Importes de referencia tomados de la página vieja. Reemplazar por valores vigentes antes de publicar.",
+    alert: "Valores de referencia sujetos a confirmación con Secretaría.",
     rows: [
       {
-        group: "Visitas extranjeras",
-        detail: "Green fee martes a viernes",
-        price: "USD 120"
+        category: "Visitas extranjeras",
+        days: "Martes a viernes",
+        price: "USD 120",
+        notes: "Sujeto a disponibilidad."
       },
       {
-        group: "Visitas extranjeras",
-        detail: "Sábados, domingos y feriados",
-        price: "USD 150"
+        category: "Visitas extranjeras",
+        days: "Sábados, domingos y feriados",
+        price: "USD 150",
+        notes: "Sujeto a disponibilidad."
       },
       {
-        group: "Caballeros con handicap nacional",
-        detail: "Martes a viernes, con variantes por organizador o mid-week",
-        price: "Actualizar"
+        category: "Caballeros con handicap nacional",
+        days: "Martes a viernes",
+        price: "Consultar",
+        notes: "Sujeto a disponibilidad."
       },
       {
-        group: "Damas y menores de 18 años",
-        detail: "Martes a viernes, con variantes por organizador o mid-week",
-        price: "Actualizar"
+        category: "Damas y menores de 18 años",
+        days: "Martes a viernes",
+        price: "Consultar",
+        notes: "Sujeto a disponibilidad."
       },
       {
-        group: "Driving range",
-        detail: "Balde de 25 pelotas",
-        price: "Actualizar"
+        category: "Driving range",
+        days: "Balde de 25 pelotas",
+        price: "Consultar",
+        notes: "Consultar condiciones vigentes."
       }
     ]
   },
