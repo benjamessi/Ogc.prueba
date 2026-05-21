@@ -18,11 +18,7 @@ export function CoursePage({ course, policies }) {
             <div className="section-kicker">Recorridos</div>
             <h2 id="course-title">Roja, Azul y Blanca</h2>
             <p>La cancha cuenta con tres alternativas de juego claramente identificadas.</p>
-            <div className="course-route-list" aria-label="Recorridos de la cancha">
-              {course.routes.map((route) => (
-                <span key={route}>{route}</span>
-              ))}
-            </div>
+            
           </div>
           <figure className="course-map-figure">
             <img src={course.map} alt="Plano de la cancha del Olivos Golf Club" />

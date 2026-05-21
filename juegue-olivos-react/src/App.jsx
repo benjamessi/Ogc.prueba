@@ -9,6 +9,7 @@ import { HomePage } from "./pages/HomePage.jsx";
 import { MembersPage } from "./pages/MembersPage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
 import { RatesPage } from "./pages/RatesPage.jsx";
+import { ReciprocityPage } from "./pages/ReciprocityPage.jsx";
 import { ReservationsPage } from "./pages/ReservationsPage.jsx";
 import { siteData } from "./data/siteData.js";
 
@@ -92,6 +93,7 @@ export default function App() {
           <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
           <Route path="/historia-club" element={<ClubInfoPage />} />
           <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
+          <Route path="/reciprocidad" element={<ReciprocityPage booking={siteData.booking} />} />
           <Route path="/cancha" element={<CoursePage course={siteData.course} policies={siteData.policies} />} />
           <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} member={member} />} />
           <Route path="/tarifas" element={<RatesPage rates={siteData.rates} />} />

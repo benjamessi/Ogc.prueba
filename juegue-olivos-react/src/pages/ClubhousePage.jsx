@@ -14,12 +14,12 @@ export function ClubhousePage({ club, clubhouse }) {
       <section className="section clubhouse-section" aria-labelledby="clubhouse-title">
         <div className="clubhouse-card">
           <figure className="clubhouse-photo">
-            <img src={clubhouse.image} alt="Clubhouse del Olivos Golf Club" />
+            <img src={clubhouse.image} alt="Salones del clubhouse del Olivos Golf Club" />
           </figure>
           <div className="clubhouse-copy">
-            <div className="section-kicker">Horarios</div>
-            <h2 id="clubhouse-title">Martes a domingos</h2>
-            <p>{clubhouse.hours}</p>
+            <div className="section-kicker">Clubhouse</div>
+            <h2 id="clubhouse-title">Salones</h2>
+            <p>3 elegantes salones diseñados para la realización de fiestas, con una capacidad máxima de hasta 500 personas, incluido un salon exclusivamente para socios.</p>
           </div>
         </div>
       </section>

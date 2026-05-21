@@ -9,6 +9,11 @@ export function Header({ club, navigation, member, onLogout }) {
   const isHome = location.pathname === "/";
 
   useEffect(() => {
+    setOpenGroup(null);
+    setIsOpen(false);
+  }, [location.pathname, location.hash]);
+
+  useEffect(() => {
     function updateHeaderState() {
       const cover = document.querySelector(".home-cover");
       setIsOverHomeCover(Boolean(isHome && cover && cover.getBoundingClientRect().bottom > 96));
@@ -23,6 +28,26 @@ export function Header({ club, navigation, member, onLogout }) {
       window.removeEventListener("resize", updateHeaderState);
     };
   }, [isHome, location.pathname]);
+
+  useEffect(() => {
+    function closeFloatingMenus() {
+      setOpenGroup(null);
+    }
+
+    function handlePointerDown(event) {
+      if (!event.target.closest(".site-header")) {
+        closeMenu();
+      }
+    }
+
+    window.addEventListener("scroll", closeFloatingMenus, { passive: true });
+    document.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      window.removeEventListener("scroll", closeFloatingMenus);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, []);
 
   function closeMenu() {
     setIsOpen(false);
@@ -86,9 +111,12 @@ export function Header({ club, navigation, member, onLogout }) {
           type="button"
           aria-expanded={isOpen}
           aria-controls="menu"
+          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setIsOpen((current) => !current)}
         >
-          Menú
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
         </button>
         <ul className={`menu ${isOpen ? "is-open" : ""}`} id="menu">
           {navigation.map((item) => {
@@ -114,7 +142,7 @@ export function Header({ club, navigation, member, onLogout }) {
                     {item.children.map((child) => (
                       <li key={child.href}>
                         <NavLink
-                          className={() => (isChildActive(child.href) ? "is-active" : undefined)}
+                          className={() => (isChildActive(child.href) ? "is-current-child" : undefined)}
                           to={child.href}
                           onClick={closeMenu}
                         >

@@ -27,7 +27,7 @@ export function HomePage({ siteData }) {
       <section className="home-cover" aria-labelledby="home-cover-title">
         <img src={homeCoverImage} alt="Jugadores caminando en la cancha del Olivos Golf Club" />
         <div className="home-cover-title">
-          <p className="eyebrow">Bienvenido</p>
+          <p className="eyebrow">est. 1926</p>
           <h1 id="home-cover-title" data-reflection="Olivos Golf Club">
             Olivos Golf Club
           </h1>
@@ -41,7 +41,7 @@ export function HomePage({ siteData }) {
             <p>Olivos Golf Club</p>
           </div>
           <p className="eyebrow">Golf en Buenos Aires</p>
-          <h1 id="home-title">Juegue en el Olivos</h1>
+          <h1 id="home-title">"La Augusta Argentina."</h1>
           <p>
             Una cancha histórica, tres recorridos y una experiencia de golf reconocida en la Argentina.
           </p>
