@@ -86,7 +86,7 @@ export default function App() {
         member={member}
         onLogout={handleLogout}
       />
-      <main id="contenido" className="page-shell">
+      <main id="contenido" className={`page-shell ${currentPath === "/" ? "is-home" : ""}`}>
         <Routes>
           <Route path="/" element={<HomePage siteData={siteData} />} />
           <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />

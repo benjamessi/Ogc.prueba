@@ -1,10 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
 export function Header({ club, navigation, member, onLogout }) {
   const [isOpen, setIsOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
+  const [isOverHomeCover, setIsOverHomeCover] = useState(false);
   const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  useEffect(() => {
+    function updateHeaderState() {
+      const cover = document.querySelector(".home-cover");
+      setIsOverHomeCover(Boolean(isHome && cover && cover.getBoundingClientRect().bottom > 96));
+    }
+
+    updateHeaderState();
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+    window.addEventListener("resize", updateHeaderState);
+
+    return () => {
+      window.removeEventListener("scroll", updateHeaderState);
+      window.removeEventListener("resize", updateHeaderState);
+    };
+  }, [isHome, location.pathname]);
 
   function closeMenu() {
     setIsOpen(false);
@@ -52,7 +70,7 @@ export function Header({ club, navigation, member, onLogout }) {
   }
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${isHome && isOverHomeCover && !isOpen ? "is-transparent" : ""}`}>
       <nav className="nav" aria-label="Principal">
         <Link className="brand" to="/" aria-label={`${club.name} inicio`}>
           <span className="brand-mark">

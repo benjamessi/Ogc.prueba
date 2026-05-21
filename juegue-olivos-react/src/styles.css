@@ -87,13 +87,36 @@ a {
 }
 
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 5;
+  left: 0;
+  right: 0;
+  z-index: 30;
   padding: 1rem clamp(1rem, 4vw, 3rem);
   backdrop-filter: blur(20px);
   background: rgba(247, 241, 228, 0.78);
   border-bottom: 1px solid var(--line);
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease,
+    backdrop-filter 260ms ease,
+    box-shadow 260ms ease;
+}
+
+.site-header.is-transparent {
+  backdrop-filter: blur(0);
+  background: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+}
+
+.page-shell {
+  min-height: 72vh;
+  padding-top: 5.35rem;
+}
+
+.page-shell.is-home {
+  padding-top: 0;
 }
 
 .nav {
@@ -110,6 +133,7 @@ a {
   align-items: center;
   gap: 0.8rem;
   text-decoration: none;
+  transition: color 260ms ease;
 }
 
 .brand-mark {
@@ -138,6 +162,12 @@ a {
 .brand small {
   color: var(--muted);
   font-size: 0.78rem;
+  transition: color 260ms ease;
+}
+
+.site-header.is-transparent .brand,
+.site-header.is-transparent .brand small {
+  color: white;
 }
 
 .menu,
@@ -181,15 +211,39 @@ a {
     border-color 0.2s ease;
 }
 
+.menu a::after,
+.link-button::after,
+.menu-trigger::after {
+  content: "";
+  position: absolute;
+  left: 0.95rem;
+  right: 0.95rem;
+  bottom: 0.48rem;
+  height: 1px;
+  background: var(--moss);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 240ms ease;
+}
+
 .menu a:hover,
 .menu a:focus-visible,
 .link-button:hover,
 .link-button:focus-visible,
 .menu-trigger:hover,
 .menu-trigger:focus-visible {
-  transform: translateY(-1px);
-  background: rgba(49, 83, 60, 0.11);
-  box-shadow: var(--interactive-shadow);
+  transform: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.menu a:hover::after,
+.menu a:focus-visible::after,
+.link-button:hover::after,
+.link-button:focus-visible::after,
+.menu-trigger:hover::after,
+.menu-trigger:focus-visible::after {
+  transform: scaleX(1);
 }
 
 .menu a:active,
@@ -210,7 +264,7 @@ a {
 .menu .nav-cta:focus-visible {
   color: white;
   background: var(--moss-dark);
-  box-shadow: var(--interactive-shadow);
+  box-shadow: none;
 }
 
 .menu a.is-active,
@@ -223,6 +277,34 @@ a {
 .menu .nav-cta.is-active,
 .menu-trigger.nav-cta.is-active {
   background: var(--moss-dark);
+}
+
+.site-header.is-transparent .menu a,
+.site-header.is-transparent .link-button,
+.site-header.is-transparent .menu-trigger {
+  color: white;
+}
+
+.site-header.is-transparent .menu a::after,
+.site-header.is-transparent .link-button::after,
+.site-header.is-transparent .menu-trigger::after {
+  background: rgba(215, 223, 207, 0.95);
+}
+
+.site-header.is-transparent .menu a.is-active,
+.site-header.is-transparent .menu-trigger.is-active {
+  background: rgba(16, 52, 30, 0.28);
+}
+
+.site-header.is-transparent .menu a.is-active:not(.nav-cta),
+.site-header.is-transparent .menu-trigger.is-active:not(.nav-cta) {
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-header.is-transparent .menu .nav-cta,
+.site-header.is-transparent .menu-trigger.nav-cta {
+  background: rgba(49, 83, 60, 0.72);
 }
 
 .menu-chevron {
@@ -422,10 +504,6 @@ h3 {
 .button.full {
   width: 100%;
   margin-top: 1.25rem;
-}
-
-.page-shell {
-  min-height: 72vh;
 }
 
 .booking-card,
@@ -1550,6 +1628,14 @@ h3 {
 
   .site-header {
     padding: 0.75rem 1rem;
+  }
+
+  .page-shell {
+    padding-top: 4.65rem;
+  }
+
+  .page-shell.is-home {
+    padding-top: 0;
   }
 
   .brand {
