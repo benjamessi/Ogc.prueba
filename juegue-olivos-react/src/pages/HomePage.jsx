@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import homeCoverImage from "../assets/olivos-cancha-hero.jpg";
 
 const homeCards = [
   {
@@ -23,6 +24,16 @@ export function HomePage({ siteData }) {
 
   return (
     <>
+      <section className="home-cover" aria-labelledby="home-cover-title">
+        <img src={homeCoverImage} alt="Jugadores caminando en la cancha del Olivos Golf Club" />
+        <div className="home-cover-title">
+          <p className="eyebrow">Bienvenido</p>
+          <h1 id="home-cover-title" data-reflection="Olivos Golf Club">
+            Olivos Golf Club
+          </h1>
+        </div>
+      </section>
+
       <section className="home-screen" aria-labelledby="home-title">
         <div className="home-main-copy">
           <div className="home-logo-card">
