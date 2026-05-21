@@ -9,6 +9,8 @@ export const siteData = {
     name: "Olivos Golf Club",
     location: "Buenos Aires, Argentina",
     address: "Ruta Panamericana Km 32, Acceso Norte Ramal Pilar, B1613, Provincia de Buenos Aires",
+    shortAddress: "Ruta Panamericana Km 32, Ramal Pilar",
+    email: "secretaria@olivosgolf.com.ar",
     logo: clubLogo,
     heroImage: homeHeroImage
   },
@@ -41,9 +43,23 @@ export const siteData = {
   course: {
     map: courseMapImage,
     holeFifteenImage,
-    routes: ["Roja", "Azul", "Blanca"],
+    routes: ["Blanca", "Colorada", "Azul"],
     feature:
-      "El hoyo 15, un par 5 de 470 yardas, es uno de los más emblemáticos de la cancha y fue reconocido por Golf Digest entre los mejores hoyos de golf del mundo. Se trata de un dogleg a la derecha que, para los aficionados, se juega como par 5, aunque en torneos profesionales suele disputarse como par 4. Su diseño exige precisión y potencia desde el tee: un drive de al menos 260 yardas deja abierta la posibilidad de alcanzar el green en dos golpes. El segundo tiro es el verdadero desafío. Son aproximadamente 200 yardas sobre el agua hacia un green pequeño, rápido y bien defendido por bunkers. Es un hoyo que resume perfectamente el espíritu de riesgo y recompensa: agresividad para buscar el premio, pero con muy poco margen de error.",
+      "Un hoyo emblemático del club: exige potencia desde el tee, precisión sobre el agua y una decisión clara entre asegurar el par o buscar el premio.",
+    routeCards: [
+      {
+        name: "Blanca",
+        description: "Uno de los recorridos principales del club, exigente y tradicional."
+      },
+      {
+        name: "Colorada",
+        description: "Recorrido estratégico, con hoyos de alto valor competitivo."
+      },
+      {
+        name: "Azul",
+        description: "Alternativa complementaria dentro de los 27 hoyos del club."
+      }
+    ],
     highlights: [
       {
         title: "27 hoyos",

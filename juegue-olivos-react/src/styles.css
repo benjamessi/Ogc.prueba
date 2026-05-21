@@ -1153,6 +1153,10 @@ h3 {
   background: rgba(49, 83, 60, 0.08);
 }
 
+.reciprocity-country[open] .reciprocity-clubs {
+  animation: calmReveal 440ms ease both;
+}
+
 .reciprocity-country summary span {
   font-family: "Libre Baskerville", Georgia, serif;
   font-size: clamp(1.2rem, 2vw, 1.7rem);
@@ -1386,6 +1390,98 @@ h3 {
   height: auto;
 }
 
+.course-routes-section {
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.course-route-accordion {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.course-route-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(49, 83, 60, 0.16);
+}
+
+.course-route-card:last-child {
+  border-bottom: 1px solid rgba(49, 83, 60, 0.16);
+}
+
+.course-route-card h3 {
+  margin: 0;
+  color: var(--moss-dark);
+  font-size: clamp(1.35rem, 2.4vw, 2.1rem);
+}
+
+.course-route-card p {
+  max-width: 42rem;
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.route-toggle {
+  min-width: 9.5rem;
+  justify-content: center;
+  color: var(--moss-dark);
+  border: 1px solid rgba(49, 83, 60, 0.22);
+  background: rgba(215, 223, 207, 0.72);
+  box-shadow: 0 4px 12px rgba(33, 58, 42, 0.08);
+}
+
+.route-toggle:hover,
+.route-toggle:focus-visible,
+.course-route-card.is-open .route-toggle {
+  color: white;
+  background: var(--moss);
+}
+
+.course-holes-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding-top: 0.35rem;
+}
+
+.course-route-card.is-open .course-holes-grid {
+  animation: calmReveal 460ms ease both;
+}
+
+.course-hole-card {
+  position: relative;
+  min-height: 190px;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 5px;
+  background: var(--sage);
+}
+
+.course-hole-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 190px;
+  object-fit: cover;
+}
+
+.course-hole-card figcaption {
+  position: absolute;
+  left: 0.65rem;
+  bottom: 0.65rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 3px;
+  color: white;
+  background: rgba(23, 37, 28, 0.72);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
 .course-feature-card {
   display: grid;
   grid-template-columns: minmax(0, 0.55fr) minmax(280px, 0.45fr);
@@ -1404,6 +1500,24 @@ h3 {
 
 .course-feature-card h2 {
   max-width: 12ch;
+}
+
+.course-feature-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.course-feature-stats span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(49, 83, 60, 0.16);
+  border-radius: 3px;
+  color: var(--moss-dark);
+  background: rgba(215, 223, 207, 0.48);
+  font-weight: 900;
 }
 
 .course-feature-photo,
@@ -1824,13 +1938,18 @@ h3 {
 }
 
 .footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 2rem clamp(1rem, 4vw, 3rem);
+  display: grid;
+  gap: 1.5rem;
+  padding: 2.25rem clamp(1rem, 4vw, 3rem);
   color: rgba(255, 255, 255, 0.7);
   background: var(--ink);
+}
+
+.footer-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 5vw, 4rem);
 }
 
 .footer-brand {
@@ -1850,8 +1969,59 @@ h3 {
   padding: 0.28rem;
 }
 
+.footer-brand p,
+.footer-legal {
+  margin: 0;
+}
+
+.footer-brand p {
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 500;
+}
+
+.footer-contact {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 34rem;
+  font-style: normal;
+  text-align: right;
+}
+
+.footer-contact a,
+.footer-contact span {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.footer-contact a {
+  text-decoration: none;
+}
+
+.footer-contact a:hover,
+.footer-contact a:focus-visible {
+  color: white;
+}
+
+.footer-legal {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
 .mobile-quick-actions {
   display: none;
+}
+
+@keyframes calmReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-0.35rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 880px) {
@@ -2180,6 +2350,15 @@ h3 {
     min-height: 250px;
   }
 
+  .course-route-card,
+  .course-holes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .route-toggle {
+    width: 100%;
+  }
+
   .course-card {
     padding-block: 1.05rem;
   }
@@ -2260,12 +2439,18 @@ h3 {
   }
 
   .footer {
-    display: block;
+    grid-template-columns: 1fr;
     padding-bottom: calc(6rem + env(safe-area-inset-bottom));
   }
 
+  .footer-main,
   .footer-brand {
-    margin-bottom: 0.75rem;
+    display: grid;
+    justify-items: start;
+  }
+
+  .footer-contact {
+    text-align: left;
   }
 }
 

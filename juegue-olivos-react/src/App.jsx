@@ -93,8 +93,8 @@ export default function App() {
           <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
           <Route path="/historia-club" element={<ClubInfoPage />} />
           <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
-          <Route path="/reciprocidad" element={<ReciprocityPage booking={siteData.booking} />} />
-          <Route path="/cancha" element={<CoursePage course={siteData.course} policies={siteData.policies} />} />
+          <Route path="/reciprocidad" element={<ReciprocityPage policies={siteData.policies} />} />
+          <Route path="/cancha" element={<CoursePage course={siteData.course} />} />
           <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} member={member} />} />
           <Route path="/tarifas" element={<RatesPage rates={siteData.rates} />} />
           <Route path="/socios" element={<MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
@@ -120,11 +120,21 @@ export default function App() {
         ))}
       </nav>
       <footer className="footer">
-        <div className="footer-brand">
-          <img src={siteData.club.logo} alt="" />
-          <span>{siteData.club.name}</span>
+        <div className="footer-main">
+          <div className="footer-brand">
+            <img src={siteData.club.logo} alt="" />
+            <div>
+              <span>{siteData.club.name}</span>
+              <p>"La Augusta de Argentina"</p>
+            </div>
+          </div>
+          <address className="footer-contact" aria-label="Datos de contacto">
+            <span>{siteData.club.shortAddress}</span>
+            <a href={siteData.booking.phoneHref}>{siteData.booking.phoneDisplay}</a>
+            <a href={`mailto:${siteData.club.email}`}>{siteData.club.email}</a>
+          </address>
         </div>
-        <p>"La Augusta de Argentina"</p>
+        <p className="footer-legal">© Olivos Golf Club. Todos los derechos reservados.</p>
       </footer>
     </>
   );
