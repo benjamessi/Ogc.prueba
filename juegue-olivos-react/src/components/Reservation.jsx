@@ -17,20 +17,20 @@ function getLocalDay(dateValue) {
   return new Date(year, month - 1, day).getDay();
 }
 
-function getReservationRule(dateValue, isMember, guestCount) {
+function getReservationRule(dateValue, isMember, guestCount, rules) {
   const day = getLocalDay(dateValue);
 
   if (day === null) {
     return {
       isValid: false,
-      message: "Elegí un día para consultar disponibilidad."
+      message: rules.noDate
     };
   }
 
   if (day === 3) {
     return {
       isValid: true,
-      message: "Miércoles de golf abierto: pueden reservar socios y no socios."
+      message: rules.openWednesday
     };
   }
 
@@ -38,20 +38,20 @@ function getReservationRule(dateValue, isMember, guestCount) {
     if (!isMember) {
       return {
         isValid: false,
-        message: "Los martes, jueves y viernes sólo pueden reservar socios. Los no socios pueden reservar los miércoles."
+        message: rules.memberOnlyWeekdays
       };
     }
 
     if (guestCount > 1) {
       return {
         isValid: false,
-        message: "Los martes, jueves y viernes cada socio puede invitar como máximo a 1 invitado."
+        message: rules.maxOneGuest
       };
     }
 
     return {
       isValid: true,
-      message: "Día habilitado para socios. Podés sumar como máximo 1 invitado."
+      message: rules.weekdayOk
     };
   }
 
@@ -59,26 +59,26 @@ function getReservationRule(dateValue, isMember, guestCount) {
     if (!isMember) {
       return {
         isValid: false,
-        message: "Los sábados y domingos sólo pueden reservar socios."
+        message: rules.weekendMembersOnly
       };
     }
 
     if (guestCount > 0) {
       return {
         isValid: false,
-        message: "Los sábados y domingos no se permiten invitados externos."
+        message: rules.weekendNoGuests
       };
     }
 
     return {
       isValid: true,
-      message: "Día habilitado para socios, sin invitados externos."
+      message: rules.weekendOk
     };
   }
 
   return {
     isValid: false,
-    message: "Ese día no está habilitado para reservas. Elegí miércoles, o martes, jueves, viernes, sábado o domingo si sos socio."
+    message: rules.unavailable
   };
 }
 
@@ -89,7 +89,7 @@ export function Reservation({ reservation, member }) {
   const [guestCount, setGuestCount] = useState(0);
   const [submitMessage, setSubmitMessage] = useState("");
   const isMember = Boolean(member);
-  const validation = getReservationRule(selectedDate, isMember, guestCount);
+  const validation = getReservationRule(selectedDate, isMember, guestCount, reservation.rules);
 
   useEffect(() => {
     if (!isMember && guestCount > 0) {
@@ -99,7 +99,7 @@ export function Reservation({ reservation, member }) {
 
   function handleDateChange(event) {
     const nextDate = event.target.value;
-    const nextRule = getReservationRule(nextDate, isMember, guestCount);
+    const nextRule = getReservationRule(nextDate, isMember, guestCount, reservation.rules);
 
     setSelectedDate(nextDate);
     setSubmitMessage(nextRule.isValid ? "" : nextRule.message);
@@ -107,7 +107,7 @@ export function Reservation({ reservation, member }) {
 
   function handleGuestCountChange(event) {
     const nextGuestCount = Number(event.target.value);
-    const nextRule = getReservationRule(selectedDate, isMember, nextGuestCount);
+    const nextRule = getReservationRule(selectedDate, isMember, nextGuestCount, reservation.rules);
 
     setGuestCount(nextGuestCount);
     setSubmitMessage(nextRule.isValid ? "" : nextRule.message);
@@ -116,7 +116,7 @@ export function Reservation({ reservation, member }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    const nextRule = getReservationRule(selectedDate, isMember, guestCount);
+    const nextRule = getReservationRule(selectedDate, isMember, guestCount, reservation.rules);
     if (!nextRule.isValid) {
       setSubmitMessage(nextRule.message);
       return;
@@ -129,13 +129,13 @@ export function Reservation({ reservation, member }) {
     <section className="section reservation-section" id="reservar" aria-labelledby="reservar-title">
       <div className="reservation-shell" style={{ "--reservation-image": `url(${reservationBackground})` }}>
         <div className="reservation-copy">
-          <div className="section-kicker">Reservar horario</div>
-          <h2 id="reservar-title">Elegí día y hora.</h2>
+          <div className="section-kicker">{reservation.kicker}</div>
+          <h2 id="reservar-title">{reservation.title}</h2>
           <p>{reservation.intro}</p>
           <div className="reservation-summary" aria-live="polite">
-            <span>Consulta preparada</span>
+            <span>{reservation.summaryLabel}</span>
             <strong>
-              {selectedDate} · {selectedTime} · {isMember ? "Socio" : "No socio"}
+              {selectedDate} · {selectedTime} · {isMember ? reservation.memberLabel : reservation.nonMemberLabel}
             </strong>
           </div>
         </div>
@@ -143,11 +143,11 @@ export function Reservation({ reservation, member }) {
         <form className="reservation-form" onSubmit={handleSubmit} noValidate>
           <div className="form-row">
             <label>
-              Día
+              {reservation.dateLabel}
               <input type="date" value={selectedDate} onChange={handleDateChange} aria-describedby="reservation-rule" />
             </label>
             <label>
-              Horario
+              {reservation.timeLabel}
               <select value={selectedTime} onChange={(event) => setSelectedTime(event.target.value)}>
                 {reservation.times.map((time) => (
                   <option key={time} value={time}>
@@ -160,14 +160,14 @@ export function Reservation({ reservation, member }) {
 
           <div className="form-row">
             <label>
-              Condición
-              <input type="text" value={isMember ? "Socio" : "No socio"} readOnly />
+              {reservation.statusLabel}
+              <input type="text" value={isMember ? reservation.memberLabel : reservation.nonMemberLabel} readOnly />
             </label>
             <label>
-              Invitados externos
+              {reservation.guestsLabel}
               <select value={guestCount} onChange={handleGuestCountChange} disabled={!isMember}>
-                <option value={0}>Sin invitados</option>
-                <option value={1}>1 invitado</option>
+                <option value={0}>{reservation.noGuests}</option>
+                <option value={1}>{reservation.oneGuest}</option>
               </select>
             </label>
           </div>
@@ -181,7 +181,7 @@ export function Reservation({ reservation, member }) {
           </div>
 
           <button className="button primary full" type="submit">
-            Consultar disponibilidad
+            {reservation.submit}
           </button>
         </form>
       </div>

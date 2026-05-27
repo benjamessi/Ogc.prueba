@@ -11,21 +11,18 @@ import { NotFoundPage } from "./pages/NotFoundPage.jsx";
 import { RatesPage } from "./pages/RatesPage.jsx";
 import { ReciprocityPage } from "./pages/ReciprocityPage.jsx";
 import { ReservationsPage } from "./pages/ReservationsPage.jsx";
-import { siteData } from "./data/siteData.js";
+import { getSiteData } from "./data/siteData.js";
 
 const STORAGE_KEY = "ogc-member-session";
-const quickActions = [
-  { label: "Inicio", path: "/" },
-  { label: "Reservar", path: "/reservaciones" },
-  { label: "Club", path: "/historia-club" },
-  { label: "Socios", path: "/socios" }
-];
+const LANGUAGE_KEY = "ogc-language";
 
 export default function App() {
   const [member, setMember] = useState(null);
+  const [language, setLanguage] = useState(() => window.localStorage.getItem(LANGUAGE_KEY) || "es");
+  const siteData = getSiteData(language);
   const location = useLocation();
   const currentPath = location.pathname;
-  const quickActionIndex = quickActions.findIndex((action) => action.path === currentPath);
+  const quickActionIndex = siteData.quickActions.findIndex((action) => action.path === currentPath);
   const hasQuickAction = quickActionIndex >= 0;
 
   useEffect(() => {
@@ -34,6 +31,11 @@ export default function App() {
       setMember(JSON.parse(storedSession));
     }
   }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(LANGUAGE_KEY, language);
+    document.documentElement.lang = language;
+  }, [language]);
 
   useEffect(() => {
     if (location.hash) {
@@ -53,13 +55,13 @@ export default function App() {
     if (!emailMatches || !passwordMatches) {
       return {
         ok: false,
-        message: "Los datos ingresados no son correctos. Verificá tu email y contraseña."
+        message: siteData.memberArea.errorMessage
       };
     }
 
     const nextMember = {
       email: credentials.email.trim().toLowerCase(),
-      name: "Socio OGC"
+      name: siteData.memberArea.demoName
     };
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextMember));
     setMember(nextMember);
@@ -79,36 +81,39 @@ export default function App() {
   return (
     <>
       <a className="skip-link" href="#contenido" onClick={handleSkipLink}>
-        Saltar al contenido
+        {siteData.ui.skipLink}
       </a>
       <Header
         club={siteData.club}
         navigation={siteData.navigation}
         member={member}
         onLogout={handleLogout}
+        language={language}
+        onLanguageChange={setLanguage}
+        labels={siteData.ui.header}
       />
       <main id="contenido" className={`page-shell ${currentPath === "/" ? "is-home" : ""}`}>
         <Routes>
           <Route path="/" element={<HomePage siteData={siteData} />} />
           <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
-          <Route path="/historia-club" element={<ClubInfoPage />} />
+          <Route path="/historia-club" element={<ClubInfoPage history={siteData.history} />} />
           <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
-          <Route path="/reciprocidad" element={<ReciprocityPage policies={siteData.policies} />} />
+          <Route path="/reciprocidad" element={<ReciprocityPage policies={siteData.policies} reciprocity={siteData.reciprocity} />} />
           <Route path="/cancha" element={<CoursePage course={siteData.course} />} />
-          <Route path="/reservaciones" element={<ReservationsPage reservation={siteData.reservation} member={member} />} />
-          <Route path="/tarifas" element={<RatesPage rates={siteData.rates} booking={siteData.booking} />} />
-          <Route path="/socios" element={<MembersPage member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
-          <Route path="/contacto" element={<ContactPage booking={siteData.booking} club={siteData.club} />} />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/reservaciones" element={<ReservationsPage page={siteData.reservationsPage} reservation={siteData.reservation} member={member} />} />
+          <Route path="/tarifas" element={<RatesPage page={siteData.ratesPage} rates={siteData.rates} booking={siteData.booking} />} />
+          <Route path="/socios" element={<MembersPage page={siteData.membersPage} member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
+          <Route path="/contacto" element={<ContactPage page={siteData.contactPage} contact={siteData.contact} booking={siteData.booking} club={siteData.club} />} />
+          <Route path="*" element={<NotFoundPage copy={siteData.notFound} />} />
         </Routes>
       </main>
       <nav
         className={`mobile-quick-actions ${hasQuickAction ? "" : "is-idle"}`}
-        aria-label="Acciones rápidas para celular"
+        aria-label={siteData.ui.quickActionsAria}
         style={{ "--active-index": Math.max(quickActionIndex, 0) }}
       >
         <span className="liquid-indicator" aria-hidden="true" />
-        {quickActions.map((action) => (
+        {siteData.quickActions.map((action) => (
           <NavLink
             className={({ isActive }) => (isActive ? "is-active" : undefined)}
             end={action.path === "/"}
@@ -125,16 +130,16 @@ export default function App() {
             <img src={siteData.club.logo} alt="" />
             <div>
               <span>{siteData.club.name}</span>
-              <p>"La Augusta de Argentina"</p>
+              <p>{siteData.ui.footerTagline}</p>
             </div>
           </div>
-          <address className="footer-contact" aria-label="Datos de contacto">
+          <address className="footer-contact" aria-label={siteData.ui.footerAria}>
             <span>{siteData.club.shortAddress}</span>
             <a href={siteData.booking.phoneHref}>{siteData.booking.phoneDisplay}</a>
             <a href={`mailto:${siteData.club.email}`}>{siteData.club.email}</a>
           </address>
         </div>
-        <p className="footer-legal">© Olivos Golf Club. Todos los derechos reservados.</p>
+        <p className="footer-legal">{siteData.ui.footerLegal}</p>
       </footer>
     </>
   );

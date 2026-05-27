@@ -3,35 +3,35 @@ export function Rates({ rates, booking }) {
     <section className="section rates-section" id="tarifas" aria-labelledby="tarifas-title">
       <div className="section-heading">
         <div>
-          <div className="section-kicker">Valores</div>
-          <h2 id="tarifas-title">Green fees</h2>
+          <div className="section-kicker">{rates.sectionKicker}</div>
+          <h2 id="tarifas-title">{rates.title}</h2>
         </div>
         <p>{rates.alert}</p>
       </div>
 
-      <div className="rate-board" aria-label="Green fees">
+      <div className="rate-board" aria-label={rates.boardAria}>
         <div className="rate-row rate-row-head" aria-hidden="true">
-          <span>Categoría</span>
-          <span>Días disponibles</span>
-          <span>Valor</span>
-          <span>Observaciones</span>
+          <span>{rates.labels.category}</span>
+          <span>{rates.labels.days}</span>
+          <span>{rates.labels.price}</span>
+          <span>{rates.labels.notes}</span>
         </div>
         {rates.rows.map((row) => (
           <article className="rate-row" key={`${row.category}-${row.days}`}>
             <div>
-              <span>Categoría</span>
+              <span>{rates.labels.category}</span>
               <strong>{row.category}</strong>
             </div>
             <div>
-              <span>Días disponibles</span>
+              <span>{rates.labels.days}</span>
               <p>{row.days}</p>
             </div>
             <div>
-              <span>Valor</span>
+              <span>{rates.labels.price}</span>
               <b>{row.price}</b>
             </div>
             <div>
-              <span>Observaciones</span>
+              <span>{rates.labels.notes}</span>
               <p>{row.notes}</p>
             </div>
           </article>
@@ -39,9 +39,9 @@ export function Rates({ rates, booking }) {
       </div>
 
       <div className="rates-cta">
-        <p>Para confirmar valores vigentes y disponibilidad, comunicate con Secretaría.</p>
+        <p>{rates.ctaText}</p>
         <a className="button primary" href={booking.phoneHref}>
-          Contactar Secretaría
+          {rates.ctaButton}
         </a>
       </div>
     </section>

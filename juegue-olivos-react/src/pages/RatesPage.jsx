@@ -1,14 +1,14 @@
 import { Rates } from "../components/Rates.jsx";
 
-export function RatesPage({ rates, booking }) {
+export function RatesPage({ page, rates, booking }) {
   return (
     <>
       <section className="page-hero">
         <div>
-          <p className="eyebrow">Green fees</p>
-          <h1>Green fees</h1>
+          <p className="eyebrow">{page.eyebrow}</p>
+          <h1>{page.title}</h1>
         </div>
-        <p>Valores de referencia para visitantes.</p>
+        <p>{page.intro}</p>
       </section>
       <Rates rates={rates} booking={booking} />
     </>

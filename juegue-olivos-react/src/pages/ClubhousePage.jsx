@@ -5,42 +5,36 @@ export function ClubhousePage({ club, clubhouse }) {
     <>
       <section className="page-hero">
         <div>
-          <p className="eyebrow">Club</p>
-          <h1>Clubhouse</h1>
+          <p className="eyebrow">{clubhouse.heroEyebrow}</p>
+          <h1>{clubhouse.title}</h1>
         </div>
-        <p>
-          Un espacio de encuentro para socios, visitantes e invitados, con salones, gastronomía y vistas al entorno del
-          club.
-        </p>
+        <p>{clubhouse.intro}</p>
       </section>
 
       <section className="section clubhouse-section" aria-labelledby="clubhouse-title">
         <div className="clubhouse-card">
           <figure className="clubhouse-photo">
-            <img src={clubhouse.image} alt="Salones del clubhouse del Olivos Golf Club" />
+            <img src={clubhouse.image} alt={clubhouse.imageAlt} />
           </figure>
           <div className="clubhouse-copy">
-            <div className="section-kicker">Clubhouse</div>
-            <h2 id="clubhouse-title">Salones</h2>
+            <div className="section-kicker">{clubhouse.kicker}</div>
+            <h2 id="clubhouse-title">{clubhouse.salonsTitle}</h2>
             <p>{clubhouse.hours}</p>
-            <p>
-              El club cuenta con tres salones para eventos sociales y corporativos, con capacidad máxima de hasta 500
-              personas y estacionamiento para invitados.
-            </p>
+            <p>{clubhouse.salonsText}</p>
           </div>
         </div>
         <div className="clubhouse-service-card">
-          <p className="section-kicker">Gastronomía</p>
-          <h2>Gastronomía</h2>
-          <p>Servicio gastronómico para socios, eventos, reuniones y torneos.</p>
+          <p className="section-kicker">{clubhouse.gastronomyKicker}</p>
+          <h2>{clubhouse.gastronomyTitle}</h2>
+          <p>{clubhouse.gastronomyText}</p>
         </div>
       </section>
 
       <section className="section location-section" aria-labelledby="clubhouse-location-title">
         <div className="location-card">
           <div className="location-copy">
-            <p className="section-kicker">Ubicación</p>
-            <h2 id="clubhouse-location-title">Olivos Golf Club</h2>
+            <p className="section-kicker">{clubhouse.locationKicker}</p>
+            <h2 id="clubhouse-location-title">{clubhouse.locationTitle}</h2>
             <p>{club.address}</p>
             <a
               className="button primary"
@@ -48,12 +42,12 @@ export function ClubhousePage({ club, clubhouse }) {
               target="_blank"
               rel="noreferrer"
             >
-              Abrir en Google Maps
+              {clubhouse.mapButton}
             </a>
           </div>
           <iframe
             className="map-frame"
-            title="Mapa de ubicación de Olivos Golf Club"
+            title={clubhouse.mapTitle}
             src={`https://www.google.com/maps?q=${encodedMapQuery}&z=15&output=embed`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

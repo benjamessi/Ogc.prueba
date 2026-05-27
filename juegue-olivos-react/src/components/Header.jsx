@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 
-export function Header({ club, navigation, member, onLogout }) {
+export function Header({ club, navigation, member, onLogout, language, onLanguageChange, labels }) {
   const [isOpen, setIsOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
   const [isOverHomeCover, setIsOverHomeCover] = useState(false);
@@ -96,8 +96,8 @@ export function Header({ club, navigation, member, onLogout }) {
 
   return (
     <header className={`site-header ${isHome && isOverHomeCover && !isOpen ? "is-transparent" : ""}`}>
-      <nav className="nav" aria-label="Principal">
-        <Link className="brand" to="/" aria-label={`${club.name} inicio`}>
+      <nav className="nav" aria-label={labels.primaryNav}>
+        <Link className="brand" to="/" aria-label={labels.homeAria}>
           <span className="brand-mark">
             <img src={club.logo} alt="" />
           </span>
@@ -111,7 +111,7 @@ export function Header({ club, navigation, member, onLogout }) {
           type="button"
           aria-expanded={isOpen}
           aria-controls="menu"
-          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-label={isOpen ? labels.closeMenu : labels.openMenu}
           onClick={() => setIsOpen((current) => !current)}
         >
           <span aria-hidden="true" />
@@ -171,10 +171,23 @@ export function Header({ club, navigation, member, onLogout }) {
           {member ? (
             <li>
               <button className="link-button" type="button" onClick={onLogout}>
-                Salir
+                {labels.logout}
               </button>
             </li>
           ) : null}
+          <li className="language-switch" aria-label={labels.languageLabel}>
+            {["es", "en"].map((option) => (
+              <button
+                className={language === option ? "is-active" : ""}
+                type="button"
+                key={option}
+                aria-pressed={language === option}
+                onClick={() => onLanguageChange(option)}
+              >
+                {option.toUpperCase()}
+              </button>
+            ))}
+          </li>
         </ul>
       </nav>
     </header>

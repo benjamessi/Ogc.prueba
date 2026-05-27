@@ -29,14 +29,14 @@ export function MemberAccess({ member, memberArea, onLogin }) {
     <section className="section member-section" id="socios" aria-labelledby="socios-title">
       <div className="member-panel">
         <div>
-          <div className="section-kicker">Exclusivo socios</div>
-          <h2 id="socios-title">Inicio de sesión</h2>
-          <p>Accedé con tus credenciales para consultar información y beneficios exclusivos del club.</p>
+          <div className="section-kicker">{memberArea.kicker}</div>
+          <h2 id="socios-title">{memberArea.title}</h2>
+          <p>{memberArea.intro}</p>
         </div>
 
         {member ? (
-          <div className="member-dashboard" aria-label="Área privada de socios">
-            <p className="welcome">Bienvenido, {member.name}</p>
+          <div className="member-dashboard" aria-label={memberArea.dashboardAria}>
+            <p className="welcome">{memberArea.welcome}, {member.name}</p>
             <div className="member-card-grid">
               {memberArea.cards.map((card) => (
                 <article className="member-card" key={card.title}>
@@ -49,19 +49,19 @@ export function MemberAccess({ member, memberArea, onLogin }) {
         ) : (
           <form className="login-card" onSubmit={handleSubmit}>
             <label>
-              Email de socio
+              {memberArea.emailLabel}
               <input
                 name="email"
                 type="email"
                 autoComplete="email"
                 value={credentials.email}
                 onChange={updateField}
-                placeholder="tuemail@ejemplo.com"
+                placeholder={memberArea.emailPlaceholder}
                 required
               />
             </label>
             <label>
-              Contraseña
+              {memberArea.passwordLabel}
               <input
                 name="password"
                 type="password"
@@ -73,11 +73,11 @@ export function MemberAccess({ member, memberArea, onLogin }) {
             </label>
             {error ? <p className="form-error">{error}</p> : null}
             <button className="button primary full" type="submit">
-              Iniciar sesión
+              {memberArea.submit}
             </button>
             <div className="login-links">
-              <a href="#recuperar">Olvidé mi contraseña</a>
-              <a href="#contacto">Contactar Secretaría</a>
+              <a href="#recuperar">{memberArea.forgotPassword}</a>
+              <a href="#contacto">{memberArea.contactSecretary}</a>
             </div>
           </form>
         )}

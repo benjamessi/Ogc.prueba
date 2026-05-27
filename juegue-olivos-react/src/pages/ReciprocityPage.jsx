@@ -232,35 +232,32 @@ function ClubDetail({ label, value }) {
   );
 }
 
-export function ReciprocityPage({ policies }) {
+export function ReciprocityPage({ policies, reciprocity }) {
   return (
     <>
       <section className="page-hero">
         <div>
-          <p className="eyebrow">Reciprocidad</p>
-          <h1>Convenios y visitas.</h1>
+          <p className="eyebrow">{reciprocity.eyebrow}</p>
+          <h1>{reciprocity.title}</h1>
         </div>
-        <p>
-          Olivos Golf Club mantiene vínculos de reciprocidad con clubes de Argentina y del exterior. Para utilizar este
-          beneficio, se recomienda consultar previamente con Secretaría las condiciones vigentes.
-        </p>
+        <p>{reciprocity.intro}</p>
       </section>
 
       <section className="section reciprocity-section" aria-labelledby="reciprocity-title">
         <div className="section-heading">
           <div>
-            <p className="section-kicker">Clubes con convenio</p>
-            <h2 id="reciprocity-title">Reciprocidad por país</h2>
+            <p className="section-kicker">{reciprocity.kicker}</p>
+            <h2 id="reciprocity-title">{reciprocity.sectionTitle}</h2>
           </div>
-          <p>Desplegá cada país para ver los datos disponibles de contacto y ubicación.</p>
+          <p>{reciprocity.sectionIntro}</p>
         </div>
 
         <div className="reciprocity-list">
           {reciprocityCountries.map((country) => (
             <details className="reciprocity-country" key={country.country}>
               <summary>
-                <span>{country.country}</span>
-                <small>{country.clubs.length} club{country.clubs.length === 1 ? "" : "es"}</small>
+                <span>{reciprocity.countryNames[country.country] ?? country.country}</span>
+                <small>{country.clubs.length} {country.clubs.length === 1 ? reciprocity.clubSingular : reciprocity.clubPlural}</small>
               </summary>
               <div className="reciprocity-clubs">
                 {country.clubs.map((club) => (
@@ -270,12 +267,12 @@ export function ReciprocityPage({ policies }) {
                       {club.city ? <p className="reciprocity-city">{club.city}</p> : null}
                     </div>
                     <div className="reciprocity-details">
-                      <ClubDetail label="Dirección" value={club.address} />
-                      <ClubDetail label="Teléfono" value={club.phone} />
-                      <ClubDetail label="Reservas" value={club.reservations} />
-                      <ClubDetail label="Fax" value={club.fax} />
-                      <ClubDetail label="Email" value={club.email} />
-                      <ClubDetail label="Web" value={club.website} />
+                      <ClubDetail label={reciprocity.details.address} value={club.address} />
+                      <ClubDetail label={reciprocity.details.phone} value={club.phone} />
+                      <ClubDetail label={reciprocity.details.reservations} value={club.reservations} />
+                      <ClubDetail label={reciprocity.details.fax} value={club.fax} />
+                      <ClubDetail label={reciprocity.details.email} value={club.email} />
+                      <ClubDetail label={reciprocity.details.website} value={club.website} />
                     </div>
                   </article>
                 ))}
@@ -285,7 +282,7 @@ export function ReciprocityPage({ policies }) {
         </div>
       </section>
 
-      <Policies items={policies} />
+      <Policies policies={policies} />
     </>
   );
 }

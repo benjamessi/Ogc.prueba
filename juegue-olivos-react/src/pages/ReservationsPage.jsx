@@ -1,14 +1,14 @@
 import { Reservation } from "../components/Reservation.jsx";
 
-export function ReservationsPage({ reservation, member }) {
+export function ReservationsPage({ page, reservation, member }) {
   return (
     <>
       <section className="page-hero">
         <div>
-          <p className="eyebrow">Reservaciones</p>
-          <h1>Reservar horario</h1>
+          <p className="eyebrow">{page.eyebrow}</p>
+          <h1>{page.title}</h1>
         </div>
-        <p>Elegí día y horario para consultar disponibilidad.</p>
+        <p>{page.intro}</p>
       </section>
       <Reservation reservation={reservation} member={member} />
     </>

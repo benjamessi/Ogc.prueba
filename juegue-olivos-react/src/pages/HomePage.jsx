@@ -1,31 +1,13 @@
 import { Link } from "react-router-dom";
 import homeCoverImage from "../assets/olivos-cancha-hero.jpg";
 
-const homeCards = [
-  {
-    title: "Historia del club",
-    body: "Información institucional y tradición.",
-    href: "/historia-club"
-  },
-  {
-    title: "Reservar horario",
-    body: "Elegí día y hora.",
-    href: "/reservaciones"
-  },
-  {
-    title: "Acceso socios",
-    body: "Ingreso privado para socios.",
-    href: "/socios"
-  }
-];
-
 export function HomePage({ siteData }) {
-  const { club, booking } = siteData;
+  const { club, booking, home } = siteData;
 
   return (
     <>
       <section className="home-cover" aria-labelledby="home-cover-title">
-        <img src={homeCoverImage} alt="Jugadores caminando en la cancha del Olivos Golf Club" />
+        <img src={homeCoverImage} alt={home.coverAlt} />
         <div className="home-cover-title">
           <p className="eyebrow">est. 1926</p>
           <h1 id="home-cover-title" data-reflection="Olivos Golf Club">
@@ -40,26 +22,24 @@ export function HomePage({ siteData }) {
             <img src={club.logo} alt="" />
             <p>Olivos Golf Club</p>
           </div>
-          <p className="eyebrow">Golf en Buenos Aires</p>
-          <h1 id="home-title">"La Augusta Argentina."</h1>
-          <p>
-            Una cancha histórica, tres recorridos y una experiencia de golf reconocida en la Argentina.
-          </p>
+          <p className="eyebrow">{home.eyebrow}</p>
+          <h1 id="home-title">{home.title}</h1>
+          <p>{home.intro}</p>
           <div className="hero-actions">
             <Link className="button primary" to="/reservaciones">
-              Reservar horario
+              {home.reserveCta}
             </Link>
             <Link className="button secondary light" to="/historia-club">
-              Historia del club
+              {home.historyCta}
             </Link>
           </div>
         </div>
 
         <div className="home-photo-panel">
-          <img src={club.heroImage} alt="Cancha del Olivos Golf Club" />
-          <aside className="home-availability" aria-label="Información de secretaría">
-            <span className="status-pill">Secretaría</span>
-            <h2>Atención</h2>
+          <img src={club.heroImage} alt={home.heroAlt} />
+          <aside className="home-availability" aria-label={home.secretaryAria}>
+            <span className="status-pill">{home.secretaryLabel}</span>
+            <h2>{home.attentionTitle}</h2>
             <p>{booking.hours}</p>
             <p>{booking.phoneDisplay}</p>
           </aside>
@@ -68,11 +48,11 @@ export function HomePage({ siteData }) {
 
       <section className="section home-access-section" aria-labelledby="home-access-title">
         <div className="section-heading">
-          <h2 id="home-access-title">Accesos principales</h2>
-          <p>Ingresá a la información del club, reservas o área de socios.</p>
+          <h2 id="home-access-title">{home.accessTitle}</h2>
+          <p>{home.accessIntro}</p>
         </div>
-        <div className="home-card-strip" aria-label="Accesos principales">
-          {homeCards.map((card) => (
+        <div className="home-card-strip" aria-label={home.cardsAria}>
+          {home.cards.map((card) => (
             <Link className="home-action-card" to={card.href} key={card.title}>
               <span>{card.title}</span>
               <p>{card.body}</p>
