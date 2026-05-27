@@ -10,6 +10,7 @@ export const siteData = {
     location: "Buenos Aires, Argentina",
     address: "Ruta Panamericana Km 32, acceso Norte Ramal Pilar, Ingeniero Pablo Nogués, Provincia de Buenos Aires.",
     shortAddress: "Ruta Panamericana Km 32, Ramal Pilar",
+    mapQuery: "Olivos Golf Club, Ingeniero Pablo Nogués, Provincia de Buenos Aires",
     email: "secretaria@olivosgolf.com.ar",
     logo: clubLogo,
     heroImage: homeHeroImage

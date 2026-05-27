@@ -1,5 +1,5 @@
 export function ClubhousePage({ club, clubhouse }) {
-  const encodedAddress = encodeURIComponent(club.address);
+  const encodedMapQuery = encodeURIComponent(club.mapQuery ?? club.address);
 
   return (
     <>
@@ -44,7 +44,7 @@ export function ClubhousePage({ club, clubhouse }) {
             <p>{club.address}</p>
             <a
               className="button primary"
-              href={`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodedMapQuery}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -54,7 +54,7 @@ export function ClubhousePage({ club, clubhouse }) {
           <iframe
             className="map-frame"
             title="Mapa de ubicación de Olivos Golf Club"
-            src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
+            src={`https://www.google.com/maps?q=${encodedMapQuery}&z=15&output=embed`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

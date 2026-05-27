@@ -1,5 +1,5 @@
 export function Contact({ booking, club }) {
-  const encodedAddress = encodeURIComponent(club.address);
+  const encodedMapQuery = encodeURIComponent(club.mapQuery ?? club.address);
 
   return (
     <section className="section contact" id="contacto" aria-labelledby="contacto-title">
@@ -44,7 +44,7 @@ export function Contact({ booking, club }) {
             </a>
             <a
               className="button secondary contact-button contact-map-button"
-              href={`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodedMapQuery}`}
               target="_blank"
               rel="noreferrer"
             >
@@ -55,7 +55,7 @@ export function Contact({ booking, club }) {
         <iframe
           className="map-frame contact-map"
           title="Mapa de ubicación de Olivos Golf Club"
-          src={`https://www.google.com/maps?q=${encodedAddress}&output=embed`}
+          src={`https://www.google.com/maps?q=${encodedMapQuery}&z=15&output=embed`}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         />
