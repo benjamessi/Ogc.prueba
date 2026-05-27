@@ -342,6 +342,12 @@ a {
   backdrop-filter: blur(18px);
 }
 
+.site-header.is-transparent .submenu {
+  border-color: rgba(215, 223, 207, 0.72);
+  background: rgba(232, 239, 224, 0.96);
+  box-shadow: 0 14px 34px rgba(16, 30, 21, 0.22);
+}
+
 .menu-group:hover .submenu,
 .menu-group.is-open .submenu {
   display: grid;
@@ -359,6 +365,21 @@ a {
 .submenu a.is-current-child {
   color: var(--moss-dark);
   background: rgba(49, 83, 60, 0.08);
+}
+
+.site-header.is-transparent .submenu a {
+  color: var(--moss-dark);
+}
+
+.site-header.is-transparent .submenu a::after {
+  background: var(--moss);
+}
+
+.site-header.is-transparent .submenu a:hover,
+.site-header.is-transparent .submenu a:focus-visible,
+.site-header.is-transparent .submenu a.is-current-child {
+  color: var(--moss-dark);
+  background: rgba(49, 83, 60, 0.1);
 }
 
 .menu-button {
@@ -2248,11 +2269,14 @@ h3 {
   .menu {
     position: absolute;
     top: calc(100% + 0.65rem);
+    left: 0.75rem;
     right: 0.75rem;
     display: none;
     flex-direction: column;
     align-items: stretch;
-    width: min(24rem, calc(100vw - 1.5rem));
+    width: auto;
+    max-height: calc(100svh - 6rem);
+    overflow: auto;
     padding: 0.7rem;
     border: 1px solid var(--line);
     border-radius: 5px;
@@ -2268,9 +2292,12 @@ h3 {
   .menu a,
   .link-button,
   .menu-trigger {
+    width: 100%;
     min-height: 3.15rem;
-    justify-content: center;
+    justify-content: space-between;
+    padding-inline: 1rem;
     font-size: 1rem;
+    text-align: left;
   }
 
   .menu-group {
@@ -2529,6 +2556,13 @@ h3 {
   .course-feature-photo,
   .clubhouse-photo {
     min-height: 250px;
+  }
+
+  .clubhouse-photo {
+    width: 100%;
+    height: clamp(170px, 42vw, 260px);
+    aspect-ratio: auto;
+    min-height: auto;
   }
 
   .course-route-card,

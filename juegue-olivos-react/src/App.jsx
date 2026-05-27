@@ -17,7 +17,7 @@ const STORAGE_KEY = "ogc-member-session";
 const quickActions = [
   { label: "Inicio", path: "/" },
   { label: "Reservar", path: "/reservaciones" },
-  { label: "Club", path: "/clubhouse" },
+  { label: "Club", path: "/historia-club" },
   { label: "Socios", path: "/socios" }
 ];
 
