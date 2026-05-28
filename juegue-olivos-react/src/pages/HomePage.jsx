@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import homeCoverImage from "../assets/olivos-cancha-hero.jpg";
 
 export function HomePage({ siteData }) {
-  const { club, booking, home } = siteData;
+  const { club, booking, home, sponsors, sponsorsSection } = siteData;
 
   return (
     <>
@@ -46,17 +46,19 @@ export function HomePage({ siteData }) {
         </div>
       </section>
 
-      <section className="section home-access-section" aria-labelledby="home-access-title">
+      <section className="section home-sponsors-section" aria-labelledby="home-sponsors-title">
         <div className="section-heading">
-          <h2 id="home-access-title">{home.accessTitle}</h2>
-          <p>{home.accessIntro}</p>
+          <div>
+            <p className="section-kicker">{sponsorsSection.kicker}</p>
+            <h2 id="home-sponsors-title">{sponsorsSection.title}</h2>
+          </div>
+          <p>{sponsorsSection.text}</p>
         </div>
-        <div className="home-card-strip" aria-label={home.cardsAria}>
-          {home.cards.map((card) => (
-            <Link className="home-action-card" to={card.href} key={card.title}>
-              <span>{card.title}</span>
-              <p>{card.body}</p>
-            </Link>
+        <div className="sponsor-grid" aria-label={sponsorsSection.aria}>
+          {sponsors.map((sponsor) => (
+            <div className={`sponsor-card sponsor-${sponsor.slug}`} key={sponsor.name}>
+              <img src={sponsor.homeLogo} alt={sponsor.name} />
+            </div>
           ))}
         </div>
       </section>

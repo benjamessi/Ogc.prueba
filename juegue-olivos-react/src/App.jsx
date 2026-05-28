@@ -8,6 +8,7 @@ import { CoursePage } from "./pages/CoursePage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { MembersPage } from "./pages/MembersPage.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
+import { PlayingConditionsPage } from "./pages/PlayingConditionsPage.jsx";
 import { RatesPage } from "./pages/RatesPage.jsx";
 import { ReciprocityPage } from "./pages/ReciprocityPage.jsx";
 import { ReservationsPage } from "./pages/ReservationsPage.jsx";
@@ -98,9 +99,13 @@ export default function App() {
           <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
           <Route path="/historia-club" element={<ClubInfoPage history={siteData.history} />} />
           <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
-          <Route path="/reciprocidad" element={<ReciprocityPage policies={siteData.policies} reciprocity={siteData.reciprocity} />} />
+          <Route path="/reciprocidad" element={<ReciprocityPage reciprocity={siteData.reciprocity} />} />
           <Route path="/cancha" element={<CoursePage course={siteData.course} />} />
-          <Route path="/reservaciones" element={<ReservationsPage page={siteData.reservationsPage} reservation={siteData.reservation} member={member} />} />
+          <Route path="/condiciones-juego" element={<PlayingConditionsPage conditions={siteData.playingConditions} booking={siteData.booking} />} />
+          <Route
+            path="/reservaciones"
+            element={<ReservationsPage page={siteData.reservationsPage} reservation={siteData.reservation} scorecard={siteData.scorecard} member={member} />}
+          />
           <Route path="/tarifas" element={<RatesPage page={siteData.ratesPage} rates={siteData.rates} booking={siteData.booking} />} />
           <Route path="/socios" element={<MembersPage page={siteData.membersPage} member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
           <Route path="/contacto" element={<ContactPage page={siteData.contactPage} contact={siteData.contact} booking={siteData.booking} club={siteData.club} />} />
@@ -138,6 +143,21 @@ export default function App() {
             <a href={siteData.booking.phoneHref}>{siteData.booking.phoneDisplay}</a>
             <a href={`mailto:${siteData.club.email}`}>{siteData.club.email}</a>
           </address>
+          <div className="footer-sponsors" aria-label={siteData.sponsorsSection.aria}>
+            <h2>{siteData.sponsorsSection.footerTitle}</h2>
+            <div className="footer-sponsor-grid">
+              {siteData.sponsors.map((sponsor) => (
+                <div
+                  className={`footer-sponsor-logo footer-sponsor-${sponsor.slug} ${
+                    sponsor.needsFooterCard ? "has-light-card" : ""
+                  }`}
+                  key={sponsor.name}
+                >
+                  <img src={sponsor.footerLogo} alt={sponsor.name} />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         <p className="footer-legal">{siteData.ui.footerLegal}</p>
       </footer>

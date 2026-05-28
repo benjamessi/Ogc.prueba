@@ -3,6 +3,11 @@ import clubLogo from "../assets/logo-ogc.png";
 import courseMapImage from "../assets/cancha-plano.jpg";
 import holeFifteenImage from "../assets/hoyo-15.jpeg";
 import clubhouseImage from "../assets/encabezado-salones.jpg";
+import zurichLogo from "../assets/Zurich_Insurance_Group_Logo_Horizontal.svg.png";
+import omintLogo from "../assets/logo-omint-contentful.png";
+import galiciaEminentLogo from "../assets/sponsor-galicia-eminent-logo.png";
+import nicasiaBlackLogo from "../assets/nicasiaLetrasNegras-removebg-preview.png";
+import nicasiaWhiteLogo from "../assets/nicasiaLetrasBlancas-removebg-preview.png";
 
 const commonClub = {
   name: "Olivos Golf Club",
@@ -19,6 +24,37 @@ const sharedAssets = {
   courseMapImage,
   holeFifteenImage
 };
+
+const sponsors = [
+  {
+    name: "Zurich",
+    slug: "zurich",
+    homeLogo: zurichLogo,
+    footerLogo: zurichLogo,
+    needsFooterCard: true
+  },
+  {
+    name: "Omint",
+    slug: "omint",
+    homeLogo: omintLogo,
+    footerLogo: omintLogo,
+    needsFooterCard: true
+  },
+  {
+    name: "Galicia Éminent",
+    slug: "galicia",
+    homeLogo: galiciaEminentLogo,
+    footerLogo: galiciaEminentLogo,
+    needsFooterCard: true
+  },
+  {
+    name: "Nicasia Vineyards",
+    slug: "nicasia",
+    homeLogo: nicasiaBlackLogo,
+    footerLogo: nicasiaBlackLogo,
+    needsFooterCard: true
+  }
+];
 
 const siteContent = {
   es: {
@@ -62,6 +98,7 @@ const siteContent = {
         featured: true,
         children: [
           { label: "Cancha", href: "/cancha" },
+          { label: "Condiciones de juego", href: "/condiciones-juego" },
           { label: "Reservar horario", href: "/reservaciones" },
           { label: "Green fees", href: "/tarifas" }
         ]
@@ -79,15 +116,14 @@ const siteContent = {
       heroAlt: "Cancha del Olivos Golf Club",
       secretaryAria: "Información de secretaría",
       secretaryLabel: "Secretaría",
-      attentionTitle: "Atención",
-      accessTitle: "Accesos principales",
-      accessIntro: "Ingresá a la información del club, reservas o área de socios.",
-      cardsAria: "Accesos principales",
-      cards: [
-        { title: "Historia del club", body: "Información institucional y tradición.", href: "/historia-club" },
-        { title: "Reservar horario", body: "Elegí día y hora.", href: "/reservaciones" },
-        { title: "Acceso socios", body: "Ingreso privado para socios.", href: "/socios" }
-      ]
+      attentionTitle: "Atención"
+    },
+    sponsorsSection: {
+      kicker: "Sponsors",
+      title: "Acompañan al Olivos Golf Club",
+      text: "Empresas que acompañan la actividad institucional, deportiva y social del club.",
+      aria: "Sponsors del Olivos Golf Club",
+      footerTitle: "Sponsors"
     },
     history: {
       eyebrow: "Historia del club",
@@ -177,13 +213,20 @@ const siteContent = {
       featureAria: "Datos del hoyo 15",
       stats: ["Par 5", "470 yardas", "Riesgo y recompensa"],
       feature:
-        "Un hoyo emblemático del club: exige potencia desde el tee, precisión sobre el agua y una decisión clara entre asegurar el par o buscar el premio.",
+        "Este es el hoyo insignia del club. Incluido en 1001 Golf Holes You Must Play Before You Die y reconocido entre los grandes hoyos de golf del mundo, ofrece un desafío memorable de riesgo y recompensa.\n\nEl hoyo asciende levemente desde el tee, con un bosque denso sobre el lado derecho del fairway, y luego desciende hacia un green protegido por agua corta a la derecha y tres bunkers.\n\nPara los jugadores amateurs, intentar llegar al green en dos golpes puede ser tentador, pero un mal tiro puede transformar rápidamente una oportunidad de birdie en un score alto.",
       featureAlt: "Hoyo 15 del Olivos Golf Club",
       routeCards: [
         { name: "Blanca", description: "Uno de los recorridos principales del club, exigente y tradicional." },
         { name: "Colorada", description: "Recorrido estratégico, con hoyos de alto valor competitivo." },
         { name: "Azul", description: "Alternativa complementaria dentro de los 27 hoyos del club." }
       ],
+      conditionsCta: {
+        kicker: "Antes de jugar",
+        title: "Condiciones de juego",
+        text: "Consultá las reglas de la cancha y las condiciones del club antes de salir a jugar.",
+        button: "Ver condiciones de juego",
+        href: "/condiciones-juego"
+      },
       highlights: [
         {
           title: "27 hoyos",
@@ -196,6 +239,86 @@ const siteContent = {
           metric: "8:00 a 16:30"
         }
       ]
+    },
+    playingConditions: {
+      heroEyebrow: "Golf",
+      title: "Condiciones de juego",
+      intro: "Información importante para jugadores, socios e invitados antes de salir a la cancha.",
+      sections: [
+        {
+          title: "Reglas de la cancha",
+          intro:
+            "Para preservar la calidad de la cancha y garantizar una buena experiencia de juego, se solicita a todos los jugadores respetar las siguientes pautas.",
+          items: [
+            {
+              title: "Cuidado del campo",
+              list: [
+                "Arreglar los piques.",
+                "Reponer los divots.",
+                "Rastrillar los bunkers.",
+                "Cuidar las marcas ubicadas en los tees de salida.",
+                "Cuidar las estacas ubicadas en los laterales de los fairways."
+              ]
+            },
+            {
+              title: "Bunkers y rastrillos",
+              text:
+                "Los rastrillos deben colocarse en el centro del bunker, de modo que interfieran lo menos posible en el desarrollo del juego. Si una pelota descansa contra un rastrillo, el jugador deberá marcarla antes de retirarlo. En caso de que la pelota se mueva, podrá ser repuesta sin penalidad. Luego, el rastrillo deberá colocarse nuevamente dentro del bunker."
+            },
+            {
+              title: "Toques de sirena",
+              list: [
+                "Un toque de sirena: suspensión temporal.",
+                "Nuevo toque de sirena: reanudación del juego.",
+                "Dos toques de sirena: suspensión definitiva."
+              ]
+            },
+            {
+              title: "Suspensión del juego",
+              text:
+                "Cuando el juego sea suspendido por el Comité, los jugadores deberán interrumpir el juego de inmediato y no podrán reanudarlo hasta que el Comité así lo disponga. La falta a esta disposición podrá ser sancionada con descalificación.",
+              note:
+                "Esta norma aplica también para modalidad match play y para jugadores que estén por iniciar un nuevo hoyo."
+            }
+          ]
+        },
+        {
+          title: "Condiciones del club",
+          intro:
+            "Las siguientes condiciones forman parte de las normas de convivencia, presentación y uso de las instalaciones del club.",
+          items: [
+            {
+              title: "Vestimenta",
+              text: "No está permitido el uso de las siguientes vestimentas para la práctica de golf:",
+              list: [
+                "Joggings.",
+                "Remeras sin cuello.",
+                "Remeras musculosas.",
+                "Remeras sin mangas en caballeros.",
+                "Camisetas de fútbol, rugby u otros deportes.",
+                "Trajes de baño.",
+                "Shorts y calzas en damas."
+              ]
+            },
+            {
+              title: "Control y cumplimiento",
+              text:
+                "Los miembros de la Comisión de Golf y los starters están a cargo de controlar el cumplimiento de estas normas."
+            },
+            {
+              title: "Recomendación general",
+              text:
+                "Antes de asistir al club, se recomienda confirmar con Secretaría cualquier condición vigente sobre horarios, vestimenta, salidas, invitados o suspensión por clima."
+            }
+          ]
+        }
+      ],
+      cta: {
+        title: "¿Tenés dudas antes de jugar?",
+        text: "Comunicate con Secretaría para confirmar condiciones vigentes, horarios y disponibilidad.",
+        contact: "Contactar Secretaría",
+        reserve: "Reservar horario"
+      }
     },
     booking: {
       phoneDisplay: "(5411) 4587-1076 int. 112 / 101 / 102",
@@ -237,6 +360,17 @@ const siteContent = {
         unavailable:
           "Ese día no está habilitado para reservas. Elegí miércoles, o martes, jueves, viernes, sábado o domingo si sos socio."
       }
+    },
+    scorecard: {
+      eyebrow: "Imprimir",
+      title: "Descargá tu tarjeta",
+      text:
+        "Antes de salir a la cancha, podés descargar e imprimir la tarjeta de juego con el mapa de la cancha y la información de los recorridos Blanca, Colorada y Azul.",
+      helper: "La tarjeta incluye información de la cancha, recorridos y scorecard para uso del jugador.",
+      downloadButton: "Descargar tarjeta",
+      printButton: "Imprimir tarjeta",
+      previewLabel: "Tarjeta de juego",
+      fileName: "Tarjeta de juego - Olivos Golf Club.pdf"
     },
     ratesPage: {
       eyebrow: "Green fees",
@@ -432,6 +566,7 @@ const siteContent = {
         featured: true,
         children: [
           { label: "Course", href: "/cancha" },
+          { label: "Playing conditions", href: "/condiciones-juego" },
           { label: "Book a tee time", href: "/reservaciones" },
           { label: "Green fees", href: "/tarifas" }
         ]
@@ -449,15 +584,14 @@ const siteContent = {
       heroAlt: "Olivos Golf Club course",
       secretaryAria: "Secretary information",
       secretaryLabel: "Secretary",
-      attentionTitle: "Office hours",
-      accessTitle: "Main access",
-      accessIntro: "Explore club information, bookings or the members area.",
-      cardsAria: "Main access",
-      cards: [
-        { title: "Club history", body: "Institutional information and tradition.", href: "/historia-club" },
-        { title: "Book a tee time", body: "Choose your day and time.", href: "/reservaciones" },
-        { title: "Members access", body: "Private access for members.", href: "/socios" }
-      ]
+      attentionTitle: "Office hours"
+    },
+    sponsorsSection: {
+      kicker: "Sponsors",
+      title: "Supporting Olivos Golf Club",
+      text: "Companies supporting the club's institutional, sporting and social activity.",
+      aria: "Olivos Golf Club sponsors",
+      footerTitle: "Sponsors"
     },
     history: {
       eyebrow: "Club history",
@@ -546,13 +680,20 @@ const siteContent = {
       featureAria: "Hole 15 details",
       stats: ["Par 5", "470 yards", "Risk and reward"],
       feature:
-        "An emblematic hole at the club: it demands power from the tee, precision over the water and a clear decision between securing par or chasing the reward.",
+        "This is the club's signature hole. Featured in 1001 Golf Holes You Must Play Before You Die and recognized among the great golf holes of the world, it offers a memorable risk-and-reward challenge.\n\nThe hole rises gently from the tee, with dense woodland along the right side of the fairway, before descending toward a green protected by water short right and three bunkers.\n\nFor amateur players, trying to reach the green in two can be tempting, but one poor shot can quickly turn a birdie opportunity into a high score.",
       featureAlt: "Hole 15 at Olivos Golf Club",
       routeCards: [
         { name: "Blanca", description: "One of the club's main layouts, demanding and traditional." },
         { name: "Colorada", description: "A strategic layout, with holes of strong competitive value." },
         { name: "Azul", description: "A complementary alternative within the club's 27 holes." }
       ],
+      conditionsCta: {
+        kicker: "Before playing",
+        title: "Playing conditions",
+        text: "Review course rules and club conditions before going out to play.",
+        button: "View playing conditions",
+        href: "/condiciones-juego"
+      },
       highlights: [
         {
           title: "27 holes",
@@ -565,6 +706,84 @@ const siteContent = {
           metric: "8:00 to 16:30"
         }
       ]
+    },
+    playingConditions: {
+      heroEyebrow: "Golf",
+      title: "Playing conditions",
+      intro: "Important information for players, members and guests before going out on the course.",
+      sections: [
+        {
+          title: "Course rules",
+          intro:
+            "To preserve course quality and ensure a good playing experience, all players are asked to respect the following guidelines.",
+          items: [
+            {
+              title: "Course care",
+              list: [
+                "Repair pitch marks.",
+                "Replace divots.",
+                "Rake bunkers.",
+                "Take care of the markers located on teeing areas.",
+                "Take care of the stakes located along fairway sides."
+              ]
+            },
+            {
+              title: "Bunkers and rakes",
+              text:
+                "Rakes should be placed in the center of the bunker so they interfere as little as possible with play. If a ball rests against a rake, the player should mark the ball before removing it. If the ball moves, it may be replaced without penalty. The rake should then be placed back inside the bunker."
+            },
+            {
+              title: "Siren signals",
+              list: [
+                "One siren signal: temporary suspension.",
+                "New siren signal: play resumes.",
+                "Two siren signals: definitive suspension."
+              ]
+            },
+            {
+              title: "Suspension of play",
+              text:
+                "When play is suspended by the Committee, players must stop play immediately and may not resume until the Committee authorizes it. Failure to comply may result in disqualification.",
+              note: "This rule also applies to match play and to players who are about to start a new hole."
+            }
+          ]
+        },
+        {
+          title: "Club conditions",
+          intro:
+            "The following conditions are part of the club's standards for coexistence, presentation and use of facilities.",
+          items: [
+            {
+              title: "Dress code",
+              text: "The following clothing is not permitted for playing golf:",
+              list: [
+                "Jogging pants.",
+                "Collarless shirts.",
+                "Tank tops.",
+                "Sleeveless shirts for men.",
+                "Football, rugby or other sports jerseys.",
+                "Swimwear.",
+                "Shorts and leggings for ladies."
+              ]
+            },
+            {
+              title: "Control and compliance",
+              text: "Golf Committee members and starters are responsible for monitoring compliance with these rules."
+            },
+            {
+              title: "General recommendation",
+              text:
+                "Before visiting the club, we recommend confirming current conditions with the Secretary's office regarding schedules, dress code, tee times, guests or weather suspensions."
+            }
+          ]
+        }
+      ],
+      cta: {
+        title: "Any questions before playing?",
+        text: "Contact the Secretary's office to confirm current conditions, schedules and availability.",
+        contact: "Contact Secretary",
+        reserve: "Book a tee time"
+      }
     },
     booking: {
       phoneDisplay: "(5411) 4587-1076 ext. 112 / 101 / 102",
@@ -604,6 +823,17 @@ const siteContent = {
         unavailable:
           "That day is not available for bookings. Choose Wednesday, or Tuesday, Thursday, Friday, Saturday or Sunday if you are a member."
       }
+    },
+    scorecard: {
+      eyebrow: "Print",
+      title: "Download your scorecard",
+      text:
+        "Before going out on the course, you can download and print the scorecard with the course map and information for the Blanca, Colorada and Azul layouts.",
+      helper: "The card includes course information, layouts and scorecard details for player use.",
+      downloadButton: "Download scorecard",
+      printButton: "Print scorecard",
+      previewLabel: "Scorecard",
+      fileName: "Olivos Golf Club scorecard.pdf"
     },
     ratesPage: {
       eyebrow: "Green fees",
@@ -771,6 +1001,7 @@ export function getSiteData(language = "es") {
     club: {
       ...commonClub,
       ...content.club
-    }
+    },
+    sponsors
   };
 }

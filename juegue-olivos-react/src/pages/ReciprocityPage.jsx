@@ -1,5 +1,3 @@
-import { Policies } from "../components/Policies.jsx";
-
 const reciprocityCountries = [
   {
     country: "Argentina",
@@ -232,7 +230,7 @@ function ClubDetail({ label, value }) {
   );
 }
 
-export function ReciprocityPage({ policies, reciprocity }) {
+export function ReciprocityPage({ reciprocity }) {
   return (
     <>
       <section className="page-hero">
@@ -282,7 +280,6 @@ export function ReciprocityPage({ policies, reciprocity }) {
         </div>
       </section>
 
-      <Policies policies={policies} />
     </>
   );
 }

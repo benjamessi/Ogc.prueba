@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const holeImageModules = import.meta.glob("../assets/course-holes/**/*.{jpg,jpeg,png,webp}", {
   eager: true,
@@ -44,6 +45,17 @@ export function CoursePage({ course }) {
             <img src={course.map} alt={course.mapAlt} />
           </figure>
         </div>
+      </section>
+
+      <section className="section course-conditions-cta" aria-labelledby="course-conditions-title">
+        <div>
+          <p className="section-kicker">{course.conditionsCta.kicker}</p>
+          <h2 id="course-conditions-title">{course.conditionsCta.title}</h2>
+          <p>{course.conditionsCta.text}</p>
+        </div>
+        <Link className="button secondary" to={course.conditionsCta.href}>
+          {course.conditionsCta.button}
+        </Link>
       </section>
 
       <section className="section course-routes-section" aria-labelledby="routes-title">
@@ -99,7 +111,11 @@ export function CoursePage({ course }) {
                 <span key={stat}>{stat}</span>
               ))}
             </div>
-            <p>{course.feature}</p>
+            <div className="course-feature-text">
+              {course.feature.split("\n\n").map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </div>
           <figure className="course-feature-photo">
             <img src={course.holeFifteenImage} alt={course.featureAlt} />
