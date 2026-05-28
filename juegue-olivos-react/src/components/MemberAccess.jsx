@@ -8,6 +8,7 @@ const initialCredentials = {
 export function MemberAccess({ member, memberArea, onLogin }) {
   const [credentials, setCredentials] = useState(initialCredentials);
   const [error, setError] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -18,6 +19,7 @@ export function MemberAccess({ member, memberArea, onLogin }) {
     }
     setError("");
     setCredentials(initialCredentials);
+    setIsPasswordVisible(false);
   }
 
   function updateField(event) {
@@ -62,14 +64,24 @@ export function MemberAccess({ member, memberArea, onLogin }) {
             </label>
             <label>
               {memberArea.passwordLabel}
-              <input
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                value={credentials.password}
-                onChange={updateField}
-                required
-              />
+              <span className="password-field">
+                <input
+                  name="password"
+                  type={isPasswordVisible ? "text" : "password"}
+                  autoComplete="current-password"
+                  value={credentials.password}
+                  onChange={updateField}
+                  required
+                />
+                <button
+                  className="password-toggle"
+                  type="button"
+                  aria-pressed={isPasswordVisible}
+                  onClick={() => setIsPasswordVisible((current) => !current)}
+                >
+                  {isPasswordVisible ? memberArea.hidePassword : memberArea.showPassword}
+                </button>
+              </span>
             </label>
             {error ? <p className="form-error">{error}</p> : null}
             <button className="button primary full" type="submit">

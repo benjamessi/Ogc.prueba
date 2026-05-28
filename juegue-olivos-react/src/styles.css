@@ -2015,6 +2015,55 @@ h3 {
   border-color: var(--moss);
 }
 
+.password-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: white;
+  overflow: hidden;
+}
+
+.password-field:focus-within {
+  outline: 3px solid rgba(49, 83, 60, 0.22);
+  border-color: var(--moss);
+}
+
+.login-card .password-field input {
+  border: 0;
+  border-radius: 0;
+}
+
+.login-card .password-field input:focus {
+  outline: 0;
+}
+
+.password-toggle {
+  min-width: 5.4rem;
+  border: 0;
+  border-left: 1px solid var(--line);
+  color: var(--moss-dark);
+  background: rgba(215, 223, 207, 0.45);
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.password-toggle:hover,
+.password-toggle:focus-visible {
+  color: white;
+  background: var(--moss);
+}
+
+.password-toggle:active {
+  transform: translateY(0);
+}
+
 .form-error {
   margin: 0.5rem 0 0;
   color: var(--danger);
