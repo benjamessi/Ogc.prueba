@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const initialCredentials = {
   email: "",
@@ -88,8 +89,8 @@ export function MemberAccess({ member, memberArea, onLogin }) {
               {memberArea.submit}
             </button>
             <div className="login-links">
-              <a href="#recuperar">{memberArea.forgotPassword}</a>
-              <a href="#contacto">{memberArea.contactSecretary}</a>
+              <a href={memberArea.forgotPasswordHref}>{memberArea.forgotPassword}</a>
+              <Link to="/contacto">{memberArea.contactSecretary}</Link>
             </div>
           </form>
         )}

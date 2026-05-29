@@ -7,7 +7,6 @@ import zurichLogo from "../assets/Zurich_Insurance_Group_Logo_Horizontal.svg.png
 import omintLogo from "../assets/logo-omint-contentful.png";
 import galiciaEminentLogo from "../assets/sponsor-galicia-eminent-logo.png";
 import nicasiaBlackLogo from "../assets/nicasiaLetrasNegras-removebg-preview.png";
-import nicasiaWhiteLogo from "../assets/nicasiaLetrasBlancas-removebg-preview.png";
 
 const commonClub = {
   name: "Olivos Golf Club",
@@ -65,7 +64,7 @@ const siteContent = {
         homeAria: "Olivos Golf Club inicio",
         openMenu: "Abrir menú",
         closeMenu: "Cerrar menú",
-        logout: "Salir",
+        logout: "Cerrar sesión",
         languageLabel: "Idioma"
       },
       skipLink: "Saltar al contenido",
@@ -202,7 +201,7 @@ const siteContent = {
       overviewText: "Los tres recorridos permiten combinar distintas vueltas y experiencias dentro de una misma cancha.",
       mapAlt: "Plano de la cancha del Olivos Golf Club",
       routesKicker: "Recorridos",
-      routesTitle: "Tres formas de jugar Olivos",
+      routesTitle: "Los recorridos de la cancha",
       routesIntro: "Cada recorrido contiene 9 hoyos. Abrí uno para ver el detalle sin desplegar toda la cancha a la vez.",
       closeRoute: "Cerrar recorrido",
       viewHoles: "Ver hoyos",
@@ -323,8 +322,7 @@ const siteContent = {
     booking: {
       phoneDisplay: "(5411) 4587-1076 int. 112 / 101 / 102",
       phoneHref: "tel:+541145871076",
-      hours: "Martes a sábado, 8:00 a 16:30.",
-      note: "Domingo: secretaría cerrada. Validar disponibilidad y reciprocidad antes de acercarse."
+      hours: "Martes a sábado, 8:00 a 16:30."
     },
     reservationsPage: {
       eyebrow: "Reservaciones",
@@ -333,7 +331,7 @@ const siteContent = {
     },
     reservation: {
       intro:
-        "Elegí día y horario. El sistema valida automáticamente si la reserva está permitida según la condición del jugador.",
+        "Elegí día y horario. El sistema comprueba automáticamente si la reserva está permitida según la condición del jugador.",
       times: ["08:00", "09:30", "11:00", "13:30", "15:00"],
       kicker: "Reservar horario",
       title: "Elegí día y hora.",
@@ -343,6 +341,7 @@ const siteContent = {
       statusLabel: "Condición",
       memberLabel: "Socio",
       nonMemberLabel: "No socio",
+      memberLoginHint: "Para reservar como socio, primero tenés que iniciar sesión.",
       guestsLabel: "Invitados externos",
       noGuests: "Sin invitados",
       oneGuest: "1 invitado",
@@ -351,7 +350,7 @@ const siteContent = {
         noDate: "Elegí un día para consultar disponibilidad.",
         openWednesday: "Miércoles de golf abierto: pueden reservar socios y no socios.",
         memberOnlyWeekdays:
-          "Los martes, jueves y viernes sólo pueden reservar socios. Los no socios pueden reservar los miércoles.",
+          "Los martes, jueves y viernes sólo pueden reservar socios. Para reservar como socio, primero tenés que iniciar sesión.",
         maxOneGuest: "Los martes, jueves y viernes cada socio puede invitar como máximo a 1 invitado.",
         weekdayOk: "Día habilitado para socios. Podés sumar como máximo 1 invitado.",
         weekendMembersOnly: "Los sábados y domingos sólo pueden reservar socios.",
@@ -425,9 +424,9 @@ const siteContent = {
       intro: "Ingreso al área privada para socios del club."
     },
     memberArea: {
-      demoEmail: "socio@olivos.test",
-      demoPassword: "olivos",
-      demoName: "Socio OGC",
+      authEmail: "socio@olivosgolf.com.ar",
+      authPassword: "olivos",
+      memberName: "Socio OGC",
       errorMessage: "Los datos ingresados no son correctos. Verificá tu email y contraseña.",
       kicker: "Exclusivo socios",
       title: "Inicio de sesión",
@@ -441,6 +440,7 @@ const siteContent = {
       hidePassword: "Ocultar",
       submit: "Iniciar sesión",
       forgotPassword: "Olvidé mi contraseña",
+      forgotPasswordHref: "mailto:secretaria@olivosgolf.com.ar?subject=Recuperar%20contrase%C3%B1a",
       contactSecretary: "Contactar Secretaría",
       cards: [
         { title: "Reservas internas", body: "Acceso rápido a turnos, condiciones del día y avisos de secretaría." },
@@ -477,7 +477,7 @@ const siteContent = {
       eyebrow: "Reciprocidad",
       title: "Convenios y visitas.",
       intro:
-        "Olivos Golf Club mantiene vínculos de reciprocidad con clubes de Argentina y del exterior. Para utilizar este beneficio, se recomienda consultar previamente con Secretaría las condiciones vigentes.",
+        "Olivos Golf Club mantiene convenios de reciprocidad con clubes de Argentina y de distintos países del exterior, ampliando las posibilidades de juego para sus socios en instituciones afines. Para utilizar este beneficio, se recomienda consultar previamente con Secretaría las condiciones vigentes.",
       kicker: "Clubes con convenio",
       sectionTitle: "Reciprocidad por país",
       sectionIntro: "Desplegá cada país para ver los datos disponibles de contacto y ubicación.",
@@ -492,31 +492,6 @@ const siteContent = {
         website: "Web"
       },
       countryNames: {}
-    },
-    policies: {
-      kicker: "Condiciones",
-      title: "Reglas importantes",
-      intro: "Condiciones generales para visitantes y jugadores.",
-      items: [
-        {
-          title: "Fines de semana",
-          body:
-            "La página original indica juego únicamente acompañado por un socio y sin jugar torneo. Validar si la política sigue vigente.",
-          icon: "A"
-        },
-        {
-          title: "Devolución de green fee",
-          body:
-            "Una vez iniciado el juego, si se suspende por cualquier motivo, el importe cobrado no tiene devolución según el texto original.",
-          icon: "B"
-        },
-        {
-          title: "Vestuarios",
-          body:
-            "Caballeros: 07:00 a 20:00. Damas: 08:00 a 18:00. Conviene confirmar horarios actuales y servicios disponibles.",
-          icon: "C"
-        }
-      ]
     },
     notFound: {
       eyebrow: "Página no encontrada",
@@ -788,8 +763,7 @@ const siteContent = {
     booking: {
       phoneDisplay: "(5411) 4587-1076 ext. 112 / 101 / 102",
       phoneHref: "tel:+541145871076",
-      hours: "Tuesday to Saturday, 8:00 AM to 4:30 PM.",
-      note: "Sunday: secretary's office closed. Please confirm availability and reciprocity before visiting."
+      hours: "Tuesday to Saturday, 8:00 AM to 4:30 PM."
     },
     reservationsPage: {
       eyebrow: "Bookings",
@@ -797,7 +771,7 @@ const siteContent = {
       intro: "Choose a day and time to check availability."
     },
     reservation: {
-      intro: "Choose a day and time. The system automatically validates whether the booking is allowed for the player type.",
+      intro: "Choose a day and time. The system automatically checks whether the booking is allowed for the player type.",
       times: ["08:00", "09:30", "11:00", "13:30", "15:00"],
       kicker: "Book a tee time",
       title: "Choose day and time.",
@@ -807,6 +781,7 @@ const siteContent = {
       statusLabel: "Status",
       memberLabel: "Member",
       nonMemberLabel: "Non-member",
+      memberLoginHint: "To book as a member, you must sign in first.",
       guestsLabel: "External guests",
       noGuests: "No guests",
       oneGuest: "1 guest",
@@ -814,7 +789,7 @@ const siteContent = {
       rules: {
         noDate: "Choose a day to check availability.",
         openWednesday: "Wednesday is open golf: members and non-members may book.",
-        memberOnlyWeekdays: "Tuesday, Thursday and Friday are members-only. Non-members may book on Wednesdays.",
+        memberOnlyWeekdays: "Tuesday, Thursday and Friday are members-only. To book as a member, you must sign in first.",
         maxOneGuest: "On Tuesday, Thursday and Friday, each member may invite up to 1 guest.",
         weekdayOk: "Day available for members. You may add up to 1 guest.",
         weekendMembersOnly: "Saturday and Sunday bookings are members-only.",
@@ -888,9 +863,9 @@ const siteContent = {
       intro: "Access to the club's private members area."
     },
     memberArea: {
-      demoEmail: "socio@olivos.test",
-      demoPassword: "olivos",
-      demoName: "OGC Member",
+      authEmail: "socio@olivosgolf.com.ar",
+      authPassword: "olivos",
+      memberName: "OGC Member",
       errorMessage: "The details entered are not correct. Please check your email and password.",
       kicker: "Members only",
       title: "Sign in",
@@ -904,6 +879,7 @@ const siteContent = {
       hidePassword: "Hide",
       submit: "Sign in",
       forgotPassword: "Forgot my password",
+      forgotPasswordHref: "mailto:secretaria@olivosgolf.com.ar?subject=Password%20recovery",
       contactSecretary: "Contact Secretary",
       cards: [
         { title: "Internal bookings", body: "Quick access to tee times, daily conditions and secretary notices." },
@@ -958,31 +934,6 @@ const siteContent = {
         Perú: "Peru",
         Suiza: "Switzerland"
       }
-    },
-    policies: {
-      kicker: "Conditions",
-      title: "Important rules",
-      intro: "General conditions for visitors and players.",
-      items: [
-        {
-          title: "Weekends",
-          body:
-            "The original site states that play is allowed only when accompanied by a member and not while playing a tournament. Please confirm whether this policy is still current.",
-          icon: "A"
-        },
-        {
-          title: "Green fee refunds",
-          body:
-            "Once play has started, if it is suspended for any reason, the amount charged is not refundable according to the original text.",
-          icon: "B"
-        },
-        {
-          title: "Locker rooms",
-          body:
-            "Men: 07:00 to 20:00. Ladies: 08:00 to 18:00. We recommend confirming current hours and available services.",
-          icon: "C"
-        }
-      ]
     },
     notFound: {
       eyebrow: "Page not found",

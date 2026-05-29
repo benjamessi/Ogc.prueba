@@ -162,6 +162,7 @@ export function Reservation({ reservation, member }) {
             <label>
               {reservation.statusLabel}
               <input type="text" value={isMember ? reservation.memberLabel : reservation.nonMemberLabel} readOnly />
+              {!isMember ? <small className="reservation-login-hint">{reservation.memberLoginHint}</small> : null}
             </label>
             <label>
               {reservation.guestsLabel}

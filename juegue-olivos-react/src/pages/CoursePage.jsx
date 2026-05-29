@@ -53,7 +53,7 @@ export function CoursePage({ course }) {
           <h2 id="course-conditions-title">{course.conditionsCta.title}</h2>
           <p>{course.conditionsCta.text}</p>
         </div>
-        <Link className="button secondary" to={course.conditionsCta.href}>
+        <Link className="button secondary light" to={course.conditionsCta.href}>
           {course.conditionsCta.button}
         </Link>
       </section>

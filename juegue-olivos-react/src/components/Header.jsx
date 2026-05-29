@@ -94,6 +94,11 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
     setOpenGroup((current) => (current === label ? null : label));
   }
 
+  function handleLogoutClick() {
+    onLogout();
+    closeMenu();
+  }
+
   return (
     <header className={`site-header ${isHome && isOverHomeCover && !isOpen ? "is-transparent" : ""}`}>
       <nav className="nav" aria-label={labels.primaryNav}>
@@ -157,24 +162,23 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
 
             return (
               <li className="menu-item" key={item.href}>
-                <NavLink
-                  className={({ isActive }) => `${item.featured ? "nav-cta" : ""} ${isActive ? "is-active" : ""}`}
-                  end={item.href === "/"}
-                  to={item.href}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </NavLink>
+                {member && item.href === "/socios" ? (
+                  <button className="link-button" type="button" onClick={handleLogoutClick}>
+                    {labels.logout}
+                  </button>
+                ) : (
+                  <NavLink
+                    className={({ isActive }) => `${item.featured ? "nav-cta" : ""} ${isActive ? "is-active" : ""}`}
+                    end={item.href === "/"}
+                    to={item.href}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </NavLink>
+                )}
               </li>
             );
           })}
-          {member ? (
-            <li>
-              <button className="link-button" type="button" onClick={onLogout}>
-                {labels.logout}
-              </button>
-            </li>
-          ) : null}
           <li className="language-switch" aria-label={labels.languageLabel}>
             {["es", "en"].map((option) => (
               <button

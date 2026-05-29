@@ -50,8 +50,8 @@ export default function App() {
   }, [location.pathname, location.hash]);
 
   function handleLogin(credentials) {
-    const emailMatches = credentials.email.trim().toLowerCase() === siteData.memberArea.demoEmail;
-    const passwordMatches = credentials.password === siteData.memberArea.demoPassword;
+    const emailMatches = credentials.email.trim().toLowerCase() === siteData.memberArea.authEmail;
+    const passwordMatches = credentials.password === siteData.memberArea.authPassword;
 
     if (!emailMatches || !passwordMatches) {
       return {
@@ -62,7 +62,7 @@ export default function App() {
 
     const nextMember = {
       email: credentials.email.trim().toLowerCase(),
-      name: siteData.memberArea.demoName
+      name: siteData.memberArea.memberName
     };
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextMember));
     setMember(nextMember);
@@ -118,16 +118,27 @@ export default function App() {
         style={{ "--active-index": Math.max(quickActionIndex, 0) }}
       >
         <span className="liquid-indicator" aria-hidden="true" />
-        {siteData.quickActions.map((action) => (
-          <NavLink
-            className={({ isActive }) => (isActive ? "is-active" : undefined)}
-            end={action.path === "/"}
-            to={action.path}
-            key={action.path}
-          >
-            {action.label}
-          </NavLink>
-        ))}
+        {siteData.quickActions.map((action) =>
+          member && action.path === "/socios" ? (
+            <button
+              type="button"
+              className={currentPath === action.path ? "is-active" : undefined}
+              onClick={handleLogout}
+              key={action.path}
+            >
+              {siteData.ui.header.logout}
+            </button>
+          ) : (
+            <NavLink
+              className={({ isActive }) => (isActive ? "is-active" : undefined)}
+              end={action.path === "/"}
+              to={action.path}
+              key={action.path}
+            >
+              {action.label}
+            </NavLink>
+          )
+        )}
       </nav>
       <footer className="footer">
         <div className="footer-main">

@@ -25,7 +25,7 @@ export function ReservationsPage({ page, reservation, scorecard, member }) {
               <a className="button primary" href={scorecardPdf} download={scorecard.fileName} target="_blank" rel="noreferrer">
                 {scorecard.downloadButton}
               </a>
-              <a className="button secondary" href={scorecardPdf} target="_blank" rel="noreferrer">
+              <a className="button secondary light" href={scorecardPdf} target="_blank" rel="noreferrer">
                 {scorecard.printButton}
               </a>
             </div>
