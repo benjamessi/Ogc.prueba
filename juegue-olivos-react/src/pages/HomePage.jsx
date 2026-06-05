@@ -9,7 +9,10 @@ export function HomePage({ siteData }) {
       <section className="home-cover" aria-labelledby="home-cover-title">
         <img src={homeCoverImage} alt={home.coverAlt} />
         <div className="home-cover-title">
-          <p className="eyebrow">est. 1926</p>
+          <p className="centenary-badge" aria-label="100 años, 1926 a 2026">
+            <span>100 AÑOS</span>
+            <span>1926 — 2026</span>
+          </p>
           <h1 id="home-cover-title" data-reflection="Olivos Golf Club">
             Olivos Golf Club
           </h1>
