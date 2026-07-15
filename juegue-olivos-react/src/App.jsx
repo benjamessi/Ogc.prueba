@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { CurtainIntro } from "./components/CurtainIntro.jsx";
 import { Header } from "./components/Header.jsx";
 import { ClubhousePage } from "./pages/ClubhousePage.jsx";
 import { ClubInfoPage } from "./pages/ClubInfoPage.jsx";
@@ -81,6 +82,7 @@ export default function App() {
 
   return (
     <>
+      <CurtainIntro />
       <a className="skip-link" href="#contenido" onClick={handleSkipLink}>
         {siteData.ui.skipLink}
       </a>
