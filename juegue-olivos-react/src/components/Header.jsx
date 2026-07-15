@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { useHeaderScroll } from "../hooks/useHeaderScroll.js";
+
+const HOVER_GRACE = 320;
 
 export function Header({ club, navigation, member, onLogout, language, onLanguageChange, labels }) {
   const [isOpen, setIsOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
   const [isOverHomeCover, setIsOverHomeCover] = useState(false);
+  const { isPinned, isScrolled } = useHeaderScroll({ isMenuOpen: isOpen });
+  const closeTimerRef = useRef(null);
   const location = useLocation();
   const isHome = location.pathname === "/";
 
@@ -49,7 +54,10 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
     };
   }, []);
 
+  useEffect(() => () => window.clearTimeout(closeTimerRef.current), []);
+
   function closeMenu() {
+    window.clearTimeout(closeTimerRef.current);
     setIsOpen(false);
     setOpenGroup(null);
   }
@@ -94,13 +102,47 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
     setOpenGroup((current) => (current === label ? null : label));
   }
 
+  function canHover() {
+    return window.matchMedia("(hover: hover)").matches;
+  }
+
+  /*
+   * El submenú flota con un hueco respecto del trigger: sin período de gracia se
+   * cierra apenas el puntero cruza ese espacio. El timer también permite pasar de
+   * "Club" a "Golf" en diagonal sin que parpadee.
+   */
+  function handleGroupEnter(label) {
+    if (!canHover()) {
+      return;
+    }
+    window.clearTimeout(closeTimerRef.current);
+    setOpenGroup(label);
+  }
+
+  function handleGroupLeave() {
+    if (!canHover()) {
+      return;
+    }
+    window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = window.setTimeout(() => setOpenGroup(null), HOVER_GRACE);
+  }
+
   function handleLogoutClick() {
     onLogout();
     closeMenu();
   }
 
   return (
-    <header className={`site-header ${isHome && isOverHomeCover && !isOpen ? "is-transparent" : ""}`}>
+    <header
+      className={[
+        "site-header",
+        isHome && isOverHomeCover && !isOpen ? "is-transparent" : "",
+        isPinned ? "is-pinned" : "is-unpinned",
+        isScrolled ? "is-scrolled" : ""
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <nav className="nav" aria-label={labels.primaryNav}>
         <Link className="brand" to="/" aria-label={labels.homeAria}>
           <span className="brand-mark">
@@ -130,7 +172,12 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
               const isGroupOpen = openGroup === item.label;
 
               return (
-                <li className={`menu-item menu-group ${isGroupOpen ? "is-open" : ""}`} key={item.label}>
+                <li
+                  className={`menu-item menu-group ${isGroupOpen ? "is-open" : ""}`}
+                  key={item.label}
+                  onMouseEnter={() => handleGroupEnter(item.label)}
+                  onMouseLeave={handleGroupLeave}
+                >
                   <button
                     className={`menu-trigger ${item.featured ? "nav-cta" : ""} ${isActive ? "is-active" : ""}`}
                     type="button"
@@ -179,6 +226,11 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
               </li>
             );
           })}
+          <li className="menu-item menu-reserve">
+            <NavLink className="nav-reserve" to="/reservaciones" onClick={closeMenu}>
+              {labels.reserve}
+            </NavLink>
+          </li>
           <li className="language-switch" aria-label={labels.languageLabel}>
             {["es", "en"].map((option) => (
               <button

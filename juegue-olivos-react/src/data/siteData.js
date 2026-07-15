@@ -65,7 +65,8 @@ const siteContent = {
         openMenu: "Abrir menú",
         closeMenu: "Cerrar menú",
         logout: "Cerrar sesión",
-        languageLabel: "Idioma"
+        languageLabel: "Idioma",
+        reserve: "Reservar"
       },
       skipLink: "Saltar al contenido",
       quickActionsAria: "Acciones rápidas para celular",
@@ -94,7 +95,6 @@ const siteContent = {
       },
       {
         label: "Golf",
-        featured: true,
         children: [
           { label: "Cancha", href: "/cancha" },
           { label: "Condiciones de juego", href: "/condiciones-juego" },
@@ -115,7 +115,42 @@ const siteContent = {
       heroAlt: "Cancha del Olivos Golf Club",
       secretaryAria: "Información de secretaría",
       secretaryLabel: "Secretaría",
-      attentionTitle: "Atención"
+      attentionTitle: "Atención",
+      stats: {
+        aria: "Cifras del club",
+        items: [
+          { value: 1926, from: 1880, label: "Año de fundación" },
+          { value: 100, from: 0, label: "Años de historia" },
+          { value: 27, from: 0, label: "Hoyos" },
+          { value: 3, from: 0, label: "Recorridos" }
+        ]
+      },
+      courseTeaser: {
+        kicker: "La cancha",
+        title: "Tres recorridos, una misma cancha.",
+        text: "Diseñada por Luther H. Koontz, combina arboledas añosas, desniveles naturales y greens exigentes. Los recorridos Blanca, Colorada y Azul permiten armar distintas vueltas de 18 hoyos.",
+        cta: "Conocer la cancha",
+        routes: [
+          { name: "Blanca", slug: "blanca", description: "Exigente y tradicional, uno de los recorridos principales del club." },
+          { name: "Colorada", slug: "colorada", description: "Recorrido estratégico, con hoyos de alto valor competitivo." },
+          { name: "Azul", slug: "azul", description: "Alternativa complementaria dentro de los 27 hoyos del club." }
+        ]
+      },
+      holeFeature: {
+        kicker: "Hoyo insignia",
+        title: "Hoyo 15",
+        stats: ["Par 5", "470 yardas", "Riesgo y recompensa"],
+        text: "Incluido en 1001 Golf Holes You Must Play Before You Die, el 15 desciende hacia un green protegido por agua y tres bunkers. Llegar en dos golpes es tentador, pero un mal tiro convierte rápido una oportunidad de birdie en un score alto.",
+        cta: "Ver el hoyo 15",
+        imageAlt: "Hoyo 15 del Olivos Golf Club"
+      },
+      historyTeaser: {
+        kicker: "Centenario 1926 — 2026",
+        title: "Cien años de golf argentino.",
+        text: "De la primera cancha en Olivos a la “segunda fundación” en Ingeniero Pablo Nogués: un siglo ligado a los grandes torneos del país, del Abierto de la República al Mundial Amateur por Equipos.",
+        cta: "Recorrer la historia",
+        imageAlt: "Bandera del Olivos Golf Club"
+      }
     },
     sponsorsSection: {
       kicker: "Sponsors",
@@ -131,11 +166,11 @@ const siteContent = {
         "Una de las instituciones más emblemáticas del golf argentino, con una cancha reconocida por su diseño, sus recorridos y su exigencia deportiva.",
       timelineAria: "Hitos principales del Olivos Golf Club",
       timeline: [
-        { year: "1926", label: "Fundación del club" },
-        { year: "1928", label: "Primera cancha en Olivos" },
-        { year: "1950", label: "Traslado a Ingeniero Pablo Nogués" },
-        { year: "27 hoyos", label: "Recorridos Blanca, Colorada y Azul" },
-        { year: "2010", label: "Sede de campeonato internacional" }
+        { year: "1926", label: "Treinta golfistas fundan el club" },
+        { year: "1928", label: "Primera cancha de 18 hoyos en Olivos" },
+        { year: "1950", label: "“Segunda fundación”: traslado a Ingeniero Pablo Nogués y cancha de 27 hoyos" },
+        { year: "2010", label: "Sede del Campeonato Mundial Amateur por Equipos" },
+        { year: "2026", label: "El club celebra su centenario", milestone: "100 años" }
       ],
       kicker: "Desde 1926",
       sectionTitle: "Una historia ligada al golf argentino.",
@@ -509,7 +544,8 @@ const siteContent = {
         openMenu: "Open menu",
         closeMenu: "Close menu",
         logout: "Log out",
-        languageLabel: "Language"
+        languageLabel: "Language",
+        reserve: "Book"
       },
       skipLink: "Skip to content",
       quickActionsAria: "Mobile quick actions",
@@ -538,7 +574,6 @@ const siteContent = {
       },
       {
         label: "Golf",
-        featured: true,
         children: [
           { label: "Course", href: "/cancha" },
           { label: "Playing conditions", href: "/condiciones-juego" },
@@ -559,7 +594,42 @@ const siteContent = {
       heroAlt: "Olivos Golf Club course",
       secretaryAria: "Secretary information",
       secretaryLabel: "Secretary",
-      attentionTitle: "Office hours"
+      attentionTitle: "Office hours",
+      stats: {
+        aria: "Club figures",
+        items: [
+          { value: 1926, from: 1880, label: "Founded" },
+          { value: 100, from: 0, label: "Years of history" },
+          { value: 27, from: 0, label: "Holes" },
+          { value: 3, from: 0, label: "Layouts" }
+        ]
+      },
+      courseTeaser: {
+        kicker: "The course",
+        title: "Three layouts, one course.",
+        text: "Designed by Luther H. Koontz, it combines mature trees, natural elevation changes and demanding greens. The Blanca, Colorada and Azul layouts allow different 18-hole rounds.",
+        cta: "Explore the course",
+        routes: [
+          { name: "Blanca", slug: "blanca", description: "Demanding and traditional, one of the club's main layouts." },
+          { name: "Colorada", slug: "colorada", description: "A strategic layout, with holes of strong competitive value." },
+          { name: "Azul", slug: "azul", description: "A complementary alternative within the club's 27 holes." }
+        ]
+      },
+      holeFeature: {
+        kicker: "Signature hole",
+        title: "Hole 15",
+        stats: ["Par 5", "470 yards", "Risk and reward"],
+        text: "Featured in 1001 Golf Holes You Must Play Before You Die, the 15th descends toward a green protected by water and three bunkers. Going for it in two is tempting, but one poor shot quickly turns a birdie chance into a big number.",
+        cta: "See hole 15",
+        imageAlt: "Hole 15 at Olivos Golf Club"
+      },
+      historyTeaser: {
+        kicker: "Centenary 1926 — 2026",
+        title: "One hundred years of Argentine golf.",
+        text: "From the first course in Olivos to the “second foundation” in Ingeniero Pablo Nogués: a century linked to the country's great tournaments, from the Argentine Open to the World Amateur Team Championship.",
+        cta: "Explore the history",
+        imageAlt: "Olivos Golf Club flag"
+      }
     },
     sponsorsSection: {
       kicker: "Sponsors",
@@ -575,11 +645,11 @@ const siteContent = {
         "One of Argentina's most emblematic golf institutions, with a course recognized for its design, routing and sporting challenge.",
       timelineAria: "Olivos Golf Club key milestones",
       timeline: [
-        { year: "1926", label: "The club is founded" },
-        { year: "1928", label: "First course in Olivos" },
-        { year: "1950", label: "Move to Ingeniero Pablo Nogués" },
-        { year: "27 holes", label: "Blanca, Colorada and Azul layouts" },
-        { year: "2010", label: "Host of an international championship" }
+        { year: "1926", label: "Thirty golfers found the club" },
+        { year: "1928", label: "First 18-hole course in Olivos" },
+        { year: "1950", label: "“Second foundation”: move to Ingeniero Pablo Nogués and the 27-hole course" },
+        { year: "2010", label: "Host of the World Amateur Team Championship" },
+        { year: "2026", label: "The club celebrates its centenary", milestone: "100 years" }
       ],
       kicker: "Since 1926",
       sectionTitle: "A history linked to Argentine golf.",

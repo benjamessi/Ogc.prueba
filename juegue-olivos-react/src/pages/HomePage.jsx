@@ -1,11 +1,18 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import homeCoverImage from "../assets/olivos-cancha-hero.jpg";
+import holeFifteenImage from "../assets/hoyo-15.jpeg";
+import historyFlagImage from "../assets/bandera-olivos.jpg";
+import { useHomeAnimations } from "../hooks/useHomeAnimations.js";
 
 export function HomePage({ siteData }) {
   const { club, booking, home, sponsors, sponsorsSection } = siteData;
+  const pageRef = useRef(null);
+
+  useHomeAnimations(pageRef);
 
   return (
-    <>
+    <div ref={pageRef}>
       <section className="home-cover" aria-labelledby="home-cover-title">
         <img src={homeCoverImage} alt={home.coverAlt} />
         <div className="home-cover-title">
@@ -49,22 +56,103 @@ export function HomePage({ siteData }) {
         </div>
       </section>
 
+      <section className="section home-stats" aria-label={home.stats.aria}>
+        <ul data-reveal-group>
+          {home.stats.items.map((stat) => (
+            <li className="home-stat" key={stat.label}>
+              <strong data-count={stat.value} data-count-from={stat.from}>
+                {stat.value}
+              </strong>
+              <span>{stat.label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="section home-course-teaser" aria-labelledby="home-course-title">
+        <div className="section-heading" data-reveal>
+          <div>
+            <p className="section-kicker">{home.courseTeaser.kicker}</p>
+            <h2 id="home-course-title">{home.courseTeaser.title}</h2>
+          </div>
+          <p>{home.courseTeaser.text}</p>
+        </div>
+        <div className="home-routes-grid" data-reveal-group>
+          {home.courseTeaser.routes.map((route) => (
+            <Link className={`home-route-card route-${route.slug}`} to="/cancha" key={route.name}>
+              <span className="route-dot" aria-hidden="true" />
+              <h3>{route.name}</h3>
+              <p>{route.description}</p>
+              <span className="route-arrow" aria-hidden="true">
+                →
+              </span>
+            </Link>
+          ))}
+        </div>
+        <div className="home-teaser-cta" data-reveal>
+          <Link className="text-cta" to="/cancha">
+            {home.courseTeaser.cta}
+          </Link>
+        </div>
+      </section>
+
+      <section className="section home-feature" aria-labelledby="home-feature-title">
+        <article className="home-feature-card" data-reveal>
+          <div className="home-feature-copy">
+            <p className="section-kicker">{home.holeFeature.kicker}</p>
+            <h2 id="home-feature-title">{home.holeFeature.title}</h2>
+            <div className="course-feature-stats">
+              {home.holeFeature.stats.map((stat) => (
+                <span key={stat}>{stat}</span>
+              ))}
+            </div>
+            <p>{home.holeFeature.text}</p>
+            <div className="hero-actions">
+              <Link className="button secondary light" to="/cancha">
+                {home.holeFeature.cta}
+              </Link>
+            </div>
+          </div>
+          <figure className="home-feature-photo">
+            <img src={holeFifteenImage} alt={home.holeFeature.imageAlt} loading="lazy" />
+          </figure>
+        </article>
+      </section>
+
+      <section className="section home-history-teaser" aria-labelledby="home-history-title">
+        <article className="home-history-card" data-reveal>
+          <figure className="home-history-photo">
+            <img src={historyFlagImage} alt={home.historyTeaser.imageAlt} loading="lazy" />
+          </figure>
+          <div className="home-history-copy">
+            <p className="section-kicker">{home.historyTeaser.kicker}</p>
+            <h2 id="home-history-title">{home.historyTeaser.title}</h2>
+            <p>{home.historyTeaser.text}</p>
+            <div className="hero-actions">
+              <Link className="button on-dark" to="/historia-club">
+                {home.historyTeaser.cta}
+              </Link>
+            </div>
+          </div>
+        </article>
+      </section>
+
       <section className="section home-sponsors-section" aria-labelledby="home-sponsors-title">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <div>
             <p className="section-kicker">{sponsorsSection.kicker}</p>
             <h2 id="home-sponsors-title">{sponsorsSection.title}</h2>
           </div>
           <p>{sponsorsSection.text}</p>
         </div>
-        <div className="sponsor-grid" aria-label={sponsorsSection.aria}>
+        <div className="sponsor-grid" aria-label={sponsorsSection.aria} data-reveal-group>
           {sponsors.map((sponsor) => (
             <div className={`sponsor-card sponsor-${sponsor.slug}`} key={sponsor.name}>
-              <img src={sponsor.homeLogo} alt={sponsor.name} />
+              <img src={sponsor.homeLogo} alt={sponsor.name} loading="lazy" />
             </div>
           ))}
         </div>
       </section>
-    </>
+    </div>
   );
 }

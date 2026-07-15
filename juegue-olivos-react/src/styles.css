@@ -92,15 +92,97 @@ a {
   left: 0;
   right: 0;
   z-index: 30;
-  padding: 1rem clamp(1rem, 4vw, 3rem);
+  padding: 1.1rem clamp(1rem, 4vw, 3rem);
   backdrop-filter: blur(20px);
-  background: rgba(247, 241, 228, 0.78);
+  background: rgba(247, 241, 228, 0.82);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 12px 30px rgba(20, 34, 24, 0.05);
+  will-change: transform;
   transition:
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    padding 300ms ease,
     background-color 260ms ease,
     border-color 260ms ease,
     backdrop-filter 260ms ease,
     box-shadow 260ms ease;
+}
+
+.site-header.is-pinned {
+  transform: translateY(0);
+}
+
+.site-header.is-unpinned {
+  transform: translateY(-100%);
+  box-shadow: none;
+}
+
+/* Compacto una vez que arrancó el scroll */
+.site-header.is-scrolled:not(.is-transparent) {
+  padding-block: 0.7rem;
+  background: rgba(247, 241, 228, 0.94);
+  box-shadow: 0 14px 34px rgba(20, 34, 24, 0.09);
+}
+
+.site-header.is-scrolled:not(.is-transparent) .brand-mark {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+/* Los ítems entran escalonados cada vez que el header vuelve a aparecer */
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > * {
+  animation: navItemIn 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(1) {
+  animation-delay: 60ms;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(2) {
+  animation-delay: 105ms;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(3) {
+  animation-delay: 150ms;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(4) {
+  animation-delay: 195ms;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(6) {
+  animation-delay: 285ms;
+}
+
+.site-header.is-scrolled.is-pinned:not(.is-transparent) .menu > *:nth-child(7) {
+  animation-delay: 330ms;
+}
+
+@keyframes navItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.55rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 4%, var(--gold) 30%, var(--gold) 70%, transparent 96%);
+  opacity: 0.85;
+  transition: opacity 260ms ease;
 }
 
 .site-header.is-transparent {
@@ -108,6 +190,10 @@ a {
   background: transparent;
   border-bottom-color: transparent;
   box-shadow: none;
+}
+
+.site-header.is-transparent::before {
+  opacity: 0;
 }
 
 .page-shell {
@@ -145,6 +231,9 @@ a {
   border-radius: 6px;
   background: rgba(255, 250, 240, 0.92);
   box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+  transition:
+    width 300ms ease,
+    height 300ms ease;
 }
 
 .brand-mark img {
@@ -157,6 +246,13 @@ a {
 .brand strong,
 .brand small {
   display: block;
+}
+
+.brand strong {
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .brand small {
@@ -199,8 +295,10 @@ a {
   border-radius: 3px;
   color: var(--moss-dark);
   background: transparent;
-  font-weight: 800;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -211,15 +309,71 @@ a {
     border-color 0.2s ease;
 }
 
+.menu-reserve {
+  margin-left: 0.4rem;
+}
+
+.menu .nav-reserve {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: 0 1.15rem;
+  border-radius: 3px;
+  color: var(--cream);
+  background: var(--moss-dark);
+  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.28);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menu .nav-reserve::after {
+  display: none;
+}
+
+.menu .nav-reserve:hover,
+.menu .nav-reserve:focus-visible {
+  color: var(--cream);
+  background: var(--moss);
+  box-shadow: inset 0 0 0 1px rgba(199, 157, 79, 0.85);
+  transform: translateY(-1px);
+}
+
+.menu .nav-reserve.active {
+  color: var(--cream);
+  background: var(--moss-dark);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+.site-header.is-transparent .menu .nav-reserve {
+  color: white;
+  background: rgba(16, 52, 30, 0.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+.site-header.is-transparent .menu .nav-reserve:hover,
+.site-header.is-transparent .menu .nav-reserve:focus-visible {
+  background: rgba(16, 52, 30, 0.62);
+  box-shadow: inset 0 0 0 1px rgba(199, 157, 79, 0.9);
+}
+
 .language-switch {
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
   min-height: 2.7rem;
   padding: 0.2rem;
-  border: 1px solid rgba(49, 83, 60, 0.18);
+  border: 1px solid rgba(49, 83, 60, 0.16);
   border-radius: 3px;
-  background: rgba(255, 250, 240, 0.54);
+  background: transparent;
 }
 
 .language-switch button {
@@ -229,8 +383,9 @@ a {
   border-radius: 3px;
   color: var(--moss-dark);
   background: transparent;
-  font-size: 0.78rem;
-  font-weight: 900;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -323,14 +478,20 @@ a {
 .menu a.is-active,
 .menu-trigger.is-active {
   color: var(--moss-dark);
-  background: rgba(49, 83, 60, 0.1);
-  box-shadow: inset 0 0 0 1px rgba(33, 58, 42, 0.16);
+  background: transparent;
+  box-shadow: none;
+}
+
+.menu a.is-active::after,
+.menu-trigger.is-active::after {
+  transform: scaleX(1);
+  background: var(--gold);
 }
 
 .menu .nav-cta.is-active,
 .menu-trigger.nav-cta.is-active {
   color: var(--moss-dark);
-  background: rgba(49, 83, 60, 0.12);
+  background: transparent;
 }
 
 .site-header.is-transparent .menu a,
@@ -348,13 +509,18 @@ a {
 .site-header.is-transparent .menu a.is-active,
 .site-header.is-transparent .menu-trigger.is-active {
   color: white;
-  background: rgba(16, 52, 30, 0.22);
+  background: transparent;
 }
 
 .site-header.is-transparent .menu a.is-active:not(.nav-cta),
 .site-header.is-transparent .menu-trigger.is-active:not(.nav-cta) {
-  background: rgba(16, 52, 30, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.16);
+  background: transparent;
+  box-shadow: none;
+}
+
+.site-header.is-transparent .menu a.is-active::after,
+.site-header.is-transparent .menu-trigger.is-active::after {
+  background: var(--gold);
 }
 
 .site-header.is-transparent .menu .nav-cta:hover,
@@ -370,7 +536,6 @@ a {
   transition: transform 0.2s ease;
 }
 
-.menu-group:hover .menu-chevron,
 .menu-group.is-open .menu-chevron {
   transform: rotate(180deg);
 }
@@ -385,10 +550,11 @@ a {
   max-height: calc(100vh - 7rem);
   overflow: auto;
   margin: 0;
-  padding: 0.65rem;
+  padding: 0.75rem;
   list-style: none;
   border: 1px solid rgba(23, 37, 28, 0.12);
-  border-radius: 5px;
+  border-top: 2px solid var(--gold);
+  border-radius: 0 0 5px 5px;
   background: rgba(255, 250, 240, 0.98);
   box-shadow: 0 14px 34px rgba(18, 31, 22, 0.14);
   backdrop-filter: blur(18px);
@@ -400,10 +566,38 @@ a {
   box-shadow: 0 14px 34px rgba(16, 30, 21, 0.22);
 }
 
-.menu-group:hover .submenu,
 .menu-group.is-open .submenu {
   display: grid;
   gap: 0.2rem;
+  animation: submenuIn 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes submenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * Puente invisible sobre el hueco entre el trigger y el submenú flotante: sin
+ * esto el puntero sale del <li> al bajar y el menú se cierra. Sólo en desktop,
+ * donde el submenú flota (en mobile va en flujo y taparía el ítem siguiente).
+ */
+@media (min-width: 881px) {
+  .menu-group.is-open::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 0.8rem;
+  }
 }
 
 .submenu a {
@@ -412,11 +606,31 @@ a {
   min-height: 2.85rem;
   padding-inline: 0.85rem;
   white-space: nowrap;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.submenu a::after {
+  display: none;
+}
+
+.submenu a:hover,
+.submenu a:focus-visible {
+  padding-left: 1.05rem;
+  background: rgba(49, 83, 60, 0.07);
+  box-shadow: inset 2px 0 0 var(--gold);
 }
 
 .submenu a.is-current-child {
   color: var(--moss-dark);
   background: rgba(49, 83, 60, 0.08);
+  box-shadow: inset 2px 0 0 var(--gold);
 }
 
 .site-header.is-transparent .submenu a {
@@ -534,10 +748,13 @@ h3 {
   align-items: center;
   justify-content: center;
   min-height: 3.15rem;
-  padding: 0.95rem 1.25rem;
+  padding: 1rem 1.55rem;
   border: 0;
   border-radius: 3px;
-  font-weight: 900;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -548,26 +765,40 @@ h3 {
     border-color 0.2s ease;
 }
 
-.button:hover,
-.button:focus-visible {
-  transform: translateY(-1px);
-  box-shadow: var(--interactive-shadow);
-}
-
 .button:active {
   transform: translateY(0);
 }
 
+/* Primario: cartel de club — sólido con filete interior que vira a dorado */
 .button.primary {
-  color: white;
-  background: var(--moss);
-  box-shadow: 0 10px 22px rgba(33, 58, 42, 0.2);
+  color: var(--cream);
+  background: var(--moss-dark);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 250, 240, 0.3),
+    0 10px 22px rgba(33, 58, 42, 0.16);
 }
 
+.button.primary:hover,
+.button.primary:focus-visible {
+  transform: translateY(-1px);
+  background: var(--moss);
+  box-shadow:
+    inset 0 0 0 1px rgba(199, 157, 79, 0.9),
+    0 14px 26px rgba(33, 58, 42, 0.22);
+}
+
+/* Secundario sobre fondo oscuro: fantasma que se llena de crema */
 .button.secondary {
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: transparent;
+}
+
+.button.secondary:hover,
+.button.secondary:focus-visible {
+  color: var(--moss-dark);
+  border-color: var(--cream);
+  background: var(--cream);
 }
 
 .button.full {
@@ -595,7 +826,7 @@ h3 {
 
 .section {
   max-width: 1180px;
-  margin: 0 auto clamp(3.5rem, 8vw, 7rem);
+  margin: 0 auto clamp(5rem, 10vw, 9.5rem);
   padding: 0 clamp(1.25rem, 5vw, 4rem);
 }
 
@@ -609,8 +840,8 @@ h3 {
   gap: clamp(1.4rem, 4vw, 3rem);
   align-items: end;
   max-width: 1180px;
-  margin: clamp(1.5rem, 5vw, 4rem) auto clamp(3.5rem, 7vw, 5.5rem);
-  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 5vw, 4rem) clamp(1.4rem, 4vw, 2.25rem);
+  margin: clamp(2rem, 6vw, 5rem) auto clamp(4.5rem, 8vw, 7rem);
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 5vw, 4rem) clamp(1.75rem, 4.5vw, 2.75rem);
   border-bottom: 1px solid rgba(49, 83, 60, 0.16);
 }
 
@@ -639,7 +870,7 @@ h3 {
   display: grid;
   place-items: center;
   min-height: min(86svh, 760px);
-  margin: 0 auto clamp(4rem, 9vw, 8rem);
+  margin: 0 auto clamp(5rem, 10vw, 9rem);
   overflow: hidden;
   background: var(--moss-dark);
 }
@@ -746,7 +977,7 @@ h3 {
   gap: clamp(1rem, 4vw, 3rem);
   align-items: stretch;
   max-width: 1180px;
-  margin: clamp(1.5rem, 5vw, 4rem) auto clamp(3.5rem, 8vw, 7rem);
+  margin: clamp(2rem, 6vw, 5rem) auto clamp(5rem, 9vw, 8.5rem);
   padding: 0 clamp(1.25rem, 5vw, 4rem);
   overflow: visible;
 }
@@ -807,10 +1038,49 @@ h3 {
   line-height: 1.65;
 }
 
+/* Secundario sobre fondo claro: fantasma que se llena de verde */
 .button.secondary.light {
   color: var(--moss-dark);
-  border-color: rgba(49, 83, 60, 0.22);
-  background: rgba(255, 250, 240, 0.64);
+  border-color: rgba(33, 58, 42, 0.45);
+  background: transparent;
+}
+
+.button.secondary.light:hover,
+.button.secondary.light:focus-visible {
+  color: var(--cream);
+  border-color: var(--moss-dark);
+  background: var(--moss-dark);
+}
+
+/* Link editorial: línea dorada + texto, para CTAs livianos */
+.text-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--moss-dark);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.text-cta::before {
+  content: "";
+  width: 2.4rem;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.25s ease;
+}
+
+.text-cta:hover::before,
+.text-cta:focus-visible::before {
+  width: 3.6rem;
+}
+
+.text-cta:hover,
+.text-cta:focus-visible {
+  color: var(--ink);
 }
 
 .home-photo-panel {
@@ -910,24 +1180,25 @@ h3 {
 .history-timeline ol {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.8rem, 2vw, 1.4rem);
+  gap: clamp(0.9rem, 2vw, 1.5rem);
   margin: 0;
-  padding: 1.15rem 0 0;
-  border-top: 1px solid rgba(49, 83, 60, 0.18);
+  padding: 1.35rem 0 0;
+  border-top: 1px solid rgba(49, 83, 60, 0.22);
   list-style: none;
 }
 
 .history-timeline li {
   position: relative;
   display: grid;
-  gap: 0.35rem;
-  padding-top: 0.7rem;
+  gap: 0.4rem;
+  align-content: start;
+  padding-top: 0.75rem;
 }
 
 .history-timeline li::before {
   content: "";
   position: absolute;
-  top: -1.22rem;
+  top: -1.44rem;
   left: 0;
   width: 0.5rem;
   height: 0.5rem;
@@ -939,13 +1210,67 @@ h3 {
 .history-timeline strong {
   color: var(--moss-dark);
   font-family: "Libre Baskerville", Georgia, serif;
-  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .history-timeline span {
   color: var(--muted);
   font-size: 0.92rem;
-  line-height: 1.45;
+  line-height: 1.5;
+}
+
+.history-timeline li.is-milestone {
+  position: relative;
+  gap: 0.45rem;
+  margin-top: -0.7rem;
+  padding: 1.05rem 1.1rem 1rem;
+  border: 1px solid rgba(199, 157, 79, 0.55);
+  border-radius: 5px;
+  color: var(--cream);
+  background: var(--moss-dark);
+  box-shadow: 0 14px 32px rgba(18, 31, 22, 0.2);
+}
+
+.history-timeline li.is-milestone::before {
+  top: -0.74rem;
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+.history-timeline li.is-milestone::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0.85rem;
+  right: 0.85rem;
+  height: 3px;
+  background: var(--gold);
+}
+
+.history-timeline li.is-milestone strong {
+  color: var(--gold);
+  font-family: "Manrope", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.history-timeline li.is-milestone em {
+  color: white;
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-style: normal;
+  font-size: clamp(1.4rem, 2.2vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.history-timeline li.is-milestone span {
+  color: rgba(247, 241, 228, 0.78);
 }
 
 .history-card {
@@ -1061,7 +1386,7 @@ h3 {
   grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
   align-items: end;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .section-heading.centered {
@@ -2200,8 +2525,8 @@ h3 {
 
 .footer {
   display: grid;
-  gap: 1.5rem;
-  padding: 2.25rem clamp(1rem, 4vw, 3rem);
+  gap: 2rem;
+  padding: clamp(3rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem) 2.5rem;
   color: rgba(255, 255, 255, 0.7);
   background: var(--ink);
 }
@@ -2338,6 +2663,229 @@ h3 {
   }
 }
 
+/* --- Home: cifras del centenario --- */
+.home-stats {
+  margin-top: clamp(-1.5rem, -1vw, -0.25rem);
+}
+
+.home-stats ul {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3.5vw, 2.5rem);
+  margin: 0;
+  padding: clamp(2rem, 4vw, 3rem) 0 0;
+  list-style: none;
+  border-top: 1px solid rgba(49, 83, 60, 0.16);
+}
+
+.home-stat strong {
+  display: block;
+  color: var(--moss-dark);
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.home-stat span {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* --- Home: recorridos de la cancha --- */
+.home-routes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+.home-route-card {
+  position: relative;
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  min-height: 12rem;
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border: 1px solid rgba(49, 83, 60, 0.14);
+  border-radius: 5px;
+  background: rgba(255, 250, 240, 0.68);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.home-route-card:hover,
+.home-route-card:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(49, 83, 60, 0.3);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: var(--interactive-shadow);
+}
+
+.home-route-card h3 {
+  color: var(--moss-dark);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+}
+
+.home-route-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.98rem;
+}
+
+.route-dot {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  border: 1px solid rgba(23, 37, 28, 0.24);
+}
+
+.route-blanca .route-dot {
+  background: var(--paper);
+}
+
+.route-colorada .route-dot {
+  background: var(--clay);
+}
+
+.route-azul .route-dot {
+  background: #33506b;
+}
+
+.route-arrow {
+  justify-self: end;
+  margin-top: auto;
+  color: var(--moss-dark);
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.home-route-card:hover .route-arrow,
+.home-route-card:focus-visible .route-arrow {
+  transform: translateX(0.3rem);
+}
+
+.home-teaser-cta {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+/* --- Home: hoyo insignia --- */
+.home-feature-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.52fr) minmax(280px, 0.48fr);
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  align-items: stretch;
+  padding-top: clamp(2rem, 5vw, 3.25rem);
+  border-top: 1px solid rgba(49, 83, 60, 0.14);
+}
+
+.home-feature-copy {
+  display: grid;
+  gap: 1rem;
+  align-content: center;
+}
+
+.home-feature-copy p:not(.section-kicker) {
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.08rem);
+  line-height: 1.75;
+}
+
+.home-feature-copy .hero-actions {
+  margin-top: 0.5rem;
+}
+
+.home-feature-photo {
+  margin: 0;
+  min-height: 380px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--moss-dark);
+}
+
+.home-feature-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.home-feature-card:hover .home-feature-photo img {
+  transform: scale(1.03);
+}
+
+/* --- Home: teaser del centenario --- */
+.home-history-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.46fr) minmax(0, 0.54fr);
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--moss-dark);
+  box-shadow: 0 18px 44px rgba(18, 31, 22, 0.22);
+}
+
+.home-history-photo {
+  margin: 0;
+  min-height: 340px;
+}
+
+.home-history-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92);
+}
+
+.home-history-copy {
+  display: grid;
+  gap: 1.15rem;
+  align-content: center;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.home-history-copy h2 {
+  color: white;
+}
+
+.home-history-copy p:not(.section-kicker) {
+  margin: 0;
+  color: rgba(247, 241, 228, 0.82);
+  line-height: 1.75;
+}
+
+.home-history-copy .hero-actions {
+  margin-top: 0.5rem;
+}
+
+/* Sobre panel oscuro: filete dorado que se llena de dorado */
+.button.on-dark {
+  color: var(--gold);
+  border: 1px solid rgba(199, 157, 79, 0.65);
+  background: transparent;
+}
+
+.button.on-dark:hover,
+.button.on-dark:focus-visible {
+  color: var(--moss-dark);
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
 @media (max-width: 880px) {
   body {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
@@ -2408,7 +2956,7 @@ h3 {
     min-height: 3.15rem;
     justify-content: space-between;
     padding-inline: 1rem;
-    font-size: 1rem;
+    font-size: 0.88rem;
     text-align: left;
   }
 
@@ -2439,12 +2987,9 @@ h3 {
     backdrop-filter: none;
   }
 
-  .menu-group:hover .submenu {
-    display: none;
-  }
-
   .menu-group.is-open .submenu {
     display: grid;
+    animation: none;
   }
 
   .submenu a {
@@ -2458,6 +3003,9 @@ h3 {
   .course-map-card,
   .course-conditions-cta,
   .course-feature-card,
+  .home-feature-card,
+  .home-history-card,
+  .home-routes-grid,
   .clubhouse-card,
   .condition-final-cta,
   .condition-section,
@@ -2473,16 +3021,43 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .home-stats ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+  }
+
+  .home-route-card {
+    min-height: 0;
+  }
+
+  .home-feature-photo {
+    min-height: 300px;
+  }
+
+  .home-history-photo {
+    min-height: 240px;
+  }
+
   .home-screen {
     width: calc(100% - 1.5rem);
-    margin: 1rem auto 3rem;
-    padding: 1rem;
+    margin: 1.25rem auto 4.5rem;
+    padding: 1.25rem 1rem;
     border-radius: 5px;
   }
 
   .home-cover {
     min-height: 76svh;
-    margin-bottom: 3.5rem;
+    margin-bottom: 4.5rem;
+  }
+
+  .menu-reserve {
+    margin-left: 0;
+  }
+
+  .menu .nav-reserve {
+    width: 100%;
+    min-height: 3.15rem;
+    justify-content: center;
   }
 
   .home-cover-title h1 {
@@ -2560,7 +3135,7 @@ h3 {
   }
 
   .section {
-    margin-bottom: 4rem;
+    margin-bottom: 5.5rem;
     padding-inline: 1rem;
   }
 
@@ -2588,6 +3163,20 @@ h3 {
   .history-timeline li::before {
     top: 0.25rem;
     left: -0.29rem;
+  }
+
+  .history-timeline strong {
+    font-size: 1.35rem;
+  }
+
+  .history-timeline li.is-milestone {
+    margin: 0.35rem 0 0 1rem;
+    padding: 1rem 1.1rem;
+  }
+
+  .history-timeline li.is-milestone::before {
+    top: 1.05rem;
+    left: -1.39rem;
   }
 
   .history-aside,
@@ -2846,7 +3435,8 @@ h3 {
   }
 
   .brand strong {
-    max-width: 8.5rem;
+    max-width: 11rem;
+    font-size: 0.92rem;
   }
 
   .home-screen {
@@ -2891,6 +3481,22 @@ h3 {
     left: 0.75rem;
     right: 0.75rem;
     bottom: 0.75rem;
+  }
+
+  .home-stat strong {
+    font-size: clamp(1.9rem, 9vw, 2.4rem);
+  }
+
+  .home-stat span {
+    font-size: 0.72rem;
+  }
+
+  .home-teaser-cta .button {
+    width: 100%;
+  }
+
+  .home-feature-photo {
+    min-height: 240px;
   }
 
   .hero-actions,
@@ -2961,7 +3567,8 @@ h3 {
 
 @media (max-width: 380px) {
   .brand strong {
-    max-width: 6.8rem;
+    max-width: 10.5rem;
+    font-size: 0.88rem;
   }
 
   .mobile-quick-actions a,
