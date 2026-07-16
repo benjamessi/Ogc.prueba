@@ -205,6 +205,27 @@ a {
   padding-top: 0;
 }
 
+/*
+ * Entrada de página al navegar. `backwards` (no `both`): al terminar no queda
+ * un transform residual que convierta al wrapper en containing block de
+ * posibles descendientes fixed.
+ */
+.route-view {
+  animation: pageIn 460ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .nav {
   display: flex;
   align-items: center;
@@ -584,6 +605,39 @@ a {
   }
 }
 
+/* Los ítems del dropdown entran en cascada */
+.menu-group.is-open .submenu li {
+  animation: submenuItemIn 340ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.menu-group.is-open .submenu li:nth-child(1) {
+  animation-delay: 55ms;
+}
+
+.menu-group.is-open .submenu li:nth-child(2) {
+  animation-delay: 110ms;
+}
+
+.menu-group.is-open .submenu li:nth-child(3) {
+  animation-delay: 165ms;
+}
+
+.menu-group.is-open .submenu li:nth-child(4) {
+  animation-delay: 220ms;
+}
+
+@keyframes submenuItemIn {
+  from {
+    opacity: 0;
+    transform: translate(-0.4rem, -0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
 /*
  * Puente invisible sobre el hueco entre el trigger y el submenú flotante: sin
  * esto el puntero sale del <li> al bajar y el menú se cierra. Sólo en desktop,
@@ -869,17 +923,19 @@ h3 {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: min(86svh, 760px);
+  min-height: 100svh;
   margin: 0 auto clamp(5rem, 10vw, 9rem);
   overflow: hidden;
   background: var(--moss-dark);
 }
 
+/* 15% de aire arriba: el parallax baja la foto sin descubrir el fondo */
 .home-cover img {
   position: absolute;
-  inset: 0;
+  top: -15%;
+  left: 0;
   width: 100%;
-  height: 100%;
+  height: 115%;
   object-fit: cover;
   filter: saturate(0.9) contrast(1.02);
 }
@@ -901,6 +957,40 @@ h3 {
   padding: 2rem;
   color: white;
   text-align: center;
+}
+
+/* Señal de scroll: línea con un pulso dorado que baja */
+.home-cover-cue {
+  position: absolute;
+  bottom: calc(1.4rem + env(safe-area-inset-bottom));
+  left: 50%;
+  z-index: 1;
+  width: 1px;
+  height: 3.4rem;
+  overflow: hidden;
+  background: rgba(247, 241, 228, 0.28);
+}
+
+.home-cover-cue::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 45%;
+  background: var(--gold);
+  animation: cueDrop 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes cueDrop {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  55%,
+  100% {
+    transform: translateY(240%);
+  }
 }
 
 .centenary-badge {
@@ -1177,13 +1267,53 @@ h3 {
   margin-bottom: clamp(2.75rem, 5vw, 4.5rem);
 }
 
+/* Riel del timeline: misma línea de antes, pero con el pulso dorado del hero */
+.timeline-rail {
+  position: relative;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(49, 83, 60, 0.22);
+}
+
+.timeline-rail::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  animation: railSweep 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes railSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  60%,
+  100% {
+    transform: translateX(500%);
+  }
+}
+
+@keyframes railSweepVertical {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  60%,
+  100% {
+    transform: translateY(433%);
+  }
+}
+
 .history-timeline ol {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: clamp(0.9rem, 2vw, 1.5rem);
   margin: 0;
   padding: 1.35rem 0 0;
-  border-top: 1px solid rgba(49, 83, 60, 0.22);
   list-style: none;
 }
 
@@ -2678,6 +2808,29 @@ h3 {
   border-top: 1px solid rgba(49, 83, 60, 0.16);
 }
 
+.home-stat {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.stat-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0.85rem;
+  color: var(--gold);
+  border: 1px solid rgba(199, 157, 79, 0.4);
+  border-radius: 50%;
+  background: rgba(199, 157, 79, 0.07);
+}
+
+.stat-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
 .home-stat strong {
   display: block;
   color: var(--moss-dark);
@@ -2688,7 +2841,12 @@ h3 {
   letter-spacing: -0.02em;
 }
 
-.home-stat span {
+.stat-prefix {
+  margin-right: 0.06em;
+  color: var(--gold);
+}
+
+.home-stat > span:last-child {
   display: block;
   margin-top: 0.45rem;
   color: var(--muted);
@@ -3153,7 +3311,7 @@ body.curtain-lock {
   }
 
   .home-cover {
-    min-height: 76svh;
+    min-height: 100svh;
     margin-bottom: 4.5rem;
   }
 
@@ -3247,16 +3405,33 @@ body.curtain-lock {
   }
 
   .history-timeline {
+    position: relative;
     margin-top: -1.4rem;
     margin-bottom: 3.25rem;
+  }
+
+  /* En mobile el riel es vertical y el pulso baja, como la señal del hero */
+  .timeline-rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1rem;
+    width: 1px;
+    height: auto;
+    background: rgba(49, 83, 60, 0.18);
+  }
+
+  .timeline-rail::after {
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(180deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+    animation-name: railSweepVertical;
   }
 
   .history-timeline ol {
     grid-template-columns: 1fr;
     gap: 0;
     padding-top: 0;
-    border-top: 0;
-    border-left: 1px solid rgba(49, 83, 60, 0.18);
   }
 
   .history-timeline li {
@@ -3594,8 +3769,19 @@ body.curtain-lock {
     font-size: clamp(1.9rem, 9vw, 2.4rem);
   }
 
-  .home-stat span {
+  .home-stat > span:last-child {
     font-size: 0.72rem;
+  }
+
+  .stat-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .stat-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
   .home-teaser-cta .button {

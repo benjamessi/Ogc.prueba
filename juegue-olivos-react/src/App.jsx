@@ -47,7 +47,8 @@ export default function App() {
       return;
     }
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Instantáneo: el smooth "viajaba" por todo el contenido al cambiar de página
+    window.scrollTo({ top: 0, behavior: "instant" });
   }, [location.pathname, location.hash]);
 
   function handleLogin(credentials) {
@@ -96,23 +97,26 @@ export default function App() {
         labels={siteData.ui.header}
       />
       <main id="contenido" className={`page-shell ${currentPath === "/" ? "is-home" : ""}`}>
-        <Routes>
-          <Route path="/" element={<HomePage siteData={siteData} />} />
-          <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
-          <Route path="/historia-club" element={<ClubInfoPage history={siteData.history} />} />
-          <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
-          <Route path="/reciprocidad" element={<ReciprocityPage reciprocity={siteData.reciprocity} />} />
-          <Route path="/cancha" element={<CoursePage course={siteData.course} />} />
-          <Route path="/condiciones-juego" element={<PlayingConditionsPage conditions={siteData.playingConditions} booking={siteData.booking} />} />
-          <Route
-            path="/reservaciones"
-            element={<ReservationsPage page={siteData.reservationsPage} reservation={siteData.reservation} scorecard={siteData.scorecard} member={member} />}
-          />
-          <Route path="/tarifas" element={<RatesPage page={siteData.ratesPage} rates={siteData.rates} booking={siteData.booking} />} />
-          <Route path="/socios" element={<MembersPage page={siteData.membersPage} member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
-          <Route path="/contacto" element={<ContactPage page={siteData.contactPage} contact={siteData.contact} booking={siteData.booking} club={siteData.club} />} />
-          <Route path="*" element={<NotFoundPage copy={siteData.notFound} />} />
-        </Routes>
+        {/* key por ruta: remonta el wrapper y dispara la entrada en cada cambio de página */}
+        <div className="route-view" key={currentPath}>
+          <Routes>
+            <Route path="/" element={<HomePage siteData={siteData} />} />
+            <Route path="/info-club" element={<Navigate to="/historia-club" replace />} />
+            <Route path="/historia-club" element={<ClubInfoPage history={siteData.history} />} />
+            <Route path="/clubhouse" element={<ClubhousePage club={siteData.club} clubhouse={siteData.clubhouse} />} />
+            <Route path="/reciprocidad" element={<ReciprocityPage reciprocity={siteData.reciprocity} />} />
+            <Route path="/cancha" element={<CoursePage course={siteData.course} />} />
+            <Route path="/condiciones-juego" element={<PlayingConditionsPage conditions={siteData.playingConditions} booking={siteData.booking} />} />
+            <Route
+              path="/reservaciones"
+              element={<ReservationsPage page={siteData.reservationsPage} reservation={siteData.reservation} scorecard={siteData.scorecard} member={member} />}
+            />
+            <Route path="/tarifas" element={<RatesPage page={siteData.ratesPage} rates={siteData.rates} booking={siteData.booking} />} />
+            <Route path="/socios" element={<MembersPage page={siteData.membersPage} member={member} memberArea={siteData.memberArea} onLogin={handleLogin} />} />
+            <Route path="/contacto" element={<ContactPage page={siteData.contactPage} contact={siteData.contact} booking={siteData.booking} club={siteData.club} />} />
+            <Route path="*" element={<NotFoundPage copy={siteData.notFound} />} />
+          </Routes>
+        </div>
       </main>
       <nav
         className={`mobile-quick-actions ${hasQuickAction ? "" : "is-idle"}`}

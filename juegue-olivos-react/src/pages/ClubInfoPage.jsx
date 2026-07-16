@@ -17,6 +17,7 @@ export function ClubInfoPage({ history }) {
         <p>{history.intro}</p>
       </section>
       <section className="section history-timeline" aria-label={history.timelineAria}>
+        <div className="timeline-rail" aria-hidden="true" />
         <ol data-reveal-group>
           {history.timeline.map((item) => (
             <li className={item.milestone ? "is-milestone" : undefined} key={`${item.year}-${item.label}`}>

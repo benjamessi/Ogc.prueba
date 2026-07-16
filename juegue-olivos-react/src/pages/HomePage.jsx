@@ -1,5 +1,52 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+
+const STAT_ICON_PROPS = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.5,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": true
+};
+
+const STAT_ICONS = {
+  building: (
+    <svg {...STAT_ICON_PROPS}>
+      <path d="M3.5 21.5h17" />
+      <path d="M6 18.5v-7.5" />
+      <path d="M10 18.5v-7.5" />
+      <path d="M14 18.5v-7.5" />
+      <path d="M18 18.5v-7.5" />
+      <path d="M12 2.5l8.5 5.5h-17L12 2.5Z" />
+    </svg>
+  ),
+  flag: (
+    <svg {...STAT_ICON_PROPS}>
+      <path d="M7 21V3.5" />
+      <path d="M7 4.5l9.5 2.6L7 9.8" />
+      <path d="M4.5 21h5" />
+    </svg>
+  ),
+  trophy: (
+    <svg {...STAT_ICON_PROPS}>
+      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+    </svg>
+  ),
+  routes: (
+    <svg {...STAT_ICON_PROPS}>
+      <path d="M5 3.5c1 8 7 9.5 7 17.5" />
+      <path d="M12 3.5V21" />
+      <path d="M19 3.5c-1 8-7 9.5-7 17.5" />
+    </svg>
+  )
+};
 import homeCoverImage from "../assets/olivos-cancha-hero.jpg";
 import holeFifteenImage from "../assets/hoyo-15.jpeg";
 import historyFlagImage from "../assets/bandera-olivos.jpg";
@@ -24,6 +71,7 @@ export function HomePage({ siteData }) {
             Olivos Golf Club
           </h1>
         </div>
+        <span className="home-cover-cue" aria-hidden="true" />
       </section>
 
       <section className="home-screen" aria-labelledby="home-title">
@@ -60,8 +108,12 @@ export function HomePage({ siteData }) {
         <ul data-reveal-group>
           {home.stats.items.map((stat) => (
             <li className="home-stat" key={stat.label}>
-              <strong data-count={stat.value} data-count-from={stat.from}>
-                {stat.value}
+              <span className="stat-icon">{STAT_ICONS[stat.icon]}</span>
+              <strong>
+                {stat.prefix ? <span className="stat-prefix">{stat.prefix}</span> : null}
+                <span data-count={stat.value} data-count-from={stat.from}>
+                  {stat.value}
+                </span>
               </strong>
               <span>{stat.label}</span>
             </li>

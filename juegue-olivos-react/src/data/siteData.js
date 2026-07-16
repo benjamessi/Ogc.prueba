@@ -119,10 +119,10 @@ const siteContent = {
       stats: {
         aria: "Cifras del club",
         items: [
-          { value: 1926, from: 1880, label: "Año de fundación" },
-          { value: 100, from: 0, label: "Años de historia" },
-          { value: 27, from: 0, label: "Hoyos" },
-          { value: 3, from: 0, label: "Recorridos" }
+          { value: 1926, from: 1880, label: "Año de fundación", icon: "building" },
+          { value: 100, from: 0, prefix: "+", label: "Años de historia", icon: "trophy" },
+          { value: 27, from: 0, label: "Hoyos", icon: "flag" },
+          { value: 3, from: 0, label: "Recorridos", icon: "routes" }
         ]
       },
       courseTeaser: {
@@ -598,10 +598,10 @@ const siteContent = {
       stats: {
         aria: "Club figures",
         items: [
-          { value: 1926, from: 1880, label: "Founded" },
-          { value: 100, from: 0, label: "Years of history" },
-          { value: 27, from: 0, label: "Holes" },
-          { value: 3, from: 0, label: "Layouts" }
+          { value: 1926, from: 1880, label: "Founded", icon: "building" },
+          { value: 100, from: 0, prefix: "+", label: "Years of history", icon: "trophy" },
+          { value: 27, from: 0, label: "Holes", icon: "flag" },
+          { value: 3, from: 0, label: "Layouts", icon: "routes" }
         ]
       },
       courseTeaser: {
