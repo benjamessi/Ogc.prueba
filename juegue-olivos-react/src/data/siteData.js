@@ -516,6 +516,9 @@ const siteContent = {
       kicker: "Clubes con convenio",
       sectionTitle: "Reciprocidad por país",
       sectionIntro: "Desplegá cada país para ver los datos disponibles de contacto y ubicación.",
+      searchLabel: "Buscar club con convenio",
+      searchPlaceholder: "Buscá por club, ciudad o país…",
+      noResults: "No encontramos clubes para esa búsqueda. Probá con otro nombre o consultá a Secretaría.",
       clubSingular: "club",
       clubPlural: "clubes",
       details: {
@@ -987,6 +990,9 @@ const siteContent = {
       kicker: "Reciprocal clubs",
       sectionTitle: "Reciprocity by country",
       sectionIntro: "Open each country to view available contact and location details.",
+      searchLabel: "Search reciprocal clubs",
+      searchPlaceholder: "Search by club, city or country…",
+      noResults: "No clubs match your search. Try another name or contact the Secretary's office.",
       clubSingular: "club",
       clubPlural: "clubs",
       details: {

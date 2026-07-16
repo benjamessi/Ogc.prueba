@@ -1,3 +1,6 @@
+import { Fragment, useMemo, useRef, useState } from "react";
+import { useScrollReveal } from "../hooks/useScrollReveal.js";
+
 const reciprocityCountries = [
   {
     country: "Argentina",
@@ -217,22 +220,113 @@ const reciprocityCountries = [
   }
 ];
 
-function ClubDetail({ label, value }) {
-  if (!value) {
+function normalizeText(text) {
+  return text
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase();
+}
+
+function ClubDetail({ label, value, children }) {
+  if (!value && !children) {
     return null;
   }
 
   return (
     <p>
       <span>{label}</span>
-      {value}
+      <span className="reciprocity-value">{children ?? value}</span>
     </p>
   );
 }
 
-export function ReciprocityPage({ reciprocity }) {
+function EmailDetail({ label, value }) {
+  if (!value) {
+    return null;
+  }
+
+  const emails = value.split("/").map((email) => email.trim()).filter(Boolean);
+
   return (
-    <>
+    <ClubDetail label={label} value={value}>
+      {emails.map((email, index) => (
+        <Fragment key={email}>
+          {index > 0 ? " / " : null}
+          <a href={`mailto:${email}`}>{email}</a>
+        </Fragment>
+      ))}
+    </ClubDetail>
+  );
+}
+
+/* Sólo marcamos tel: en números con formato internacional (+…); el resto de los
+   formatos del listado es muy irregular como para generar links confiables. */
+function PhoneDetail({ label, value }) {
+  if (!value) {
+    return null;
+  }
+
+  const [first, ...rest] = value.split("/").map((part) => part.trim());
+  const suffix = rest.length ? ` / ${rest.join(" / ")}` : "";
+
+  if (!first.startsWith("+")) {
+    return <ClubDetail label={label} value={value} />;
+  }
+
+  return (
+    <ClubDetail label={label} value={value}>
+      <a href={`tel:${first.replace(/[^\d+]/g, "")}`}>{first}</a>
+      {suffix}
+    </ClubDetail>
+  );
+}
+
+function WebsiteDetail({ label, value }) {
+  if (!value) {
+    return null;
+  }
+
+  return (
+    <ClubDetail label={label} value={value}>
+      <a href={`https://${value}`} target="_blank" rel="noopener noreferrer">
+        {value}
+      </a>
+    </ClubDetail>
+  );
+}
+
+export function ReciprocityPage({ reciprocity }) {
+  const [query, setQuery] = useState("");
+  const pageRef = useRef(null);
+  const trimmedQuery = normalizeText(query.trim());
+
+  useScrollReveal(pageRef);
+
+  const filteredCountries = useMemo(() => {
+    if (!trimmedQuery) {
+      return reciprocityCountries;
+    }
+
+    return reciprocityCountries
+      .map((country) => {
+        const localName = reciprocity.countryNames[country.country] ?? country.country;
+        const countryMatches =
+          normalizeText(country.country).includes(trimmedQuery) || normalizeText(localName).includes(trimmedQuery);
+
+        if (countryMatches) {
+          return country;
+        }
+
+        const clubs = country.clubs.filter((club) =>
+          normalizeText(`${club.name} ${club.city ?? ""}`).includes(trimmedQuery)
+        );
+        return clubs.length ? { ...country, clubs } : null;
+      })
+      .filter(Boolean);
+  }, [trimmedQuery, reciprocity.countryNames]);
+
+  return (
+    <div ref={pageRef}>
       <section className="page-hero">
         <div>
           <p className="eyebrow">{reciprocity.eyebrow}</p>
@@ -242,7 +336,7 @@ export function ReciprocityPage({ reciprocity }) {
       </section>
 
       <section className="section reciprocity-section" aria-labelledby="reciprocity-title">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <div>
             <p className="section-kicker">{reciprocity.kicker}</p>
             <h2 id="reciprocity-title">{reciprocity.sectionTitle}</h2>
@@ -250,9 +344,19 @@ export function ReciprocityPage({ reciprocity }) {
           <p>{reciprocity.sectionIntro}</p>
         </div>
 
-        <div className="reciprocity-list">
-          {reciprocityCountries.map((country) => (
-            <details className="reciprocity-country" key={country.country}>
+        <div className="reciprocity-search" data-reveal>
+          <input
+            type="search"
+            value={query}
+            placeholder={reciprocity.searchPlaceholder}
+            aria-label={reciprocity.searchLabel}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </div>
+
+        <div className="reciprocity-list" data-reveal-group>
+          {filteredCountries.map((country) => (
+            <details className="reciprocity-country" open={trimmedQuery ? true : undefined} key={country.country}>
               <summary>
                 <span>{reciprocity.countryNames[country.country] ?? country.country}</span>
                 <small>{country.clubs.length} {country.clubs.length === 1 ? reciprocity.clubSingular : reciprocity.clubPlural}</small>
@@ -266,20 +370,20 @@ export function ReciprocityPage({ reciprocity }) {
                     </div>
                     <div className="reciprocity-details">
                       <ClubDetail label={reciprocity.details.address} value={club.address} />
-                      <ClubDetail label={reciprocity.details.phone} value={club.phone} />
-                      <ClubDetail label={reciprocity.details.reservations} value={club.reservations} />
+                      <PhoneDetail label={reciprocity.details.phone} value={club.phone} />
+                      <PhoneDetail label={reciprocity.details.reservations} value={club.reservations} />
                       <ClubDetail label={reciprocity.details.fax} value={club.fax} />
-                      <ClubDetail label={reciprocity.details.email} value={club.email} />
-                      <ClubDetail label={reciprocity.details.website} value={club.website} />
+                      <EmailDetail label={reciprocity.details.email} value={club.email} />
+                      <WebsiteDetail label={reciprocity.details.website} value={club.website} />
                     </div>
                   </article>
                 ))}
               </div>
             </details>
           ))}
+          {filteredCountries.length === 0 ? <p className="reciprocity-empty">{reciprocity.noResults}</p> : null}
         </div>
       </section>
-
-    </>
+    </div>
   );
 }

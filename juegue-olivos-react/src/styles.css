@@ -1283,7 +1283,7 @@ h3 {
   width: 20%;
   height: 100%;
   background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
-  animation: railSweep 3.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  animation: railSweep 7.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 @keyframes railSweep {
@@ -1291,7 +1291,7 @@ h3 {
     transform: translateX(-100%);
   }
 
-  60%,
+  72%,
   100% {
     transform: translateX(500%);
   }
@@ -1302,7 +1302,7 @@ h3 {
     transform: translateY(-100%);
   }
 
-  60%,
+  72%,
   100% {
     transform: translateY(433%);
   }
@@ -1635,9 +1635,82 @@ h3 {
   line-height: 1.55;
 }
 
-.reciprocity-details span {
+.reciprocity-details p > span:first-child {
   color: var(--moss-dark);
   font-weight: 900;
+}
+
+.reciprocity-value {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.reciprocity-details a {
+  color: var(--moss-dark);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(199, 157, 79, 0.5);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.reciprocity-details a:hover,
+.reciprocity-details a:focus-visible {
+  color: var(--ink);
+  border-bottom-color: var(--gold);
+}
+
+.reciprocity-search {
+  max-width: 26rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.reciprocity-search input {
+  width: 100%;
+  min-height: 3.15rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(49, 83, 60, 0.28);
+  border-radius: 3px;
+  color: var(--ink);
+  background: rgba(255, 250, 240, 0.8);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.reciprocity-search input::placeholder {
+  color: var(--muted);
+}
+
+.reciprocity-search input:focus-visible {
+  outline: none;
+  border-color: var(--moss);
+  box-shadow: 0 0 0 1px var(--moss), 0 2px 0 var(--gold);
+}
+
+/* Al abrir un país, los clubes entran en cascada (como los dropdowns del menú) */
+.reciprocity-country[open] .reciprocity-club {
+  animation: submenuItemIn 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reciprocity-country[open] .reciprocity-club:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.reciprocity-country[open] .reciprocity-club:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.reciprocity-country[open] .reciprocity-club:nth-child(4) {
+  animation-delay: 210ms;
+}
+
+.reciprocity-empty {
+  margin: 0;
+  padding: 1.5rem 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .section-subheading {
