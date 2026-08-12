@@ -3801,15 +3801,15 @@ body.curtain-lock {
   text-align: center;
 }
 
+/* Sólo el escudo: sin círculo, sin fondo ni borde que lo encierre */
 .curtain-emblem {
   display: grid;
   place-items: center;
-  width: 6.2rem;
-  height: 6.2rem;
-  padding: 0.7rem;
-  border: 1px solid rgba(33, 58, 42, 0.22);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.7);
+  width: 5.6rem;
+  height: 5.6rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .curtain-emblem img {
