@@ -7,14 +7,36 @@
   --cream: #f7f1e4;
   --paper: #fffaf0;
   --gold: #c79d4f;
+  /* Dorado oscurecido para texto chico: el --gold no llega a 4.5:1 sobre crema */
+  --gold-ink: #8a6620;
   --clay: #9b5f3f;
   --danger: #9f342f;
+  --fir: #22402f;
+  /* Blanco hueso, apenas cálido: sin el rosado del durazno anterior */
+  --bone: #f7f6f3;
   --line: rgba(23, 37, 28, 0.14);
   --shadow: 0 12px 30px rgba(20, 34, 24, 0.08);
   --interactive-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
   --radius-lg: 6px;
   --radius-md: 4px;
-  font-family: "Manrope", sans-serif;
+
+  /*
+   * Cormorant Garamond (garalda de alto contraste, 1926 en espíritu) para el
+   * despliegue; Jost —revival geométrico de la Futura de 1927— para texto y UI.
+   */
+  --font-display: "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-body: "Jost", system-ui, -apple-system, sans-serif;
+
+  /* Escala tipográfica */
+  --text-hero: clamp(3.4rem, 9.5vw, 8.5rem);
+  --text-h1: clamp(3rem, 6.4vw, 5.6rem);
+  --text-h2: clamp(2rem, 3.6vw, 3.35rem);
+  --text-h3: clamp(1.28rem, 1.7vw, 1.62rem);
+  --text-body: clamp(1rem, 1.15vw, 1.06rem);
+  --text-label: 0.74rem;
+  --tracking-label: 0.2em;
+
+  font-family: var(--font-body);
 }
 
 * {
@@ -226,42 +248,92 @@ a {
   }
 }
 
+/* Tres zonas: escudo | navegación centrada | reservar + idioma */
 .nav {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   max-width: 1180px;
   margin: 0 auto;
   gap: 1rem;
 }
 
+.nav-collapse {
+  display: contents;
+}
+
+.nav-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 0.6rem;
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
+  justify-self: start;
+  /* Escapa un poco del contenedor centrado para acercarse al borde */
+  margin-left: clamp(-2rem, -1.6vw, -0.5rem);
   gap: 0.8rem;
   text-decoration: none;
-  transition: color 260ms ease;
+  transition:
+    color 260ms ease,
+    transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/*
+ * Cuando la barra se esconde, el escudo se contra-desplaza su mismo alto y
+ * queda a la vista: la marca del club nunca desaparece del todo.
+ */
+.site-header.is-unpinned .brand {
+  transform: translateY(var(--header-h, 68px));
+}
+
+.brand-text {
+  overflow: hidden;
+  white-space: nowrap;
+  transition:
+    max-width 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 240ms ease;
+  max-width: 18rem;
+}
+
+/* Al scrollear queda sólo el escudo, sin el texto */
+.site-header.is-scrolled .brand-text,
+.site-header.is-unpinned .brand-text {
+  max-width: 0;
+  opacity: 0;
+}
+
+/* Sin caja: el escudo va suelto sobre el fondo, sin recuadro ni relleno */
 .brand-mark {
   display: grid;
   place-items: center;
   width: 3.15rem;
   height: 3.15rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 6px;
-  background: rgba(255, 250, 240, 0.92);
-  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   transition:
     width 300ms ease,
     height 300ms ease;
 }
 
 .brand-mark img {
-  width: 78%;
-  height: 78%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   display: block;
+}
+
+/*
+ * Sobre la foto del hero no hay caja que lo despegue: una sombra que sigue el
+ * contorno del escudo (no un rectángulo) lo mantiene legible.
+ */
+.site-header.is-transparent .brand-mark img,
+.site-header.is-unpinned .brand-mark img {
+  filter: drop-shadow(0 2px 6px rgba(13, 24, 17, 0.45));
 }
 
 .brand strong,
@@ -270,7 +342,7 @@ a {
 }
 
 .brand strong {
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.02rem;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -330,60 +402,109 @@ a {
     border-color 0.2s ease;
 }
 
-.menu-reserve {
-  margin-left: 0.4rem;
-}
-
-.menu .nav-reserve {
-  display: inline-flex;
+/* Deslizable para reservar: riel + perilla con el tee apuntando a la derecha */
+.slide-reserve {
+  position: relative;
+  display: flex;
   align-items: center;
-  justify-content: center;
+  width: 11.5rem;
   min-height: 2.8rem;
-  padding: 0 1.15rem;
-  border-radius: 3px;
-  color: var(--cream);
-  background: var(--moss-dark);
-  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.28);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
+  padding: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(33, 58, 42, 0.26);
+  border-radius: 999px;
+  /* Canaleta: el degradado y la sombra interior le dan hondura al riel */
+  background:
+    linear-gradient(180deg, rgba(33, 58, 42, 0.1), rgba(33, 58, 42, 0.03));
+  box-shadow:
+    inset 0 1px 2px rgba(20, 34, 24, 0.14),
+    inset 0 -1px 0 rgba(255, 250, 240, 0.5);
+}
+
+/*
+ * La pintura se recorta con clip-path en lugar de escalarse: con scaleX el
+ * degradado se estiraba y el color se lavaba. Recortado, el verde entra con
+ * su tono real desde el primer píxel.
+ */
+.slide-reserve-fill {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, 0.16), transparent 52%),
+    linear-gradient(100deg, var(--fir), var(--moss-dark) 55%, var(--moss));
+  transition: clip-path 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide-reserve.is-dragging .slide-reserve-fill {
+  transition: none;
+}
+
+.slide-reserve-label {
+  position: relative;
+  flex: 1;
+  padding-left: 2.4rem;
+  color: var(--moss-dark);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-decoration: none;
-  transition:
-    background-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  /* La perilla lo empuja y se borra al entrar en la pared derecha */
+  -webkit-mask-image: linear-gradient(90deg, #000 0 62%, transparent 92%);
+  mask-image: linear-gradient(90deg, #000 0 62%, transparent 92%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.menu .nav-reserve::after {
-  display: none;
+.slide-reserve-knob {
+  position: absolute;
+  left: 4px;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  /* Perilla con volumen: apoya sobre la canaleta en vez de estar pegada */
+  background: linear-gradient(180deg, #2f5540, var(--moss-dark));
+  box-shadow:
+    inset 0 0 0 1px rgba(199, 157, 79, 0.6),
+    inset 0 1px 0 rgba(255, 250, 240, 0.18),
+    0 2px 5px rgba(20, 34, 24, 0.3);
+  cursor: grab;
+  /* Sin esto, arrastrar en el celular scrollea la página en vez del tee */
+  touch-action: none;
+  /* El translateX lo pone el componente en px (ver SlideToReserve) */
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.menu .nav-reserve:hover,
-.menu .nav-reserve:focus-visible {
-  color: var(--cream);
-  background: var(--moss);
-  box-shadow: inset 0 0 0 1px rgba(199, 157, 79, 0.85);
-  transform: translateY(-1px);
+.slide-reserve.is-dragging .slide-reserve-knob {
+  cursor: grabbing;
+  transition: none;
 }
 
-.menu .nav-reserve.active {
-  color: var(--cream);
-  background: var(--moss-dark);
-  box-shadow: inset 0 0 0 1px var(--gold);
+.slide-reserve-knob:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
 
-.site-header.is-transparent .menu .nav-reserve {
-  color: white;
-  background: rgba(16, 52, 30, 0.4);
-  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.5);
+/* El tee mira hacia la derecha: la punta queda del lado del avance */
+.slide-reserve-tee {
+  width: 0.58rem;
+  height: 0.8rem;
+  color: var(--gold);
+  transform: rotate(-90deg);
+}
+
+.site-header.is-transparent .slide-reserve {
+  border-color: rgba(255, 250, 240, 0.42);
+  background: rgba(16, 52, 30, 0.34);
   backdrop-filter: blur(8px);
 }
 
-.site-header.is-transparent .menu .nav-reserve:hover,
-.site-header.is-transparent .menu .nav-reserve:focus-visible {
-  background: rgba(16, 52, 30, 0.62);
-  box-shadow: inset 0 0 0 1px rgba(199, 157, 79, 0.9);
+.site-header.is-transparent .slide-reserve-label {
+  color: white;
 }
 
 .language-switch {
@@ -552,9 +673,20 @@ a {
 }
 
 .menu-chevron {
-  font-size: 0.72rem;
+  display: inline-flex;
   line-height: 1;
-  transition: transform 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-chevron svg {
+  width: 0.46rem;
+  height: 0.62rem;
+  opacity: 0.75;
+}
+
+.menu-group.is-open .menu-chevron svg {
+  opacity: 1;
+  color: var(--gold);
 }
 
 .menu-group.is-open .menu-chevron {
@@ -746,46 +878,62 @@ a {
 .section-kicker,
 .status-pill,
 .contact-label {
-  margin: 0 0 0.75rem;
-  color: var(--gold);
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 0.16em;
+  margin: 0 0 0.9rem;
+  color: var(--gold-ink);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+}
+
+/* Filete que ancla el kicker a la izquierda — marca editorial de sección */
+.eyebrow:not(.status-pill)::before,
+.section-kicker::before {
+  content: "";
+  display: inline-block;
+  width: 1.6rem;
+  height: 1px;
+  margin-right: 0.7rem;
+  vertical-align: 0.25em;
+  background: currentColor;
+  opacity: 0.7;
 }
 
 h1,
 h2,
 h3 {
-  font-family: "Libre Baskerville", Georgia, serif;
-  line-height: 1.08;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.04;
   margin: 0;
 }
 
 h1 {
-  max-width: 11ch;
-  font-size: clamp(2.6rem, 5.8vw, 4.9rem);
-  letter-spacing: -0.035em;
+  max-width: 12ch;
+  font-size: var(--text-h1);
+  letter-spacing: -0.012em;
 }
 
 h2 {
-  font-size: clamp(1.65rem, 3vw, 2.8rem);
-  letter-spacing: -0.018em;
+  font-size: var(--text-h2);
+  letter-spacing: -0.008em;
 }
 
 h3 {
-  font-size: clamp(1.05rem, 1.35vw, 1.35rem);
-  letter-spacing: -0.01em;
+  font-size: var(--text-h3);
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
+/* Los kickers quedan fuera: si no, esta regla les gana y pierden el dorado */
 .lead,
-.section-heading p,
+.section-heading p:not(.section-kicker):not(.eyebrow),
 .split p,
 .contact p,
 .member-panel p {
   color: var(--muted);
-  line-height: 1.75;
-  font-size: 1rem;
+  line-height: 1.72;
+  font-size: var(--text-body);
 }
 
 .hero-actions {
@@ -795,64 +943,140 @@ h3 {
   margin-top: 2rem;
 }
 
+/*
+ * Dos formas, no una caja con variantes de color:
+ *   .primary   → placa grabada (sólida, filete dorado interior)
+ *   .secondary → puro tipográfico, sin caja (etiqueta + filete)
+ * El alto mínimo es 2.75rem = 44px, el mínimo táctil, aunque el peso visual
+ * sea mucho menor que antes.
+ */
 .button {
   position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.15rem;
-  padding: 1rem 1.55rem;
+  min-height: 2.75rem;
+  padding: 0.65rem 1.4rem;
   border: 0;
-  border-radius: 3px;
-  font-size: 0.84rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    color 0.22s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease;
 }
 
-.button:active {
-  transform: translateY(0);
+.button:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
 }
 
-/* Primario: cartel de club — sólido con filete interior que vira a dorado */
+/* Placa grabada: el filete interior es el detalle, no el movimiento */
 .button.primary {
   color: var(--cream);
   background: var(--moss-dark);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 250, 240, 0.3),
-    0 10px 22px rgba(33, 58, 42, 0.16);
+}
+
+/* Cuadro base, siempre presente */
+.button.primary::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(199, 157, 79, 0.45);
+  pointer-events: none;
+}
+
+/*
+ * Mismo gesto que en los filetes: un cuadro dorado pleno que se revela con un
+ * triángulo anclado en la esquina inferior izquierda. Al crecer, su hipotenusa
+ * barre en diagonal hacia arriba a la derecha y va encendiendo el marco.
+ */
+.button.primary::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--gold);
+  pointer-events: none;
+  clip-path: polygon(0% 100%, 0% 100%, 0% 100%);
+  transition: clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.button.primary:hover::before,
+.button.primary:focus-visible::before {
+  clip-path: polygon(0% 100%, 250% 100%, 0% -150%);
 }
 
 .button.primary:hover,
 .button.primary:focus-visible {
-  transform: translateY(-1px);
   background: var(--moss);
-  box-shadow:
-    inset 0 0 0 1px rgba(199, 157, 79, 0.9),
-    0 14px 26px rgba(33, 58, 42, 0.22);
 }
 
-/* Secundario sobre fondo oscuro: fantasma que se llena de crema */
-.button.secondary {
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+/* Secundarios: sin caja — etiqueta con filete debajo */
+.button.secondary,
+.button.secondary.light,
+.button.on-dark {
+  padding-inline: 0;
+  border: 0;
   background: transparent;
+}
+
+/* Filete base, siempre presente */
+.button.secondary::before,
+.button.secondary.light::before,
+.button.on-dark::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.38;
+}
+
+/*
+ * Destello que lo recorre: nace abajo a la izquierda y barre hacia la derecha
+ * mientras sube hasta asentarse sobre el filete. El degradado va más claro
+ * hacia el borde de ataque, así se lee como una ola de luz.
+ * scaleX + translateY en una sola transform: el compositor lo resuelve solo.
+ */
+.button.secondary::after,
+.button.secondary.light::after,
+.button.on-dark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(199, 157, 79, 0.45), var(--gold) 55%, #ecc98a);
+  transform: scaleX(0) translateY(2.5px);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.button.secondary:hover::after,
+.button.secondary:focus-visible::after,
+.button.secondary.light:hover::after,
+.button.secondary.light:focus-visible::after,
+.button.on-dark:hover::after,
+.button.on-dark:focus-visible::after {
+  transform: scaleX(1) translateY(0);
+}
+
+.button.secondary {
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .button.secondary:hover,
 .button.secondary:focus-visible {
-  color: var(--moss-dark);
-  border-color: var(--cream);
-  background: var(--cream);
+  color: white;
 }
 
 .button.full {
@@ -880,7 +1104,7 @@ h3 {
 
 .section {
   max-width: 1180px;
-  margin: 0 auto clamp(5rem, 10vw, 9.5rem);
+  margin: 0 auto clamp(7.5rem, 15vw, 15rem);
   padding: 0 clamp(1.25rem, 5vw, 4rem);
 }
 
@@ -894,7 +1118,7 @@ h3 {
   gap: clamp(1.4rem, 4vw, 3rem);
   align-items: end;
   max-width: 1180px;
-  margin: clamp(2rem, 6vw, 5rem) auto clamp(4.5rem, 8vw, 7rem);
+  margin: clamp(2.5rem, 7vw, 6rem) auto clamp(6rem, 11vw, 10rem);
   padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 5vw, 4rem) clamp(1.75rem, 4.5vw, 2.75rem);
   border-bottom: 1px solid rgba(49, 83, 60, 0.16);
 }
@@ -993,49 +1217,58 @@ h3 {
   }
 }
 
+/* Sello del centenario: sin caja — filetes dorados y la serif del sitio */
 .centenary-badge {
-  position: relative;
   display: inline-grid;
-  gap: 0.45rem;
-  margin: 0 0 1.6rem;
-  padding: 1.1rem 1.8rem 1rem;
-  border: 2px solid rgba(255, 250, 240, 0.55);
-  border-radius: 6px;
-  color: rgba(255, 250, 240, 0.94);
-  background: rgba(20, 38, 27, 0.24);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 250, 240, 0.18),
-    0 18px 40px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(8px);
-  font-family: "Manrope", sans-serif;
+  justify-items: center;
+  gap: 0.6rem;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  color: rgba(255, 250, 240, 0.95);
   text-align: center;
-  text-transform: uppercase;
 }
 
-.centenary-badge::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: 0.9rem;
-  right: 0.9rem;
-  height: 3px;
-  background: var(--gold);
-}
-
-.centenary-badge span:first-child {
+.centenary-title {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2.5vw, 1.6rem);
   color: white;
-  font-size: clamp(1.8rem, 4.4vw, 3rem);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 3.2vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 14px rgba(13, 24, 17, 0.45);
 }
 
-.centenary-badge span:last-child {
-  color: rgba(255, 250, 240, 0.85);
-  font-size: clamp(0.78rem, 1.6vw, 1.05rem);
-  font-weight: 800;
+/* Filetes que se desvanecen hacia afuera, como un sello conmemorativo */
+.centenary-title::before,
+.centenary-title::after {
+  content: "";
+  width: clamp(1.8rem, 6vw, 4.5rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.centenary-title::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.centenary-years {
+  color: rgba(255, 250, 240, 0.82);
+  font-family: var(--font-body);
+  font-size: clamp(0.68rem, 1.3vw, 0.78rem);
+  font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.36em;
+  /* La tracking deja un hueco final: lo compenso para que quede centrado */
+  text-indent: 0.36em;
+  text-shadow: 0 1px 10px rgba(13, 24, 17, 0.5);
 }
 
 .home-cover-title h1 {
@@ -1067,7 +1300,7 @@ h3 {
   gap: clamp(1rem, 4vw, 3rem);
   align-items: stretch;
   max-width: 1180px;
-  margin: clamp(2rem, 6vw, 5rem) auto clamp(5rem, 9vw, 8.5rem);
+  margin: clamp(2.5rem, 7vw, 6rem) auto clamp(7rem, 13vw, 12rem);
   padding: 0 clamp(1.25rem, 5vw, 4rem);
   overflow: visible;
 }
@@ -1128,18 +1361,133 @@ h3 {
   line-height: 1.65;
 }
 
-/* Secundario sobre fondo claro: fantasma que se llena de verde */
+/* Secundario sobre fondo claro */
 .button.secondary.light {
   color: var(--moss-dark);
-  border-color: rgba(33, 58, 42, 0.45);
-  background: transparent;
 }
 
 .button.secondary.light:hover,
 .button.secondary.light:focus-visible {
+  color: var(--ink);
+}
+
+/*
+ * Botón "tee time": el tee pinta la palabra de dorado al pasar el mouse.
+ * Se anima el ancho (no clip-path) a propósito: al crecer, el corredor del tee
+ * arrastra el ícono en el frente de la pintura sin medir nada por JS. Son
+ * elementos fuera de flujo, así que no reflotan el layout de al lado.
+ */
+.tee-time {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.65rem 0;
+  color: var(--moss-dark);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Caja de referencia del efecto: mide justo el texto, sin el padding del botón */
+.tee-time-inner {
+  position: relative;
+  display: inline-block;
+}
+
+.tee-time-base {
+  display: block;
+  opacity: 0.55;
+}
+
+.tee-time-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  overflow: hidden;
+  color: var(--gold);
+  text-shadow:
+    0 0 12px rgba(199, 157, 79, 0.55),
+    0 0 28px rgba(199, 157, 79, 0.25);
+  transition: width 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Crece a la par de la pintura y lleva el tee pegado a su borde derecho */
+.tee-time-runner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  pointer-events: none;
+  transition: width 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tee-time-tee {
+  position: absolute;
+  top: 50%;
+  right: -0.5em;
+  width: 0.5rem;
+  height: 0.7rem;
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px rgba(199, 157, 79, 0.7));
+  /* La punta mira hacia la derecha, en el sentido del trazo */
+  transform: translateY(-50%) rotate(-90deg);
+}
+
+.tee-time:hover .tee-time-glow,
+.tee-time:focus-visible .tee-time-glow,
+.tee-time:hover .tee-time-runner,
+.tee-time:focus-visible .tee-time-runner {
+  width: 100%;
+}
+
+.tee-time:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 6px;
+}
+
+/* Sobre fondo oscuro */
+.tee-time.on-dark {
   color: var(--cream);
-  border-color: var(--moss-dark);
-  background: var(--moss-dark);
+}
+
+/* En la barra: más compacto y con el filete dorado que lo enmarca al pasar */
+.nav-actions .tee-time {
+  padding: 0.6rem 0.9rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+}
+
+.nav-actions .tee-time::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.35rem;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-actions .tee-time:hover::after,
+.nav-actions .tee-time:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Sobre la foto del hero el texto base necesita más cuerpo */
+.site-header.is-transparent .tee-time {
+  color: white;
+}
+
+.site-header.is-transparent .tee-time .tee-time-base {
+  opacity: 0.82;
 }
 
 /* Link editorial: línea dorada + texto, para CTAs livianos */
@@ -1225,29 +1573,29 @@ h3 {
 .sponsor-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(0.75rem, 2vw, 1rem);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+  border-top: 1px solid rgba(49, 83, 60, 0.18);
 }
 
+/* Sin cajas: los logos respiran sobre el papel */
 .sponsor-card {
   display: grid;
   place-items: center;
-  min-height: 8.25rem;
+  min-height: 7rem;
   padding: clamp(1rem, 2vw, 1.35rem);
-  border: 1px solid rgba(49, 83, 60, 0.13);
-  border-radius: 5px;
-  background: rgba(255, 250, 240, 0.68);
+  background: transparent;
+  opacity: 0.72;
+  filter: saturate(0.15);
   transition:
-    background-color 0.2s ease,
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    opacity 0.2s ease;
+    opacity 0.28s ease,
+    filter 0.28s ease;
 }
 
 .sponsor-card:hover,
 .sponsor-card:focus-within {
-  transform: translateY(-1px);
-  border-color: rgba(49, 83, 60, 0.24);
-  background: rgba(255, 255, 255, 0.56);
+  opacity: 1;
+  filter: saturate(1);
 }
 
 .sponsor-card img {
@@ -1339,7 +1687,7 @@ h3 {
 
 .history-timeline strong {
   color: var(--moss-dark);
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.3vw, 2.1rem);
   font-weight: 700;
   line-height: 1;
@@ -1382,7 +1730,7 @@ h3 {
 
 .history-timeline li.is-milestone strong {
   color: var(--gold);
-  font-family: "Manrope", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -1390,7 +1738,7 @@ h3 {
 
 .history-timeline li.is-milestone em {
   color: white;
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-display);
   font-style: normal;
   font-size: clamp(1.4rem, 2.2vw, 1.95rem);
   font-weight: 700;
@@ -1511,12 +1859,19 @@ h3 {
   background: var(--sage);
 }
 
+/* Contraste editorial: titular ancho a la izquierda, bajada angosta a la derecha */
 .section-heading {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(260px, 0.7fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 0.62fr);
   align-items: end;
-  gap: 2rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.section-heading > p {
+  padding-bottom: 0.4rem;
+  border-top: 1px solid rgba(49, 83, 60, 0.18);
+  padding-top: 1rem;
 }
 
 .section-heading.centered {
@@ -1540,6 +1895,7 @@ h3 {
 }
 
 .reciprocity-country summary {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1554,24 +1910,62 @@ h3 {
   display: none;
 }
 
+/*
+ * El signo se dibuja con dos filetes, no con los caracteres "+" y "−":
+ * así el trazo vertical se cierra con una animación real en vez de saltar,
+ * y ambos brazos quedan del mismo grosor y perfectamente centrados.
+ * Este pseudo aporta el círculo y el brazo horizontal.
+ */
 .reciprocity-country summary::after {
-  content: "+";
-  display: grid;
-  place-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  border: 1px solid rgba(49, 83, 60, 0.2);
+  content: "";
+  flex: none;
+  /* El `*` global no alcanza a los pseudo-elementos: sin esto el borde se suma
+     al ancho y el centro del círculo queda 1px corrido respecto del brazo. */
+  box-sizing: border-box;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid rgba(49, 83, 60, 0.22);
   border-radius: 50%;
-  color: var(--moss);
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: 1.15rem;
-  line-height: 1;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  background-color: transparent;
+  background-image: linear-gradient(var(--moss), var(--moss));
+  background-size: 0.6rem 1px;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease;
 }
 
+/* Brazo vertical: al abrir se repliega sobre sí mismo y queda el menos */
+.reciprocity-country summary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: calc(0.95rem - 0.5px);
+  width: 1px;
+  height: 0.6rem;
+  background: var(--moss);
+  transform: translateY(-50%) rotate(0deg);
+  transition:
+    transform 0.42s cubic-bezier(0.34, 1.28, 0.5, 1),
+    background-color 0.25s ease;
+}
+
+/* Al abrir gira un cuarto de vuelta y se apoya sobre el brazo horizontal:
+   el más se pliega en menos en un solo gesto. */
+.reciprocity-country[open] summary::before {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.reciprocity-country summary:hover::after,
 .reciprocity-country[open] summary::after {
-  content: "−";
-  background: rgba(49, 83, 60, 0.08);
+  border-color: rgba(199, 157, 79, 0.75);
+  background-color: rgba(199, 157, 79, 0.1);
+  background-image: linear-gradient(var(--gold), var(--gold));
+}
+
+.reciprocity-country summary:hover::before {
+  background: var(--gold);
 }
 
 .reciprocity-country[open] .reciprocity-clubs {
@@ -1579,7 +1973,7 @@ h3 {
 }
 
 .reciprocity-country summary span {
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-display);
   font-size: clamp(1.2rem, 2vw, 1.7rem);
   font-weight: 700;
 }
@@ -1754,7 +2148,7 @@ h3 {
 .course-overview,
 .course-feature,
 .clubhouse-section {
-  margin-bottom: clamp(2rem, 5vw, 4rem);
+  margin-bottom: clamp(3rem, 7vw, 6rem);
 }
 
 .clubhouse-section {
@@ -1903,22 +2297,27 @@ h3 {
   line-height: 1.65;
 }
 
+/* Control de lista: mantiene caja compacta (no es un link editorial) */
 .button.route-toggle {
-  min-width: 9.5rem;
-  min-height: 3.15rem;
+  min-width: 8.5rem;
+  min-height: 2.75rem;
   justify-content: center;
-  font-weight: 600;
+  padding-inline: 1.2rem;
   color: var(--moss-dark);
-  border: 1px solid rgba(33, 58, 42, 0.52);
-  background: rgba(255, 250, 240, 0.82);
+  border: 1px solid rgba(33, 58, 42, 0.38);
+  background: transparent;
   box-shadow: none;
+}
+
+.button.route-toggle::before,
+.button.route-toggle::after {
+  display: none;
 }
 
 .button.route-toggle:hover,
 .button.route-toggle:focus-visible {
   color: var(--moss-dark);
   border-color: var(--moss-dark);
-  background: rgba(215, 223, 207, 0.84);
   box-shadow: 0 4px 12px rgba(33, 58, 42, 0.12);
 }
 
@@ -2684,9 +3083,8 @@ h3 {
 }
 
 .contact-actions .button {
-  min-height: 3.15rem;
+  min-height: 2.75rem;
   width: 100%;
-  font-weight: 600;
 }
 
 .contact-actions .button.primary:hover,
@@ -2696,9 +3094,15 @@ h3 {
 }
 
 .button.contact-button {
+  padding-inline: 1.4rem;
   color: var(--moss-dark);
-  border: 1px solid rgba(33, 58, 42, 0.52);
-  background: rgba(255, 250, 240, 0.72);
+  border: 1px solid rgba(33, 58, 42, 0.38);
+  background: transparent;
+}
+
+.button.contact-button::before,
+.button.contact-button::after {
+  display: none;
 }
 
 .button.contact-button:hover,
@@ -2874,9 +3278,9 @@ h3 {
 .home-stats ul {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1.25rem, 3.5vw, 2.5rem);
+  gap: clamp(2rem, 5vw, 4rem);
   margin: 0;
-  padding: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: clamp(2.75rem, 5.5vw, 4.5rem) 0 0;
   list-style: none;
   border-top: 1px solid rgba(49, 83, 60, 0.16);
 }
@@ -2907,7 +3311,7 @@ h3 {
 .home-stat strong {
   display: block;
   color: var(--moss-dark);
-  font-family: "Libre Baskerville", Georgia, serif;
+  font-family: var(--font-display);
   font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   font-weight: 700;
   line-height: 1.05;
@@ -2933,52 +3337,124 @@ h3 {
 .home-routes-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1rem, 2.5vw, 1.5rem);
+  gap: clamp(2rem, 5vw, 4rem);
 }
 
+/*
+ * Cada recorrido es una foto. En reposo asoma sólo la franja con el nombre;
+ * al hover el panel del color sube y debajo del color aparece la descripción.
+ */
 .home-route-card {
   position: relative;
-  display: grid;
-  gap: 0.6rem;
-  align-content: start;
-  min-height: 12rem;
-  padding: clamp(1.35rem, 3vw, 2rem);
-  border: 1px solid rgba(49, 83, 60, 0.14);
-  border-radius: 5px;
-  background: rgba(255, 250, 240, 0.68);
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--moss-dark);
   text-decoration: none;
+  --route-bar: 3.6rem;
+}
+
+.route-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.55s ease;
 }
 
-.home-route-card:hover,
-.home-route-card:focus-visible {
-  transform: translateY(-2px);
-  border-color: rgba(49, 83, 60, 0.3);
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: var(--interactive-shadow);
+/* El escalado además evita que el desenfoque descubra los bordes */
+.home-route-card:hover .route-photo,
+.home-route-card:focus-visible .route-photo {
+  transform: scale(1.06);
+  filter: blur(7px) brightness(0.5);
 }
 
-.home-route-card h3 {
-  color: var(--moss-dark);
-  font-size: clamp(1.25rem, 2vw, 1.7rem);
+/* Vela la base de la foto para que el nombre se lea sin panel */
+.home-route-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(180deg, transparent, rgba(13, 24, 17, 0.72));
+  transition: opacity 0.5s ease;
 }
 
-.home-route-card p {
+.home-route-card:hover::after,
+.home-route-card:focus-visible::after {
+  opacity: 0;
+}
+
+.route-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  gap: 0.7rem;
+  padding: 0 1.25rem 1.35rem;
+  /* Sin fondo: la legibilidad la da el desenfoque de la foto */
+  transform: translateY(calc(100% - var(--route-bar)));
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-route-card:hover .route-panel,
+.home-route-card:focus-visible .route-panel {
+  transform: translateY(0);
+}
+
+.route-name {
+  display: flex;
+  align-items: center;
+  height: var(--route-bar);
+  color: white;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.route-text {
   margin: 0;
-  color: var(--muted);
-  line-height: 1.65;
-  font-size: 0.98rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 250, 240, 0.3);
+  color: rgba(255, 250, 240, 0.92);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.4s ease 0.1s,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
 }
 
+.home-route-card:hover .route-text,
+.home-route-card:focus-visible .route-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* El círculo del color, arriba a la izquierda sobre la foto */
 .route-dot {
-  width: 0.85rem;
-  height: 0.85rem;
+  position: absolute;
+  top: 1.1rem;
+  left: 1.25rem;
+  z-index: 1;
+  width: 0.9rem;
+  height: 0.9rem;
   border-radius: 50%;
-  border: 1px solid rgba(23, 37, 28, 0.24);
+  border: 1px solid rgba(255, 250, 240, 0.7);
+  box-shadow: 0 2px 8px rgba(13, 24, 17, 0.45);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-route-card:hover .route-dot,
+.home-route-card:focus-visible .route-dot {
+  transform: scale(1.25);
 }
 
 .route-blanca .route-dot {
@@ -2993,19 +3469,6 @@ h3 {
   background: #33506b;
 }
 
-.route-arrow {
-  justify-self: end;
-  margin-top: auto;
-  color: var(--moss-dark);
-  font-size: 1.2rem;
-  transition: transform 0.2s ease;
-}
-
-.home-route-card:hover .route-arrow,
-.home-route-card:focus-visible .route-arrow {
-  transform: translateX(0.3rem);
-}
-
 .home-teaser-cta {
   display: flex;
   justify-content: flex-start;
@@ -3018,7 +3481,7 @@ h3 {
   grid-template-columns: minmax(0, 0.52fr) minmax(280px, 0.48fr);
   gap: clamp(1.5rem, 5vw, 3.5rem);
   align-items: stretch;
-  padding-top: clamp(2rem, 5vw, 3.25rem);
+  padding-top: clamp(3rem, 6.5vw, 5rem);
   border-top: 1px solid rgba(49, 83, 60, 0.14);
 }
 
@@ -3059,6 +3522,64 @@ h3 {
   transform: scale(1.03);
 }
 
+/* --- Home: acceso de socios --- */
+.home-members-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.78fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+  padding-top: clamp(2.5rem, 5.5vw, 4rem);
+  border-top: 1px solid rgba(49, 83, 60, 0.18);
+}
+
+.home-members-copy {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.home-members-copy p:not(.section-kicker) {
+  margin: 0;
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: var(--text-body);
+  line-height: 1.72;
+}
+
+.home-members-copy .hero-actions {
+  margin-top: 0.6rem;
+}
+
+/* Lo que hay adentro: lista con filetes, sin cajas */
+.home-members-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-members-list li {
+  position: relative;
+  padding: 1.05rem 0 1.05rem 1.6rem;
+  border-top: 1px solid rgba(49, 83, 60, 0.14);
+  color: var(--moss-dark);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.home-members-list li:last-child {
+  border-bottom: 1px solid rgba(49, 83, 60, 0.14);
+}
+
+.home-members-list li::before {
+  content: "";
+  position: absolute;
+  top: 1.55rem;
+  left: 0;
+  width: 0.6rem;
+  height: 1px;
+  background: var(--gold);
+}
+
 /* --- Home: teaser del centenario --- */
 .home-history-card {
   display: grid;
@@ -3089,6 +3610,11 @@ h3 {
   padding: clamp(2rem, 5vw, 4rem);
 }
 
+/* Sobre el panel oscuro vuelve el dorado brillante (el --gold-ink no contrasta ahí) */
+.home-history-copy .section-kicker {
+  color: var(--gold);
+}
+
 .home-history-copy h2 {
   color: white;
 }
@@ -3103,18 +3629,14 @@ h3 {
   margin-top: 0.5rem;
 }
 
-/* Sobre panel oscuro: filete dorado que se llena de dorado */
+/* Sobre panel oscuro */
 .button.on-dark {
   color: var(--gold);
-  border: 1px solid rgba(199, 157, 79, 0.65);
-  background: transparent;
 }
 
 .button.on-dark:hover,
 .button.on-dark:focus-visible {
-  color: var(--moss-dark);
-  border-color: var(--gold);
-  background: var(--gold);
+  color: #dcb66a;
 }
 
 /* --- Cortina de entrada --- */
@@ -3126,48 +3648,40 @@ body.curtain-lock {
   position: fixed;
   inset: 0;
   z-index: 60;
-  display: grid;
-  place-items: center;
   overflow: hidden;
 }
 
+/* Dos paños a pantalla completa que suben: durazno con el sello, verde abeto detrás */
 .curtain-panel {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50.5%;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.curtain-panel--back {
   background:
-    radial-gradient(circle at 50% 30%, rgba(199, 157, 79, 0.07), transparent 34rem),
-    linear-gradient(160deg, #24422f 0%, var(--moss-dark) 55%, #16281d 100%);
+    radial-gradient(circle at 50% 32%, rgba(199, 157, 79, 0.08), transparent 36rem),
+    linear-gradient(165deg, var(--fir) 0%, #1b3325 60%, #14241a 100%);
 }
 
-.curtain-panel--left {
-  left: 0;
-  box-shadow: inset -48px 0 90px rgba(0, 0, 0, 0.24);
+.curtain-panel--front {
+  background:
+    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.85), transparent 34rem),
+    linear-gradient(165deg, #fdfdfc 0%, var(--bone) 55%, #eceae5 100%);
+  box-shadow: 0 24px 60px rgba(18, 31, 22, 0.28);
 }
 
-.curtain-panel--right {
-  right: 0;
-  box-shadow: inset 48px 0 90px rgba(0, 0, 0, 0.24);
-}
-
-/* Costura dorada donde se encuentran los paños: viaja con cada uno al abrirse */
-.curtain-panel--left::after,
-.curtain-panel--right::after {
+/* Filete dorado en el borde inferior de cada paño: lo dibuja al levantarse */
+.curtain-panel::after {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, rgba(199, 157, 79, 0.6) 18%, rgba(199, 157, 79, 0.6) 82%, transparent);
-}
-
-.curtain-panel--left::after {
-  right: 0;
-}
-
-.curtain-panel--right::after {
   left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold) 22%, var(--gold) 78%, transparent);
+  opacity: 0.75;
 }
 
 .curtain-content {
@@ -3177,20 +3691,19 @@ body.curtain-lock {
   justify-items: center;
   gap: 1.1rem;
   padding: 2rem;
-  color: var(--cream);
+  color: var(--moss-dark);
   text-align: center;
 }
 
 .curtain-emblem {
   display: grid;
   place-items: center;
-  width: 5.4rem;
-  height: 5.4rem;
-  padding: 0.65rem;
-  border: 1px solid rgba(199, 157, 79, 0.5);
-  border-radius: 6px;
-  background: rgba(255, 250, 240, 0.94);
-  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.3);
+  width: 6.2rem;
+  height: 6.2rem;
+  padding: 0.7rem;
+  border: 1px solid rgba(33, 58, 42, 0.22);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
 }
 
 .curtain-emblem img {
@@ -3201,11 +3714,11 @@ body.curtain-lock {
 
 .curtain-name {
   margin: 0;
-  color: white;
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  color: var(--moss-dark);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  font-weight: 600;
+  letter-spacing: 0.005em;
   line-height: 1.1;
 }
 
@@ -3217,9 +3730,9 @@ body.curtain-lock {
 
 .curtain-years {
   margin: 0;
-  color: rgba(247, 241, 228, 0.82);
-  font-size: 0.86rem;
-  font-weight: 800;
+  color: rgba(33, 58, 42, 0.7);
+  font-size: 0.78rem;
+  font-weight: 500;
   letter-spacing: 0.32em;
   text-transform: uppercase;
 }
@@ -3264,7 +3777,16 @@ body.curtain-lock {
     align-items: center;
   }
 
-  .menu {
+  .nav {
+    grid-template-columns: 1fr auto;
+  }
+
+  .brand {
+    margin-left: 0;
+  }
+
+  /* El panel desplegable pasa a ser el contenedor: incluye enlaces y acciones */
+  .nav-collapse {
     position: absolute;
     top: calc(100% + 0.65rem);
     left: 0.75rem;
@@ -3283,8 +3805,25 @@ body.curtain-lock {
     backdrop-filter: blur(18px);
   }
 
-  .menu.is-open {
+  .nav-collapse.is-open {
     display: flex;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .nav-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-self: stretch;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
   }
 
   .menu a,
@@ -3336,6 +3875,7 @@ body.curtain-lock {
     padding-inline: 0.85rem;
   }
 
+  .home-members-inner,
   .home-screen,
   .page-hero,
   .course-map-card,
@@ -3388,14 +3928,14 @@ body.curtain-lock {
     margin-bottom: 4.5rem;
   }
 
-  .menu-reserve {
-    margin-left: 0;
-  }
-
-  .menu .nav-reserve {
+  .slide-reserve {
     width: 100%;
     min-height: 3.15rem;
-    justify-content: center;
+  }
+
+  .slide-reserve-knob {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 
   .home-cover-title h1 {
@@ -3404,15 +3944,17 @@ body.curtain-lock {
 
   .centenary-badge {
     margin-bottom: 1.2rem;
-    padding: 0.9rem 1.3rem 0.8rem;
+    padding: 0;
   }
 
-  .centenary-badge span:first-child {
-    font-size: clamp(1.6rem, 9vw, 2.4rem);
+  .centenary-title {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
   }
 
-  .centenary-badge span:last-child {
-    font-size: clamp(0.72rem, 3vw, 0.95rem);
+  .centenary-years {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
   }
 
   .home-main-copy {
@@ -3473,8 +4015,16 @@ body.curtain-lock {
   }
 
   .section {
-    margin-bottom: 5.5rem;
+    margin-bottom: 7.5rem;
     padding-inline: 1rem;
+  }
+
+  .home-routes-grid {
+    gap: 2.5rem;
+  }
+
+  .sponsor-grid {
+    gap: 2.5rem;
   }
 
   .history-timeline {
@@ -3871,11 +4421,19 @@ body.curtain-lock {
   }
 
   .hero-actions {
-    gap: 0.65rem;
+    gap: 0.9rem;
   }
 
   .button {
-    min-height: 3.35rem;
+    min-height: 3rem;
+  }
+
+  /* Los tipográficos no se estiran: un filete a todo el ancho bajo dos palabras queda raro */
+  .button.secondary,
+  .button.secondary.light,
+  .button.on-dark {
+    width: fit-content;
+    justify-content: flex-start;
   }
 
   .page-hero,

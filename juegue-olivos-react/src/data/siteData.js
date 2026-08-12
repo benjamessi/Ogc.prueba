@@ -66,7 +66,8 @@ const siteContent = {
         closeMenu: "Cerrar menú",
         logout: "Cerrar sesión",
         languageLabel: "Idioma",
-        reserve: "Reservar"
+        reserve: "Tee time",
+        reserveHint: "Deslizá para reservar un horario"
       },
       skipLink: "Saltar al contenido",
       quickActionsAria: "Acciones rápidas para celular",
@@ -116,15 +117,6 @@ const siteContent = {
       secretaryAria: "Información de secretaría",
       secretaryLabel: "Secretaría",
       attentionTitle: "Atención",
-      stats: {
-        aria: "Cifras del club",
-        items: [
-          { value: 1926, from: 1880, label: "Año de fundación", icon: "building" },
-          { value: 100, from: 0, prefix: "+", label: "Años de historia", icon: "trophy" },
-          { value: 27, from: 0, label: "Hoyos", icon: "flag" },
-          { value: 3, from: 0, label: "Recorridos", icon: "routes" }
-        ]
-      },
       courseTeaser: {
         kicker: "La cancha",
         title: "Tres recorridos, una misma cancha.",
@@ -143,6 +135,18 @@ const siteContent = {
         text: "Incluido en 1001 Golf Holes You Must Play Before You Die, el 15 desciende hacia un green protegido por agua y tres bunkers. Llegar en dos golpes es tentador, pero un mal tiro convierte rápido una oportunidad de birdie en un score alto.",
         cta: "Ver el hoyo 15",
         imageAlt: "Hoyo 15 del Olivos Golf Club"
+      },
+      membersTeaser: {
+        kicker: "Socios",
+        title: "El área de socios.",
+        text: "Los socios del club tienen un acceso privado con la información que necesitan antes de venir a jugar.",
+        cta: "Entrar al área de socios",
+        aria: "Qué incluye el área de socios",
+        items: [
+          "Reservas internas y condiciones del día",
+          "Torneos, fixtures y resultados",
+          "Beneficios y clubes con reciprocidad"
+        ]
       },
       historyTeaser: {
         kicker: "Centenario 1926 — 2026",
@@ -548,7 +552,8 @@ const siteContent = {
         closeMenu: "Close menu",
         logout: "Log out",
         languageLabel: "Language",
-        reserve: "Book"
+        reserve: "Tee time",
+        reserveHint: "Slide to book a tee time"
       },
       skipLink: "Skip to content",
       quickActionsAria: "Mobile quick actions",
@@ -598,15 +603,6 @@ const siteContent = {
       secretaryAria: "Secretary information",
       secretaryLabel: "Secretary",
       attentionTitle: "Office hours",
-      stats: {
-        aria: "Club figures",
-        items: [
-          { value: 1926, from: 1880, label: "Founded", icon: "building" },
-          { value: 100, from: 0, prefix: "+", label: "Years of history", icon: "trophy" },
-          { value: 27, from: 0, label: "Holes", icon: "flag" },
-          { value: 3, from: 0, label: "Layouts", icon: "routes" }
-        ]
-      },
       courseTeaser: {
         kicker: "The course",
         title: "Three layouts, one course.",
@@ -625,6 +621,18 @@ const siteContent = {
         text: "Featured in 1001 Golf Holes You Must Play Before You Die, the 15th descends toward a green protected by water and three bunkers. Going for it in two is tempting, but one poor shot quickly turns a birdie chance into a big number.",
         cta: "See hole 15",
         imageAlt: "Hole 15 at Olivos Golf Club"
+      },
+      membersTeaser: {
+        kicker: "Members",
+        title: "The members area.",
+        text: "Club members have private access to everything they need before coming out to play.",
+        cta: "Enter the members area",
+        aria: "What the members area includes",
+        items: [
+          "Internal bookings and daily conditions",
+          "Tournaments, fixtures and results",
+          "Benefits and reciprocal clubs"
+        ]
       },
       historyTeaser: {
         kicker: "Centenary 1926 — 2026",

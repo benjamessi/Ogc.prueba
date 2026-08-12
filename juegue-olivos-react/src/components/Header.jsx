@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useHeaderScroll } from "../hooks/useHeaderScroll.js";
+import { TeeIcon } from "./TeeIcon.jsx";
+import { TeeTimeButton } from "./TeeTimeButton.jsx";
 
 const HOVER_GRACE = 320;
 
@@ -10,8 +12,28 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
   const [isOverHomeCover, setIsOverHomeCover] = useState(false);
   const { isPinned, isScrolled } = useHeaderScroll({ isMenuOpen: isOpen });
   const closeTimerRef = useRef(null);
+  const headerRef = useRef(null);
   const location = useLocation();
   const isHome = location.pathname === "/";
+
+  /*
+   * Publica la altura del header en --header-h. El escudo la usa para
+   * contra-desplazarse y quedar visible cuando la barra se esconde.
+   */
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) {
+      return undefined;
+    }
+
+    // getBoundingClientRect y no contentRect: hace falta el alto con padding
+    const observer = new ResizeObserver(() => {
+      header.style.setProperty("--header-h", `${header.getBoundingClientRect().height}px`);
+    });
+    observer.observe(header);
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     setOpenGroup(null);
@@ -134,6 +156,7 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
 
   return (
     <header
+      ref={headerRef}
       className={[
         "site-header",
         isHome && isOverHomeCover && !isOpen ? "is-transparent" : "",
@@ -148,7 +171,7 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
           <span className="brand-mark">
             <img src={club.logo} alt="" />
           </span>
-          <span>
+          <span className="brand-text">
             <strong>{club.name}</strong>
             <small>{club.location}</small>
           </span>
@@ -165,7 +188,10 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
           <span aria-hidden="true" />
           <span aria-hidden="true" />
         </button>
-        <ul className={`menu ${isOpen ? "is-open" : ""}`} id="menu">
+        {/* En desktop es `display: contents` (brand | menú | acciones);
+            en mobile se vuelve el panel desplegable que contiene todo. */}
+        <div className={`nav-collapse ${isOpen ? "is-open" : ""}`} id="menu">
+        <ul className="menu">
           {navigation.map((item) => {
             if (item.children) {
               const isActive = isItemActive(item);
@@ -187,7 +213,7 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
                   >
                     {item.label}
                     <span className="menu-chevron" aria-hidden="true">
-                      ▾
+                      <TeeIcon />
                     </span>
                   </button>
                   <ul className="submenu" aria-label={item.label}>
@@ -226,12 +252,10 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
               </li>
             );
           })}
-          <li className="menu-item menu-reserve">
-            <NavLink className="nav-reserve" to="/reservaciones" onClick={closeMenu}>
-              {labels.reserve}
-            </NavLink>
-          </li>
-          <li className="language-switch" aria-label={labels.languageLabel}>
+        </ul>
+        <div className="nav-actions">
+          <TeeTimeButton to="/reservaciones" label={labels.reserve} onClick={closeMenu} />
+          <div className="language-switch" aria-label={labels.languageLabel}>
             {["es", "en"].map((option) => (
               <button
                 className={language === option ? "is-active" : ""}
@@ -243,8 +267,9 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
                 {option.toUpperCase()}
               </button>
             ))}
-          </li>
-        </ul>
+          </div>
+        </div>
+        </div>
       </nav>
     </header>
   );
