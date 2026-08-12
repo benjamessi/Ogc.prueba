@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import reservationBackground from "../assets/reservation-bg.jpg";
 
 function getTomorrowDate() {
   const date = new Date();
@@ -105,8 +104,7 @@ export function Reservation({ reservation, member }) {
     setSubmitMessage(nextRule.isValid ? "" : nextRule.message);
   }
 
-  function handleGuestCountChange(event) {
-    const nextGuestCount = Number(event.target.value);
+  function handleGuestCountChange(nextGuestCount) {
     const nextRule = getReservationRule(selectedDate, isMember, nextGuestCount, reservation.rules);
 
     setGuestCount(nextGuestCount);
@@ -125,60 +123,117 @@ export function Reservation({ reservation, member }) {
     navigate("/contacto");
   }
 
+  const message = submitMessage || validation.message;
+
   return (
     <section className="section reservation-section" id="reservar" aria-labelledby="reservar-title">
-      <div className="reservation-shell" style={{ "--reservation-image": `url(${reservationBackground})` }}>
+      <div className="reservation-layout">
         <div className="reservation-copy">
-          <div className="section-kicker">{reservation.kicker}</div>
+          <p className="section-kicker">{reservation.kicker}</p>
           <h2 id="reservar-title">{reservation.title}</h2>
           <p>{reservation.intro}</p>
+
+          {/* Las reglas van a la vista antes de elegir: evitan el error en
+              lugar de corregirlo después. */}
+          <div className="reservation-schedule">
+            <h3>{reservation.scheduleTitle}</h3>
+            <ul>
+              {reservation.schedule.map((item) => (
+                <li key={item.day}>
+                  <strong>{item.day}</strong>
+                  <span>{item.detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <form className="reservation-form" onSubmit={handleSubmit} noValidate>
+          <div className="field-row">
+            <label className="field-label" htmlFor="reservation-date">
+              {reservation.dateLabel}
+            </label>
+            <input
+              className="field-control"
+              id="reservation-date"
+              type="date"
+              value={selectedDate}
+              onChange={handleDateChange}
+              aria-describedby="reservation-rule"
+            />
+          </div>
+
+          {/* Grilla de horarios en vez de un desplegable: se ven todos juntos */}
+          <fieldset className="field-row">
+            <legend className="field-label">{reservation.timeLabel}</legend>
+            <div className="slot-grid">
+              {reservation.times.map((time) => (
+                <label className={`slot ${selectedTime === time ? "is-selected" : ""}`} key={time}>
+                  <input
+                    type="radio"
+                    name="reservation-time"
+                    value={time}
+                    checked={selectedTime === time}
+                    onChange={() => setSelectedTime(time)}
+                  />
+                  <span>{time}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div className="field-row">
+            <span className="field-label">{reservation.statusLabel}</span>
+            <div className="field-status">
+              <span className={`status-mark ${isMember ? "is-member" : ""}`} aria-hidden="true" />
+              <span>{isMember ? reservation.memberLabel : reservation.nonMemberLabel}</span>
+            </div>
+            {!isMember ? <p className="field-hint">{reservation.memberLoginHint}</p> : null}
+          </div>
+
+          <fieldset className="field-row" disabled={!isMember}>
+            <legend className="field-label">{reservation.guestsLabel}</legend>
+            <div className="slot-grid slot-grid-guests">
+              {[
+                { value: 0, label: reservation.noGuests },
+                { value: 1, label: reservation.oneGuest }
+              ].map((option) => (
+                <label
+                  className={`slot ${guestCount === option.value ? "is-selected" : ""}`}
+                  key={option.value}
+                >
+                  <input
+                    type="radio"
+                    name="reservation-guests"
+                    value={option.value}
+                    checked={guestCount === option.value}
+                    onChange={() => handleGuestCountChange(option.value)}
+                  />
+                  <span>{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          {/*
+            role="alert" sólo cuando bloquea: los lectores de pantalla lo
+            anuncian al instante. El estado válido usa aria-live cortés para
+            no interrumpir mientras se completa el formulario.
+          */}
+          <p
+            className={`reservation-rule ${validation.isValid ? "is-valid" : "is-blocked"}`}
+            id="reservation-rule"
+            role={validation.isValid ? undefined : "alert"}
+            aria-live={validation.isValid ? "polite" : undefined}
+          >
+            {message}
+          </p>
+
           <div className="reservation-summary" aria-live="polite">
             <span>{reservation.summaryLabel}</span>
             <strong>
               {selectedDate} · {selectedTime} · {isMember ? reservation.memberLabel : reservation.nonMemberLabel}
             </strong>
-          </div>
-        </div>
-
-        <form className="reservation-form" onSubmit={handleSubmit} noValidate>
-          <div className="form-row">
-            <label>
-              {reservation.dateLabel}
-              <input type="date" value={selectedDate} onChange={handleDateChange} aria-describedby="reservation-rule" />
-            </label>
-            <label>
-              {reservation.timeLabel}
-              <select value={selectedTime} onChange={(event) => setSelectedTime(event.target.value)}>
-                {reservation.times.map((time) => (
-                  <option key={time} value={time}>
-                    {time}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-
-          <div className="form-row">
-            <label>
-              {reservation.statusLabel}
-              <input type="text" value={isMember ? reservation.memberLabel : reservation.nonMemberLabel} readOnly />
-              {!isMember ? <small className="reservation-login-hint">{reservation.memberLoginHint}</small> : null}
-            </label>
-            <label>
-              {reservation.guestsLabel}
-              <select value={guestCount} onChange={handleGuestCountChange} disabled={!isMember}>
-                <option value={0}>{reservation.noGuests}</option>
-                <option value={1}>{reservation.oneGuest}</option>
-              </select>
-            </label>
-          </div>
-
-          <div
-            className={`reservation-rule ${validation.isValid ? "is-valid" : "is-blocked"}`}
-            id="reservation-rule"
-            aria-live="polite"
-          >
-            {submitMessage || validation.message}
           </div>
 
           <button className="button primary full" type="submit">

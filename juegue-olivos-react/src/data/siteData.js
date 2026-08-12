@@ -374,6 +374,12 @@ const siteContent = {
       times: ["08:00", "09:30", "11:00", "13:30", "15:00"],
       kicker: "Reservar horario",
       title: "Elegí día y hora.",
+      scheduleTitle: "Cuándo se puede jugar",
+      schedule: [
+        { day: "Miércoles", detail: "Abierto: socios y no socios" },
+        { day: "Martes · Jueves · Viernes", detail: "Solo socios, hasta 1 invitado" },
+        { day: "Sábados · Domingos", detail: "Solo socios, sin invitados" }
+      ],
       summaryLabel: "Consulta preparada",
       dateLabel: "Día",
       timeLabel: "Horario",
@@ -856,6 +862,12 @@ const siteContent = {
       times: ["08:00", "09:30", "11:00", "13:30", "15:00"],
       kicker: "Book a tee time",
       title: "Choose day and time.",
+      scheduleTitle: "When you can play",
+      schedule: [
+        { day: "Wednesday", detail: "Open: members and non-members" },
+        { day: "Tuesday · Thursday · Friday", detail: "Members only, up to 1 guest" },
+        { day: "Saturday · Sunday", detail: "Members only, no guests" }
+      ],
       summaryLabel: "Request prepared",
       dateLabel: "Day",
       timeLabel: "Time",
