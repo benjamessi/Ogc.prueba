@@ -64,10 +64,8 @@ const siteContent = {
         homeAria: "Olivos Golf Club inicio",
         openMenu: "Abrir menú",
         closeMenu: "Cerrar menú",
-        logout: "Cerrar sesión",
         languageLabel: "Idioma",
-        reserve: "Tee time",
-        reserveHint: "Deslizá para reservar un horario"
+        reserve: "Secretaría"
       },
       skipLink: "Saltar al contenido",
       quickActionsAria: "Acciones rápidas para celular",
@@ -77,9 +75,9 @@ const siteContent = {
     },
     quickActions: [
       { label: "Inicio", path: "/" },
-      { label: "Reservar", path: "/reservaciones" },
+      { label: "Cancha", path: "/cancha" },
       { label: "Club", path: "/historia-club" },
-      { label: "Socios", path: "/socios" }
+      { label: "Contacto", path: "/contacto" }
     ],
     club: {
       location: "Buenos Aires, Argentina"
@@ -99,11 +97,9 @@ const siteContent = {
         children: [
           { label: "Cancha", href: "/cancha" },
           { label: "Condiciones de juego", href: "/condiciones-juego" },
-          { label: "Reservar horario", href: "/reservaciones" },
           { label: "Green fees", href: "/tarifas" }
         ]
       },
-      { label: "Socios", href: "/socios" },
       { label: "Contacto", href: "/contacto" }
     ],
     home: {
@@ -111,7 +107,7 @@ const siteContent = {
       eyebrow: "Golf en Buenos Aires",
       title: '"La Augusta Argentina."',
       intro: "Una cancha histórica, tres recorridos y una experiencia de golf reconocida en la Argentina.",
-      reserveCta: "Reservar horario",
+      reserveCta: "Contactar Secretaría",
       historyCta: "Historia del club",
       heroAlt: "Cancha del Olivos Golf Club",
       secretaryAria: "Información de secretaría",
@@ -135,18 +131,6 @@ const siteContent = {
         text: "Incluido en 1001 Golf Holes You Must Play Before You Die, el 15 desciende hacia un green protegido por agua y tres bunkers. Llegar en dos golpes es tentador, pero un mal tiro convierte rápido una oportunidad de birdie en un score alto.",
         cta: "Ver el hoyo 15",
         imageAlt: "Hoyo 15 del Olivos Golf Club"
-      },
-      membersTeaser: {
-        kicker: "Socios",
-        title: "El área de socios.",
-        text: "Los socios del club tienen un acceso privado con la información que necesitan antes de venir a jugar.",
-        cta: "Entrar al área de socios",
-        aria: "Qué incluye el área de socios",
-        items: [
-          "Reservas internas y condiciones del día",
-          "Torneos, fixtures y resultados",
-          "Beneficios y clubes con reciprocidad"
-        ]
       },
       historyTeaser: {
         kicker: "Centenario 1926 — 2026",
@@ -355,55 +339,13 @@ const siteContent = {
         title: "¿Tenés dudas antes de jugar?",
         text: "Comunicate con Secretaría para confirmar condiciones vigentes, horarios y disponibilidad.",
         contact: "Contactar Secretaría",
-        reserve: "Reservar horario"
+        reserve: "Contactar Secretaría"
       }
     },
     booking: {
       phoneDisplay: "(5411) 4587-1076 int. 112 / 101 / 102",
       phoneHref: "tel:+541145871076",
       hours: "Martes a sábado, 8:00 a 16:30."
-    },
-    reservationsPage: {
-      eyebrow: "Reservaciones",
-      title: "Reservar horario",
-      intro: "Elegí día y horario para consultar disponibilidad."
-    },
-    reservation: {
-      intro:
-        "Elegí día y horario. El sistema comprueba automáticamente si la reserva está permitida según la condición del jugador.",
-      times: ["08:00", "09:30", "11:00", "13:30", "15:00"],
-      kicker: "Reservar horario",
-      title: "Elegí día y hora.",
-      scheduleTitle: "Cuándo se puede jugar",
-      schedule: [
-        { day: "Miércoles", detail: "Abierto: socios y no socios" },
-        { day: "Martes · Jueves · Viernes", detail: "Solo socios, hasta 1 invitado" },
-        { day: "Sábados · Domingos", detail: "Solo socios, sin invitados" }
-      ],
-      summaryLabel: "Consulta preparada",
-      dateLabel: "Día",
-      timeLabel: "Horario",
-      statusLabel: "Condición",
-      memberLabel: "Socio",
-      nonMemberLabel: "No socio",
-      memberLoginHint: "Para reservar como socio, primero tenés que iniciar sesión.",
-      guestsLabel: "Invitados externos",
-      noGuests: "Sin invitados",
-      oneGuest: "1 invitado",
-      submit: "Consultar disponibilidad",
-      rules: {
-        noDate: "Elegí un día para consultar disponibilidad.",
-        openWednesday: "Miércoles de golf abierto: pueden reservar socios y no socios.",
-        memberOnlyWeekdays:
-          "Los martes, jueves y viernes sólo pueden reservar socios. Para reservar como socio, primero tenés que iniciar sesión.",
-        maxOneGuest: "Los martes, jueves y viernes cada socio puede invitar como máximo a 1 invitado.",
-        weekdayOk: "Día habilitado para socios. Podés sumar como máximo 1 invitado.",
-        weekendMembersOnly: "Los sábados y domingos sólo pueden reservar socios.",
-        weekendNoGuests: "Los sábados y domingos no se permiten invitados externos.",
-        weekendOk: "Día habilitado para socios, sin invitados externos.",
-        unavailable:
-          "Ese día no está habilitado para reservas. Elegí miércoles, o martes, jueves, viernes, sábado o domingo si sos socio."
-      }
     },
     scorecard: {
       eyebrow: "Imprimir",
@@ -461,39 +403,6 @@ const siteContent = {
           price: "Consultar",
           notes: "Consultar condiciones vigentes."
         }
-      ]
-    },
-    membersPage: {
-      eyebrow: "Socios",
-      title: "Acceso socios",
-      intro: "Ingreso al área privada para socios del club."
-    },
-    memberArea: {
-      authEmail: "socio@olivosgolf.com.ar",
-      authPassword: "olivos",
-      memberName: "Socio OGC",
-      errorMessage: "Los datos ingresados no son correctos. Verificá tu email y contraseña.",
-      kicker: "Exclusivo socios",
-      title: "Inicio de sesión",
-      intro: "Accedé con tus credenciales para consultar información y beneficios exclusivos del club.",
-      dashboardAria: "Área privada de socios",
-      welcome: "Bienvenido",
-      emailLabel: "Email de socio",
-      emailPlaceholder: "tuemail@ejemplo.com",
-      passwordLabel: "Contraseña",
-      showPassword: "Mostrar",
-      hidePassword: "Ocultar",
-      submit: "Iniciar sesión",
-      forgotPassword: "Olvidé mi contraseña",
-      forgotPasswordHref: "mailto:secretaria@olivosgolf.com.ar?subject=Recuperar%20contrase%C3%B1a",
-      contactSecretary: "Contactar Secretaría",
-      cards: [
-        { title: "Reservas internas", body: "Acceso rápido a turnos, condiciones del día y avisos de secretaría." },
-        {
-          title: "Torneos y resultados",
-          body: "Espacio preparado para fixtures, resultados y comunicaciones deportivas."
-        },
-        { title: "Beneficios y reciprocidad", body: "Convenios vigentes, datos útiles y novedades exclusivas para socios." }
       ]
     },
     contactPage: {
@@ -556,10 +465,8 @@ const siteContent = {
         homeAria: "Olivos Golf Club home",
         openMenu: "Open menu",
         closeMenu: "Close menu",
-        logout: "Log out",
         languageLabel: "Language",
-        reserve: "Tee time",
-        reserveHint: "Slide to book a tee time"
+        reserve: "Secretary"
       },
       skipLink: "Skip to content",
       quickActionsAria: "Mobile quick actions",
@@ -569,9 +476,9 @@ const siteContent = {
     },
     quickActions: [
       { label: "Home", path: "/" },
-      { label: "Book", path: "/reservaciones" },
+      { label: "Course", path: "/cancha" },
       { label: "Club", path: "/historia-club" },
-      { label: "Members", path: "/socios" }
+      { label: "Contact", path: "/contacto" }
     ],
     club: {
       location: "Buenos Aires, Argentina"
@@ -591,11 +498,9 @@ const siteContent = {
         children: [
           { label: "Course", href: "/cancha" },
           { label: "Playing conditions", href: "/condiciones-juego" },
-          { label: "Book a tee time", href: "/reservaciones" },
           { label: "Green fees", href: "/tarifas" }
         ]
       },
-      { label: "Members", href: "/socios" },
       { label: "Contact", href: "/contacto" }
     ],
     home: {
@@ -603,7 +508,7 @@ const siteContent = {
       eyebrow: "Golf in Buenos Aires",
       title: '"The Augusta of Argentina."',
       intro: "A historic course, three layouts and a golf experience recognized across Argentina.",
-      reserveCta: "Book a tee time",
+      reserveCta: "Contact Secretary",
       historyCta: "Club history",
       heroAlt: "Olivos Golf Club course",
       secretaryAria: "Secretary information",
@@ -627,18 +532,6 @@ const siteContent = {
         text: "Featured in 1001 Golf Holes You Must Play Before You Die, the 15th descends toward a green protected by water and three bunkers. Going for it in two is tempting, but one poor shot quickly turns a birdie chance into a big number.",
         cta: "See hole 15",
         imageAlt: "Hole 15 at Olivos Golf Club"
-      },
-      membersTeaser: {
-        kicker: "Members",
-        title: "The members area.",
-        text: "Club members have private access to everything they need before coming out to play.",
-        cta: "Enter the members area",
-        aria: "What the members area includes",
-        items: [
-          "Internal bookings and daily conditions",
-          "Tournaments, fixtures and results",
-          "Benefits and reciprocal clubs"
-        ]
       },
       historyTeaser: {
         kicker: "Centenary 1926 — 2026",
@@ -844,53 +737,13 @@ const siteContent = {
         title: "Any questions before playing?",
         text: "Contact the Secretary's office to confirm current conditions, schedules and availability.",
         contact: "Contact Secretary",
-        reserve: "Book a tee time"
+        reserve: "Contact Secretary"
       }
     },
     booking: {
       phoneDisplay: "(5411) 4587-1076 ext. 112 / 101 / 102",
       phoneHref: "tel:+541145871076",
       hours: "Tuesday to Saturday, 8:00 AM to 4:30 PM."
-    },
-    reservationsPage: {
-      eyebrow: "Bookings",
-      title: "Book a tee time",
-      intro: "Choose a day and time to check availability."
-    },
-    reservation: {
-      intro: "Choose a day and time. The system automatically checks whether the booking is allowed for the player type.",
-      times: ["08:00", "09:30", "11:00", "13:30", "15:00"],
-      kicker: "Book a tee time",
-      title: "Choose day and time.",
-      scheduleTitle: "When you can play",
-      schedule: [
-        { day: "Wednesday", detail: "Open: members and non-members" },
-        { day: "Tuesday · Thursday · Friday", detail: "Members only, up to 1 guest" },
-        { day: "Saturday · Sunday", detail: "Members only, no guests" }
-      ],
-      summaryLabel: "Request prepared",
-      dateLabel: "Day",
-      timeLabel: "Time",
-      statusLabel: "Status",
-      memberLabel: "Member",
-      nonMemberLabel: "Non-member",
-      memberLoginHint: "To book as a member, you must sign in first.",
-      guestsLabel: "External guests",
-      noGuests: "No guests",
-      oneGuest: "1 guest",
-      submit: "Check availability",
-      rules: {
-        noDate: "Choose a day to check availability.",
-        openWednesday: "Wednesday is open golf: members and non-members may book.",
-        memberOnlyWeekdays: "Tuesday, Thursday and Friday are members-only. To book as a member, you must sign in first.",
-        maxOneGuest: "On Tuesday, Thursday and Friday, each member may invite up to 1 guest.",
-        weekdayOk: "Day available for members. You may add up to 1 guest.",
-        weekendMembersOnly: "Saturday and Sunday bookings are members-only.",
-        weekendNoGuests: "External guests are not allowed on Saturdays and Sundays.",
-        weekendOk: "Day available for members, with no external guests.",
-        unavailable:
-          "That day is not available for bookings. Choose Wednesday, or Tuesday, Thursday, Friday, Saturday or Sunday if you are a member."
-      }
     },
     scorecard: {
       eyebrow: "Print",
@@ -948,36 +801,6 @@ const siteContent = {
           price: "Ask",
           notes: "Please confirm current conditions."
         }
-      ]
-    },
-    membersPage: {
-      eyebrow: "Members",
-      title: "Members access",
-      intro: "Access to the club's private members area."
-    },
-    memberArea: {
-      authEmail: "socio@olivosgolf.com.ar",
-      authPassword: "olivos",
-      memberName: "OGC Member",
-      errorMessage: "The details entered are not correct. Please check your email and password.",
-      kicker: "Members only",
-      title: "Sign in",
-      intro: "Sign in with your credentials to view exclusive club information and benefits.",
-      dashboardAria: "Private members area",
-      welcome: "Welcome",
-      emailLabel: "Member email",
-      emailPlaceholder: "you@example.com",
-      passwordLabel: "Password",
-      showPassword: "Show",
-      hidePassword: "Hide",
-      submit: "Sign in",
-      forgotPassword: "Forgot my password",
-      forgotPasswordHref: "mailto:secretaria@olivosgolf.com.ar?subject=Password%20recovery",
-      contactSecretary: "Contact Secretary",
-      cards: [
-        { title: "Internal bookings", body: "Quick access to tee times, daily conditions and secretary notices." },
-        { title: "Tournaments and results", body: "A space prepared for fixtures, results and sports communications." },
-        { title: "Benefits and reciprocity", body: "Current agreements, useful details and exclusive member news." }
       ]
     },
     contactPage: {

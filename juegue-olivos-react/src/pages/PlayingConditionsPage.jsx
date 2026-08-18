@@ -63,7 +63,7 @@ export function PlayingConditionsPage({ conditions, booking }) {
           <a className="button primary" href={booking.phoneHref}>
             {conditions.cta.contact}
           </a>
-          <Link className="button secondary light" to="/reservaciones">
+          <Link className="button secondary light" to="/contacto">
             {conditions.cta.reserve}
           </Link>
         </div>

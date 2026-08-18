@@ -47,7 +47,7 @@ export function HomePage({ siteData }) {
           <h1 id="home-title">{home.title}</h1>
           <p>{home.intro}</p>
           <div className="hero-actions">
-            <Link className="button primary" to="/reservaciones">
+            <Link className="button primary" to="/contacto">
               {home.reserveCta}
             </Link>
             <Link className="button secondary light" to="/historia-club">
@@ -134,26 +134,6 @@ export function HomePage({ siteData }) {
             </div>
           </div>
         </article>
-      </section>
-
-      <section className="section home-members" aria-labelledby="home-members-title">
-        <div className="home-members-inner" data-reveal>
-          <div className="home-members-copy">
-            <p className="section-kicker">{home.membersTeaser.kicker}</p>
-            <h2 id="home-members-title">{home.membersTeaser.title}</h2>
-            <p>{home.membersTeaser.text}</p>
-            <div className="hero-actions">
-              <Link className="button primary" to="/socios">
-                {home.membersTeaser.cta}
-              </Link>
-            </div>
-          </div>
-          <ul className="home-members-list" aria-label={home.membersTeaser.aria}>
-            {home.membersTeaser.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
       </section>
 
       <section className="section home-sponsors-section" aria-labelledby="home-sponsors-title">

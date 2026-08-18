@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import scorecardPdf from "../assets/Tarjeta.pdf?url";
+import scorecardPreviewFront from "../assets/tarj1-300x212.jpg";
+import scorecardPreviewBack from "../assets/tarj2-300x212.jpg";
 
 const holeImageModules = import.meta.glob("../assets/course-holes/**/*.{jpg,jpeg,png,webp}", {
   eager: true,
@@ -21,7 +24,7 @@ function getRouteHoles(routeName) {
     .sort((a, b) => a.number - b.number);
 }
 
-export function CoursePage({ course }) {
+export function CoursePage({ course, scorecard }) {
   const [openRoute, setOpenRoute] = useState(null);
 
   return (
@@ -98,6 +101,32 @@ export function CoursePage({ course }) {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      <section className="section scorecard-section" aria-labelledby="scorecard-title">
+        <div className="scorecard-card">
+          <div className="scorecard-copy">
+            <p className="section-kicker">{scorecard.eyebrow}</p>
+            <h2 id="scorecard-title">{scorecard.title}</h2>
+            <p>{scorecard.text}</p>
+            <p className="scorecard-helper">{scorecard.helper}</p>
+            <div className="scorecard-actions">
+              <a className="button primary" href={scorecardPdf} download={scorecard.fileName} target="_blank" rel="noreferrer">
+                {scorecard.downloadButton}
+              </a>
+              <a className="button secondary light" href={scorecardPdf} target="_blank" rel="noreferrer">
+                {scorecard.printButton}
+              </a>
+            </div>
+          </div>
+          <figure className="scorecard-preview" aria-label={scorecard.previewLabel}>
+            <span>{scorecard.previewLabel}</span>
+            <div className="scorecard-preview-grid">
+              <img src={scorecardPreviewFront} alt={`${scorecard.previewLabel} 1`} />
+              <img src={scorecardPreviewBack} alt={`${scorecard.previewLabel} 2`} />
+            </div>
+          </figure>
         </div>
       </section>
 

@@ -925,17 +925,6 @@ h3 {
   letter-spacing: 0;
 }
 
-/* Los kickers quedan fuera: si no, esta regla les gana y pierden el dorado */
-.lead,
-.section-heading p:not(.section-kicker):not(.eyebrow),
-.split p,
-.contact p,
-.member-panel p {
-  color: var(--muted);
-  line-height: 1.72;
-  font-size: var(--text-body);
-}
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -1082,15 +1071,6 @@ h3 {
 .button.full {
   width: 100%;
   margin-top: 1.25rem;
-}
-
-.login-card,
-.member-dashboard {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 250, 240, 0.88);
-  box-shadow: 0 12px 30px rgba(18, 31, 22, 0.09);
-  backdrop-filter: blur(20px);
 }
 
 .status-pill {
@@ -2626,16 +2606,6 @@ h3 {
   line-height: 1.65;
 }
 
-/* --- Reservar horario --- */
-.reservation-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1fr);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: start;
-  padding-top: clamp(2.5rem, 5.5vw, 4rem);
-  border-top: 1px solid rgba(49, 83, 60, 0.18);
-}
-
 .reservation-copy {
   display: grid;
   gap: 1.1rem;
@@ -2647,11 +2617,6 @@ h3 {
   color: var(--muted);
   font-size: var(--text-body);
   line-height: 1.72;
-}
-
-/* Reglas de la semana: se ven antes de elegir, no después de equivocarse */
-.reservation-schedule {
-  margin-top: 0.9rem;
 }
 
 .reservation-schedule h3 {
@@ -2691,16 +2656,6 @@ h3 {
   gap: 0;
 }
 
-/* Cada campo es una fila con filete, como el resto del sitio */
-.field-row {
-  display: grid;
-  gap: 0.65rem;
-  margin: 0;
-  padding: 1.35rem 0;
-  border: 0;
-  border-top: 1px solid rgba(49, 83, 60, 0.16);
-}
-
 .field-row:first-child {
   padding-top: 0;
   border-top: 0;
@@ -2734,137 +2689,6 @@ h3 {
   outline: none;
   border-color: var(--moss);
   box-shadow: 0 0 0 1px var(--moss), 0 2px 0 var(--gold);
-}
-
-/* Horarios e invitados: opciones a la vista, no dentro de un desplegable */
-.slot-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(5.2rem, 1fr));
-  gap: 0.5rem;
-}
-
-.slot-grid-guests {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.slot {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.9rem;
-  padding: 0.55rem 0.75rem;
-  border: 1px solid rgba(49, 83, 60, 0.24);
-  color: var(--moss-dark);
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  transition:
-    border-color 0.22s ease,
-    background-color 0.22s ease,
-    color 0.22s ease;
-}
-
-/* El radio real queda invisible pero operativo: teclado y lectores intactos */
-.slot input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.slot:hover {
-  border-color: rgba(33, 58, 42, 0.55);
-  background: rgba(215, 223, 207, 0.35);
-}
-
-.slot.is-selected {
-  color: var(--cream);
-  border-color: var(--moss-dark);
-  background: var(--moss-dark);
-  box-shadow: inset 0 0 0 1px rgba(199, 157, 79, 0.5);
-}
-
-/*
- * El radio está oculto, así que el foco se dibuja sobre la etiqueta.
- * `:focus-within` va primero como respaldo para navegadores sin `:has()`:
- * sin él, quien navega con teclado se quedaría sin ninguna marca de foco.
- */
-.slot:focus-within,
-.slot:has(input:focus-visible) {
-  outline: 2px solid var(--gold);
-  outline-offset: 2px;
-}
-
-.field-row:disabled .slot {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-/* Condición: es un estado, no un campo editable */
-.field-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--moss-dark);
-  font-size: 1.05rem;
-}
-
-.status-mark {
-  width: 0.55rem;
-  height: 0.55rem;
-  border: 1px solid rgba(33, 58, 42, 0.4);
-  border-radius: 50%;
-}
-
-.status-mark.is-member {
-  border-color: var(--gold);
-  background: var(--gold);
-}
-
-.field-hint {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
-
-.reservation-rule {
-  margin: 0;
-  padding: 1rem 0 1rem 1.1rem;
-  border-top: 1px solid rgba(49, 83, 60, 0.16);
-  border-left: 2px solid var(--moss);
-  color: var(--moss-dark);
-  font-size: 0.92rem;
-  line-height: 1.55;
-}
-
-.reservation-rule.is-blocked {
-  border-left-color: var(--danger);
-  color: var(--danger);
-}
-
-.reservation-summary {
-  display: grid;
-  gap: 0.3rem;
-  padding: 1.15rem 0;
-  border-top: 1px solid rgba(49, 83, 60, 0.16);
-}
-
-.reservation-summary span {
-  color: var(--gold-ink);
-  font-size: var(--text-label);
-  font-weight: 500;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.reservation-summary strong {
-  color: var(--moss-dark);
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  font-weight: 600;
 }
 
 .scorecard-section {
@@ -2974,15 +2798,6 @@ h3 {
   backdrop-filter: none;
 }
 
-.login-card,
-.member-dashboard {
-  padding: clamp(1.35rem, 3vw, 2rem);
-  border: 1px solid rgba(49, 83, 60, 0.14);
-  border-radius: 5px;
-  background: rgba(255, 250, 240, 0.74);
-  box-shadow: 0 12px 28px rgba(18, 31, 22, 0.06);
-}
-
 .login-card label {
   display: grid;
   gap: 0.45rem;
@@ -3021,15 +2836,6 @@ h3 {
   border-color: var(--moss);
 }
 
-.login-card .password-field input {
-  border: 0;
-  border-radius: 0;
-}
-
-.login-card .password-field input:focus {
-  outline: 0;
-}
-
 .password-toggle {
   min-width: 5.4rem;
   border: 0;
@@ -3043,12 +2849,6 @@ h3 {
     color 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease;
-}
-
-.password-toggle:hover,
-.password-toggle:focus-visible {
-  color: white;
-  background: var(--moss);
 }
 
 .password-toggle:active {
@@ -3628,16 +3428,6 @@ h3 {
   transform: scale(1.03);
 }
 
-/* --- Home: acceso de socios --- */
-.home-members-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.78fr);
-  gap: clamp(2rem, 6vw, 5rem);
-  align-items: start;
-  padding-top: clamp(2.5rem, 5.5vw, 4rem);
-  border-top: 1px solid rgba(49, 83, 60, 0.18);
-}
-
 .home-members-copy {
   display: grid;
   gap: 1.1rem;
@@ -3653,14 +3443,6 @@ h3 {
 
 .home-members-copy .hero-actions {
   margin-top: 0.6rem;
-}
-
-/* Lo que hay adentro: lista con filetes, sin cajas */
-.home-members-list {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .home-members-list li {
@@ -3981,30 +3763,6 @@ body.curtain-lock {
     padding-inline: 0.85rem;
   }
 
-  .home-members-inner,
-  .home-screen,
-  .page-hero,
-  .course-map-card,
-  .course-conditions-cta,
-  .course-feature-card,
-  .home-feature-card,
-  .home-history-card,
-  .home-routes-grid,
-  .clubhouse-card,
-  .condition-final-cta,
-  .condition-section,
-  .section-heading,
-  .section-subheading,
-  .history-card,
-  .location-card,
-  .split,
-  .reservation-layout,
-  .scorecard-card,
-  .member-panel,
-  .contact {
-    grid-template-columns: 1fr;
-  }
-
   .home-stats ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.5rem 1rem;
@@ -4098,16 +3856,6 @@ body.curtain-lock {
 
   h2 {
     font-size: clamp(1.7rem, 8vw, 2.65rem);
-  }
-
-  .lead,
-  .section-heading p,
-  .split p,
-  .contact p,
-  .member-panel p,
-  .page-hero p:not(.eyebrow) {
-    font-size: 0.98rem;
-    line-height: 1.65;
   }
 
   .page-hero {
@@ -4271,12 +4019,6 @@ body.curtain-lock {
     padding-top: 0.9rem;
   }
 
-
-  .reservation-form,
-  .login-card,
-  .member-dashboard {
-    border-radius: 4px;
-  }
 
   .scorecard-preview {
     max-width: 100%;
@@ -4529,13 +4271,6 @@ body.curtain-lock {
     justify-content: flex-start;
   }
 
-  .page-hero,
-  .scorecard-card,
-  .member-panel,
-  .location-card {
-    padding: 1rem;
-  }
-
   .scorecard-preview-grid {
     gap: 0.55rem;
   }
@@ -4566,16 +4301,6 @@ body.curtain-lock {
   .rates-cta {
     align-items: stretch;
     flex-direction: column;
-  }
-
-  .field-control,
-  .login-card input {
-    min-height: 3.35rem;
-    font-size: 1rem;
-  }
-
-  .slot-grid {
-    grid-template-columns: repeat(auto-fit, minmax(4.6rem, 1fr));
   }
 
 }

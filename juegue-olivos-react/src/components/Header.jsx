@@ -6,7 +6,7 @@ import { TeeTimeButton } from "./TeeTimeButton.jsx";
 
 const HOVER_GRACE = 320;
 
-export function Header({ club, navigation, member, onLogout, language, onLanguageChange, labels }) {
+export function Header({ club, navigation, language, onLanguageChange, labels }) {
   const [isOpen, setIsOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState(null);
   const [isOverHomeCover, setIsOverHomeCover] = useState(false);
@@ -149,11 +149,6 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
     closeTimerRef.current = window.setTimeout(() => setOpenGroup(null), HOVER_GRACE);
   }
 
-  function handleLogoutClick() {
-    onLogout();
-    closeMenu();
-  }
-
   return (
     <header
       ref={headerRef}
@@ -235,12 +230,7 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
 
             return (
               <li className="menu-item" key={item.href}>
-                {member && item.href === "/socios" ? (
-                  <button className="link-button" type="button" onClick={handleLogoutClick}>
-                    {labels.logout}
-                  </button>
-                ) : (
-                  <NavLink
+                <NavLink
                     className={({ isActive }) => `${item.featured ? "nav-cta" : ""} ${isActive ? "is-active" : ""}`}
                     end={item.href === "/"}
                     to={item.href}
@@ -248,13 +238,12 @@ export function Header({ club, navigation, member, onLogout, language, onLanguag
                   >
                     {item.label}
                   </NavLink>
-                )}
               </li>
             );
           })}
         </ul>
         <div className="nav-actions">
-          <TeeTimeButton to="/reservaciones" label={labels.reserve} onClick={closeMenu} />
+          <TeeTimeButton to="/contacto" label={labels.reserve} onClick={closeMenu} />
           <div className="language-switch" aria-label={labels.languageLabel}>
             {["es", "en"].map((option) => (
               <button
